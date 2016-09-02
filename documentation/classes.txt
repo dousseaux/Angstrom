@@ -1,0 +1,283 @@
+###################################################################################################################
+###################################################### ATOMS ######################################################
+###################################################################################################################
+
+*DESCRIPTION:
+
+        This class is the graphic representation of each particle. It uses the
+    information directly from the data textures. By default the object has no
+    initial graphical representation. They can be added by informing the id of
+    the particle in world, which will be used as index to get the data from the
+    shaders.
+
+    Constructor: atoms(world, shader). Where world is the world that it is in, and
+                 shader is the shader that is going to be used to draw it.
+
+*PROPERTIES:
+
+    -shininess:         A integer that set the concentration of the shine in the sphere.
+                        The bigger it is, more concentrated the shine is.
+
+    -ambientColor:      A vector of the type [r, g, b] that sets the ambient light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -diffuseColor:      A vector of the type [r, g, b] that sets the diffuse light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -specularColor:     A vector of the type [r, g, b] that sets the specular light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -radiusScale:       A float that scales the Van der Waals radius of the particles.
+
+    -minradius:         A float that sets the minimum radius.
+
+    -sphereLongitude:   A integer that sets the quantity of longitudinal lines in the sphere.
+                        The bigger it is, more resolution the sphere has.
+
+    -sphereLatitude:    A integer that sets the quantity of latitudinal lines in the sphere.
+                        The bigger it is, more resolution the sphere has.
+
+    -vertex:            An array  that stores a sequence of x, y, z, r position values of each
+                        vertex of a sphere.
+
+    -atoms:             An array  that stores all the ids being graphically represented.
+
+    -colors:            An array  the stores a sequence of r, g, b, a values of each graphical
+                        representation.
+
+    -colorTex:          A texture created from the colors array.
+
+    -vertexTex:         A texture created from the vertex array.
+
+    -sphereVertexSize:  A integer that sets the number of vertex per graphical representation.
+                        Value is: sphereLatitude*sphereLongitude*6.
+
+    -ids:               An array  that stores a sequence of [id, 0; id, 1; ... ; id, sphereVertexSize-1] for each
+                        graphical representation. Those values will be used in the shader to get the particles
+                        positions and index of the sphere vertex position inside of the vertexTex.
+
+    -items:             A integer that stores the number of particles being graphically represented.
+
+    -items_p_render:    A interger that sets the limit of particles that can be rendered per time.
+
+*METHODS:
+
+    -update():              Update the resolution and recreate the textures of this class.
+
+    -fastAdd(id, n):        Add graphical representation for particles by passing a reference
+                            id and the number of ids after the reference.
+
+    -addIDs(ids):           add graphical representation for particles by passing a vector of ids.
+
+
+    -updateResolution():    Realloc memory for the vertex array and recalculate the vertex
+                            positions when the resolution of the sphere is updated.
+
+    -paint():               set the color of each particle according to the worlds color mode,
+                            and update the color texture.
+
+    -draw():                render the graphical representations. It may call multiple gl.drawArrays
+                            if the number of representations is bigger than items_p_render.
+
+
+###################################################################################################################
+###################################################### BONDS ######################################################
+###################################################################################################################
+
+*DESCRIPTION:
+
+        This class is the graphic representation of each bond. It uses the
+    information directly from the data textures. By default the object has no
+    initial graphical representation. They can be added by informing the id of
+    the bond in world, which will be used as index to get the data from the
+    shaders.
+
+    Constructor: bonds(world, shader). Where world is the world that it is in, and
+                 shader is the shader that is going to be used to draw it.
+
+*PROPERTIES:
+
+    -shininess:         A integer that set the concentration of the shine in the cylinder.
+                        The bigger it is, more concentrated the shine is.
+
+    -ambientColor:      A vector of the type [r, g, b] that sets the ambient light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -diffuseColor:      A vector of the type [r, g, b] that sets the diffuse light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -specularColor:     A vector of the type [r, g, b] that sets the specular light color.
+                        The r, g, b value goes from 0 to 1.
+
+    -radius:            A float that sets the radius of the cylinder.
+
+    -precision:         A integer that sets how precise will be the cylinder circle.
+
+    -vertex:            An array  that stores a sequence of x, y, z, r position values of each
+                        vertex of a cylinder.
+
+    -bonds:             An array  that stores all the bond ids being graphically represented.
+
+    -colors:            An array  the stores a sequence of r, g, b, a values of each graphical
+                        representation.
+
+    -colorTex:          A texture created from the colors array.
+
+    -vertexTex:         A texture created from the vertex array.
+
+    -nVertex:           A integer that sets the number of vertex per graphical representation.
+                        Value is: (precision+2)*6.
+
+    -ids:               An array  that stores a sequence of [id, 0; id, 1; ... ; id, nVertex-1] for each
+                        graphical representation. Those values will be used in the shader to get the particles
+                        positions and index of the cylinder vertex position inside of the vertexTex.
+
+    -items:             A integer that stores the number of particles being graphically represented.
+
+    -items_p_render:    A interger that sets the limit of particles that can be rendered per time.
+
+*METHODS:
+
+    -update():              Update the resolution and recreate the textures of this class.
+
+    -fastAdd(id, n):        Add graphical representation for particles by passing a reference
+                            id and the number of ids after the reference.
+
+    -addIDs(ids):           add graphical representation for particles by passing a vector of ids.
+
+
+    -updateResolution():    Realloc memory for the vertex array and recalculate the vertex
+                            positions when the precision of the cylinder is updated.
+
+    -paint():               set the color of each particle according to the worlds color mode,
+                            and update the color texture.
+
+    -draw():                render the graphical representations. It may call multiple gl.drawArrays
+                            if the number of representations is bigger than items_p_render.
+
+###################################################################################################################
+##################################################### ELEMENTS ####################################################
+###################################################################################################################
+
+*Description:
+
+    This class contains general specifications for particles and residuals.
+
+*Properties:
+
+    -atoms_colors:      A associative array that stores arrays of the type [r, g, b, a] indexed
+                        by the first letter of a particle type.
+
+    -residuals_colors:  A associative array that stores arrays of the type [r, g, b, a] indexed
+                        by the first letter of a residual type.
+
+    -single_color:      An array  of type [r, g, b, a] that stores a custom color option.
+
+    -types:
+
+        *list:      An array  of particles types.
+        *radius:    An array  of vdw radius for each type in the list.
+        *code:      A associative array indexed by types that contains a code for
+                    each type that index the type and radius in the arrays above.
+
+*Methods:
+
+###################################################################################################################
+################################################### FORCEFIELD ####################################################
+###################################################################################################################
+
+*Description:
+
+        This class represents the properties of the force field being used that is made
+    by analyzing a group of parameter files passed in prms.
+
+    Constructor: forceField(prms). Where prms is an array of parameter file strings.
+
+*Properties:
+
+    -bonds:             Associative array of the type: bonds[element1+element2] = {k: value, b: value}.
+                        Where k and b are the force field value for that type of bond from the parameter file.
+
+    -angles:            Associative array of the type : angles[element1+element2+element3] = {theta0: value,
+                        n: values, k: value}. Where k,b and n are the force field values for that type of
+                        angle from the parameter file.
+
+    -nonbonded:         Associative arrays of the type : nonbonded[element1+element2] = {epsolon: value, rmin: value}
+                        where epsolon and rmin are the force field values for that type of nonbonded from the parameter
+                        file.
+
+    -elementRadius:
+
+
+*Methods:
+
+############################### GPUCOMPUTING ###################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+############################### PARTICLESYSTEM #################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+################################### SCENE ######################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+
+################################### WORLD ######################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+
+
+
+################################### MOUSE ######################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+
+################################### LINES ######################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+#################################### VIEW ######################################
+
+*Description:
+
+*Properties:
+
+*Methods:
+
+###################################################################################################################
+################################################# FILEREADER ######################################################
+###################################################################################################################
+
+*Description:
+
+*Properties:
+
+*Methods:

@@ -1,0 +1,45 @@
+################################# CLASSES #####################################
+
+*ATOMS:
+    - Organized.
+    - Simplified comments added.
+    - documented.
+
+*BONDS:
+    - Organized.
+    - Simplified comments added.
+    - documented.
+    
+*ELEMENTS:
+    - Organized.
+    - Simplified comments added.
+
+*FILEREADER:
+    - Organized.
+
+*FORCEFIELD:
+    - Organized.
+    - Simplified comments added.
+
+*GPUCOMPUTING:
+    - Organized.
+    - Simplified comments added.
+
+*LINES:
+    - Organized.
+
+*MOUSE:
+    - Organized.
+
+*PARTICLESYSTEM:
+    - Organized.
+
+*SCENE:
+    - Organized.
+
+*VIEW:
+    - NA
+
+*WORLD:
+    - Organized.
+    - Simplified comments added.

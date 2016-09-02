@@ -1,0 +1,225 @@
+<style>
+
+  h1{
+      font: 25px 'Noto Sans', sans-serif
+  }
+
+  h2{
+      font-size: 15px;
+      text-transform: uppercase
+  }
+
+  body {
+      font: 14px 'Noto Sans', sans-serif;
+      color: black;
+      background-color: #f3f3f3;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      cursor: default;
+  }
+
+  @media screen and (max-height:414px) {
+    body{ overflow: auto }
+  }
+
+  #container{
+      margin: 10px 20px;
+      /*border: 3px solid #42157c;*/
+  }
+
+  #submission{
+      display: none;
+      margin: 10px 20px;
+      padding: 10px;
+      line-height: 30px;
+  }
+
+  #header{
+      margin: 10px 23px;
+      margin-bottom: -2px;
+      padding: 0px;
+  }
+
+  /* ############# HEADER ################ */
+  #header div h1{
+    color: #42157c;
+    vertical-align: middle;
+    background: #eee;
+    z-index: 100;
+    border: 2px solid #42157c;
+    border-left: none;
+    position: absolute;;
+    margin-left: -6px;
+    margin-top: 30px;
+    display: inline-block;
+    padding: 0 10px;
+  }
+
+  #header div{
+      border: 2px solid #42157c;
+      width: 586px;
+      height: 100px;
+  }
+
+  #background{
+      height: 100px;
+      margin-left: -5px;
+      padding: 0px;
+      opacity: 1.0;
+  }
+
+  #logo{
+      border-right:2px solid #42157c;
+      height: 100px;
+  }
+
+  /* ############# ITEMS ##################### */
+  .item{
+      border: 2px solid #42157c;
+      display: inline-block;
+      padding: 0;
+      height: 150px;
+      width: 500px;
+      margin: 2.5px;
+      margin-right: -1px;
+      vertical-align: center;
+      cursor: pointer;
+  }
+
+  .item:hover{
+      box-shadow: 0 0 3px 2px #42157c;
+  }
+
+  .item h2{
+      font-size: 14px;
+      position: absolute;
+      width: 340px;
+      margin-top: 2px;
+      margin-left: 160px;
+  }
+
+  .itemDescription{
+      margin: 0px;
+      line-height: 15px;
+  }
+
+  .information{
+      position: absolute;
+      height: 100px;
+      width: 340px;
+      margin-left: 160px;
+      margin-top: 22px;
+      overflow: hidden;
+  }
+
+  .itemRecommendation{
+        display: inline-block;
+        margin-top: 130px;
+  }
+
+  .itemImg{
+        display: inline-block;
+        float: left;
+        height: 150px;
+        width: auto;
+        margin-right: 10px
+  }
+
+  /* ############## ICONS STYLE ############### */
+  .material-icons{
+      color: #42157c;
+  }
+  /* ############## SUBMISSION FORM ############### */
+
+  input{
+      border: solid 2px #42157c;
+      height: 25px;
+      margin-left: 5px;
+      background-color: transparent;
+  }
+
+  #drawingMode{
+      margin-left: 11px;
+  }
+
+  #maxAtoms{
+      width: 70px;
+      margin-right: 10px;
+      height: 22px;
+  }
+
+  #atomResolution, #bondResolution{
+      width: 40px;
+      margin-right: 10px;
+      height: 22px;
+  }
+
+  #pdburl{
+      width: 300px
+  }
+
+  #loadingIcon{
+      margin-left: 200px;
+      margin-top: 20px;
+      font-size: 64px;
+      color: rgba(70,70,70,0.15);
+      display: none;
+  }
+
+  button{
+      margin-left: 10x;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background-color: #42157c;
+      color: white;
+      border: solid 2px #42157c;
+      cursor: pointer;
+      height: 25px;
+  }
+
+  input[type=number]{
+      -moz-appearance: textfield;
+      -webkit-appearance: none;
+      text-align: right;
+  }
+
+  input:hover, input:focus, button:hover{ box-shadow: 0 0 5px 1px #969696 }
+
+  input[type=checkbox]{
+      display: inline-block;
+      vertical-align:middle;
+      box-shadow: none;
+  }
+
+  .selectArrow{
+      vertical-align:middle;
+      margin-left: -30px;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      position: absolute;
+      z-index: 0;
+      margin-top: 5px
+  }
+  select{
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: transparent;
+      overflow: hidden;
+      width: 100px;
+      padding: 5px;
+      font-size: 12px;
+      line-height: 1;
+      border: 2px solid #42157c;
+      border-radius: 0;
+      height: 30px;
+      vertical-align:middle;
+      margin-left: 10px;
+      position: relative;
+      z-index: 1;
+      color: #333333;
+  }
+
+
+</style>
