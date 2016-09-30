@@ -844,16 +844,21 @@ var view = function(world){
 
         var containerstyle = window.getComputedStyle(self.container);
         var menustyle = window.getComputedStyle(self.menu);
-        var headerstyle = window.getComputedStyle(self.header);
+        //var headerstyle = window.getComputedStyle(self.header);
 
         if(self.isFull){
             self.container.style.width = window.screen.availWidth - 4;
             self.container.style.height = window.screen.availHeight - 8;
         }else{
+            /*
             self.container.style.width = self.windowSize.x - parseInt(containerstyle.marginLeft) - parseInt(containerstyle.marginRight) - 4;
             self.header.style.width = self.windowSize.x - parseInt(headerstyle.marginLeft) - parseInt(headerstyle.marginRight) - 4;
             self.container.style.height = self.windowSize.y - parseInt(containerstyle.marginTop) - parseInt(containerstyle.marginBottom)
                                         - parseInt(headerstyle.height) - parseInt(headerstyle.marginTop) - parseInt(headerstyle.marginBottom) - 8;
+            */
+
+            self.container.style.width = self.windowSize.x - parseInt(containerstyle.marginLeft) - parseInt(containerstyle.marginRight) - 4;
+            self.container.style.height = self.windowSize.y - parseInt(containerstyle.marginTop) - parseInt(containerstyle.marginBottom) - 8;
         }
 
         self.canvas.height = parseInt(self.container.style.height);

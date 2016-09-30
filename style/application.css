@@ -72,18 +72,15 @@
     #header div{
         border: 2px solid #42157c;
         width: inherit;
-        height: 70px;
+        height: 50px;
         background: url("../images/background.png");
         background-size: auto 70px;
     }
 
     #logo{
         position: absolute;
-        border-right:2px solid #42157c;
-        height: 70px;
-        margin-right: 4px;
-        background: #eee;
-        z-index: 2;
+        height: 65px;
+        margin: 12px 10px;
     }
 
     /* ############## MENU BAR STYLE ############### */
@@ -298,13 +295,16 @@
         border-bottom: 1px solid grey;
     }
     #energyInfo { left: 10px;}
-    #energyInfo, #structureInfo{ bottom: 28; }
     #particlesInfo{
+        position: absolute;
         margin-top: 5px;
-        margin-left: 10px;
         height: 200px;
         overflow-y: auto;
+        right: 20;
+        bottom: 20;
+        border: 2px solid grey;
     }
+    #energyInfo, #structureInfo{ bottom: 28; }
     #energyInfo{ width: 160px; }
     #structureInfo{ left: 185px;}
     #particlesInfo th{
@@ -325,6 +325,9 @@
     #particlesInfo td:last-of-type {border-right: none}
     #particlesInfo th:last-of-type { border-right: none }
     #clearSelection {
+        position: absolute;
+        right: 22;
+        bottom: 22;
         padding: 0;
         font-size: 20px;
         color: #ff5500;

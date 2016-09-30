@@ -14,13 +14,15 @@ WHO:
 
 ################################### TO DO LIST #################################
 
-    *   Create github repository.
+    *   Create github repository.                                (OK)
 
-    *
+    *   Add GNU GPLv3 license.                                   (OK)
 
-    *
+    *   Clone repository on server.                              (OK)
 
-    *
+    *   Finish class documentation.
+
+    *   Create class diagram.
 
     *
 

@@ -24,23 +24,17 @@
 ?>
 
 <head>
-    <title>PROSIMU</title>
+    <title>Angstrom</title>
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
-    <link href='style/vizualizeStyle.css' rel='stylesheet' type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='style/application.css' rel='stylesheet' type="text/css">
 </head>
 
 <!-- USER INTERFACE STRUCTURE -->
 <body>
-    <div id="header">
-        <div>
-            <img id="logo" src="images/logo.png">
-            <h1><span id="title">PDB Simulator</span></h1>
-        </div>
-    </div>
-
     <div id="container">
-
+        <a href="start.php"><img id="logo" src="images/logo2.png"></a>
+        
         <div id="loading">
           <p id="loadingMessage"><i id="loadingIcon"class="material-icons">alarm</i>LOADING...</p>
         </div>
@@ -152,7 +146,7 @@
             <table id="particlesInfo" cellspacing="0">
                 <tr><th>ID</th><th>Type</th><th>Molecule</th><th>Mass</th><th>Charge</th></tr>
             </table>
-            <i id="clearSelection" class="material-icons">close</i>
+            <i id="clearSelection" class="material-icons">delete</i>
             <table id="energyInfo" cellspacing="0"></table>
             <table id="structureInfo" cellspacing="0"></table>
         </div>

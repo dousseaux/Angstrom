@@ -3,19 +3,22 @@
 *ATOMS:
     - Organized.
     - Simplified comments added.
-    - documented.
+    - Documented.
 
 *BONDS:
     - Organized.
     - Simplified comments added.
-    - documented.
-    
+    - Documented.
+
 *ELEMENTS:
     - Organized.
     - Simplified comments added.
+    - Documented.
 
 *FILEREADER:
     - Organized.
+    - Simplified comments added.
+    - Documented.
 
 *FORCEFIELD:
     - Organized.

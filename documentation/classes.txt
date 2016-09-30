@@ -176,11 +176,45 @@
     -types:
 
         *list:      An array  of particles types.
-        *radius:    An array  of vdw radius for each type in the list.
+        *radius:    An array  of VDW radius for each type in the list.
         *code:      A associative array indexed by types that contains a code for
                     each type that index the type and radius in the arrays above.
 
 *Methods:
+
+###################################################################################################################
+################################################# FILEREADER ######################################################
+###################################################################################################################
+
+*Description:
+
+    A handle to read files. The parameter file is a string containing the content
+    of a file.
+
+*Properties:
+
+    -fcount:         A integer that keeps track of the position of the Current
+                     inside of the file string.
+
+*Methods:
+
+    -find(wrd):                 Look for a specified wrd word inside of the file
+                                and goes to the position after it if it was found
+                                and return the position. If not, it stays the
+                                initial position and returns -1.
+
+    -skipLine():                Goes to the beginning of the next line and return
+                                the position.
+
+    -skipSpaces(commentChar):   Goes to the next line after a comments session
+                                started by a given commentChar.
+
+    -readWord():                Goes to the end of the next work and returns it.
+
+    -readChar():                Increment the position and return the char.
+
+    -skipSpaces():              Goes to the next position where the char is not
+                                a space.
 
 ###################################################################################################################
 ################################################### FORCEFIELD ####################################################
@@ -265,16 +299,6 @@
 *Methods:
 
 #################################### VIEW ######################################
-
-*Description:
-
-*Properties:
-
-*Methods:
-
-###################################################################################################################
-################################################# FILEREADER ######################################################
-###################################################################################################################
 
 *Description:
 
