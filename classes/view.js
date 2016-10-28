@@ -10,6 +10,7 @@ var view = function(world){
     this.isHomeMenuFix = false;
     this.isWorldMenuFix = false;
     this.isSettingsFix = false;
+    this.isAddEnabled = false;
     this.renderIntervalID = null;
     this.updateInfoIntervalID = null;
     this.rescaleSize0 = 50;
@@ -107,6 +108,8 @@ var view = function(world){
     this.duration = document.getElementById("duration");
     this.clearSelection = document.getElementById("clearSelection");
     this.outputName = document.getElementById("outputName");
+
+    this.addWater = document.getElementById("addWater");
 
     if(document.getElementById("saveModel")){
         this.saveModel = document.getElementById("saveModel");
@@ -731,6 +734,10 @@ var view = function(world){
         }
         world.selected = [];
     }
+    this.addWater.onclick = function(){
+        world.addMols(world.molecules.water, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit), false);
+    }
+
 
     // ---------------------- MOUSE OVER AND OUT HANDLERS ------------------------
     this.side.onmouseover = function() {
@@ -981,49 +988,11 @@ var view = function(world){
         this.particlesInfo.innerHTML += '<tr id="pInfo' + id + '">' +
                                             "<td>" + id + "</td>" +
                                             "<td>" + world.data.atoms_types[id] + "</td>" +
-                                            "<td>" + world.data.atoms_residuals[id] + "</td>" +
+                                            "<td>" + world.data.atoms_segnames[id] + "</td>" +
                                             "<td>" + world.data.atoms_mass[id].toFixed(2) + "</td>" +
                                             "<td>" + world.data.atoms_charge[id].toFixed(2) + "</td>" +
                                         "</tr>";
 
-    }
-    this.updateInfo = function(){
-
-      world.updateAtoms();
-
-      var header =  `<tr>
-                      <th>ID</th>
-                      <th>Velocity x</th>
-                      <th>Velocity y</th>
-                      <th>Velocity z</th>
-                      <th>Force x</th>
-                      <th>Force y</th>
-                      <th>Force z</th>
-                    </tr>`;
-
-       var tablecontent = "";
-
-       function addRow(body){
-
-          row = "<tr>" +
-                   "<td>" + body.id + "</td>" +
-                   "<td>" + body.velocity.x.toFixed(3) + "</td>" +
-                   "<td>" + body.velocity.y.toFixed(3) + "</td>" +
-                   "<td>" + body.velocity.z.toFixed(3) + "</td>" +
-                   "<td>" + body.force.x.toFixed(3) + "</td>" +
-                   "<td>" + body.force.y.toFixed(3) + "</td>" +
-                   "<td>" + body.force.z.toFixed(3) + "</td>" +
-                "</tr>";
-
-         return row;
-       }
-
-       for (var i = 0; i < world.atoms.length; i++) if(world.selected[i]) tablecontent += addRow(world.atoms[i]);
-
-       this.particlesInfo.innerHTML = header + tablecontent;
-
-       this.time.innerHTML = "Simulation Time: " + world.time.toFixed(2) + " | Real time: " + world.Realtime.toFixed(1) + " | Error: " + ((world.Realtime - world.time)/ world.Realtime * 100).toFixed(2) + "%";
-       this.particles.innerHTML = "Particles: " + world.id;
     }
     this.saveDoc = function(str, format, name){
         self.downloader.href = "data:text/" + format + "; charset=utf-8," + encodeURIComponent(str);

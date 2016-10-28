@@ -58,3 +58,21 @@ function gaussianRandom(mean, stdev) {
        return retval;
    else return -retval;
 }
+
+function getPositionOutOfTheBox(boxSize, positiveLimit, negativeLimit){
+
+    var px = Math.random()*boxSize.x;
+    var py = Math.random()*boxSize.y;
+    var pz = Math.random()*boxSize.z;
+
+    if(Math.round(Math.random()) == 0) px += positiveLimit.x
+    else px = negativeLimit.x - px;
+
+    if(Math.round(Math.random()) == 0) py += positiveLimit.y;
+    else py = negativeLimit.y - py;
+
+    if(Math.round(Math.random()) == 0) pz += positiveLimit.z;
+    else pz = negativeLimit.x - pz;
+
+    return [px, py, pz];
+}

@@ -209,12 +209,14 @@ var GPUcomputing = function(world){
         this.bonds = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.bonds, 3);
         this.angles = createDataTexture(world.gl, 4*world.texsize.x, world.texsize.y, world.data.angles, 4);
         this.atoms_typeCodes = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.atoms_bondIndex, 1);
-        this.bondForces = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.bondForces, 4);
-        this.angleForces = createDataTexture(world.gl, 4*world.texsize.x, world.texsize.y, world.data.angleForces, 4);
+        this.nbE12R12R6 = createDataTexture(world.gl, world.ntypes, world.ntypes, world.data.nbE12R12R6, 3);
+
         this.atoms_position = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.atoms_position, 4);
         this.atoms_position1 = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.atoms_position, 4);
         this.atoms_position2 = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.atoms_position, 4);
-        this.nbE12R12R6 = createDataTexture(world.gl, world.ntypes, world.ntypes, world.data.nbE12R12R6, 3);
+
+        this.bondForces = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.bondForces, 4);
+        this.angleForces = createDataTexture(world.gl, 4*world.texsize.x, world.texsize.y, world.data.angleForces, 4);
         this.nonbondedForces = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.nonbondedForces, 4);
         this.bondEnergy = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.bondEnergy, 4);
         this.angleEnergy = createDataTexture(world.gl, 4*world.texsize.x, world.texsize.y, world.data.angleEnergy, 4);
@@ -222,14 +224,14 @@ var GPUcomputing = function(world){
         this.temperatureVelocity = createDataTexture(world.gl, world.texsize.x, world.texsize.y, world.data.temperatureVelocity, 3);
 
         // --------------------------- FRAME BUFFERS -------------------------------
-        this.FBposition = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.atoms_position);
-        this.FBbondForces = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.bondForces);
-        this.FBangleForces = createTextureFrameBuffer(world.gl, 4*world.texsize.x, world.texsize.y, this.angleForces);
-        this.FBnbforces = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.nonbondedForces);
-        this.FBposition = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.atoms_position);
-        this.FBbondEnergy = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.bondEnergy);
-        this.FBangleEnergy = createTextureFrameBuffer(world.gl, 4*world.texsize.x, world.texsize.y, this.angleEnergy);
-        this.FBnbEnergy = createTextureFrameBuffer(world.gl, world.texsize.x, world.texsize.y, this.nonbondedEnergy);
+        this.FBposition = createTextureFrameBuffer(world.gl, this.atoms_position);
+        this.FBbondForces = createTextureFrameBuffer(world.gl, this.bondForces);
+        this.FBangleForces = createTextureFrameBuffer(world.gl, this.angleForces);
+        this.FBnbforces = createTextureFrameBuffer(world.gl, this.nonbondedForces);
+        this.FBposition = createTextureFrameBuffer(world.gl, this.atoms_position);
+        this.FBbondEnergy = createTextureFrameBuffer(world.gl, this.bondEnergy);
+        this.FBangleEnergy = createTextureFrameBuffer(world.gl, this.angleEnergy);
+        this.FBnbEnergy = createTextureFrameBuffer(world.gl, this.nonbondedEnergy);
     }
 
     /* UPDATETEXTUES: Update the non-static textures */
@@ -246,9 +248,27 @@ var GPUcomputing = function(world){
         updateTexture4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, this.angles, world.data.angles);
         updateTexture1d(world.gl, world.texsize, this.atoms_typeCodes, world.data.atoms_typeCodes);
         updateTexture3d(world.gl, {x: world.ntypes, y: world.ntypes}, this.nbE12R12R6, world.data.nbE12R12R6);
+
+        updateTexture4d(world.gl, world.texsize, this.bondForces, world.data.bondForces);
+        updateTexture4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, this.angleForces, world.data.angleForces);
+        updateTexture4d(world.gl, world.texsize, this.nonbondedForces, world.data.nonbondedForces);
+        updateTexture4d(world.gl, world.texsize, this.bondEnergy, world.data.bondEnergy);
+        updateTexture4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, this.angleEnergy, world.data.angleEnergy);
+        updateTexture4d(world.gl, world.texsize, this.nonbondedEnergy, world.data.nonbondedEnergy);
+        updateTexture3d(world.gl, world.texsize, this.temperatureVelocity, world.data.temperatureVelocity);
+
         updateTexture4d(world.gl, world.texsize, this.atoms_position, world.data.atoms_position);
         updateTexture4d(world.gl, world.texsize, this.atoms_position1, world.data.atoms_position);
         updateTexture4d(world.gl, world.texsize, this.atoms_position2, world.data.atoms_position);
+
+        updateTextureFrameBuffer(world.gl, this.FBposition, this.atoms_position);
+        updateTextureFrameBuffer(world.gl, this.FBbondForces, this.bondForces);
+        updateTextureFrameBuffer(world.gl, this.FBangleForces, this.angleForces);
+        updateTextureFrameBuffer(world.gl, this.FBnbforces, this.nonbondedForces);
+        updateTextureFrameBuffer(world.gl, this.FBposition, this.atoms_position);
+        updateTextureFrameBuffer(world.gl, this.FBbondEnergy, this.bondEnergy);
+        updateTextureFrameBuffer(world.gl, this.FBangleEnergy, this.angleEnergy);
+        updateTextureFrameBuffer(world.gl, this.FBnbEnergy, this.nonbondedEnergy);
     }
 
     /* COMPUTE: Perform a step calculation in the simulation. This updates the
@@ -480,6 +500,7 @@ var GPUcomputing = function(world){
 
     /* CALC_ENERGY: Calculate a the current energy of the system */
     this.calc_energy = function(){
+
         world.gl.activeTexture(world.gl.TEXTURE0);
         world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_mass);         // 0
         world.gl.activeTexture(world.gl.TEXTURE1);
@@ -616,7 +637,6 @@ var GPUcomputing = function(world){
         for(var i=0; i<world.nangles; i++) world.angleEnergy += world.data.angleEnergy[12*i];
         for(var i=0; i<world.nbonds; i++) world.bondEnergy += world.data.bondEnergy[4*i];
         for(var i=0; i<world.natoms; i++){
-
             diff.x = 0; diff.y = 0; diff.z = 0;
 
             if(world.data.atoms_position[4*i] > world.positiveLimit.x) diff.x = (world.data.atoms_position[4*i] - world.positiveLimit.x);
@@ -630,6 +650,9 @@ var GPUcomputing = function(world){
             world.eEnergy += world.data.nonbondedEnergy[4*i];
             world.vdwEnergy += world.data.nonbondedEnergy[4*i + 1];
             world.kEnergy += world.data.nonbondedEnergy[4*i + 2];
+
+            //console.log({id: i, x: world.data.atoms_position[4*i].toFixed(2), y: world.data.atoms_position[4*i + 1].toFixed(2), z: world.data.atoms_position[4*i + 2].toFixed(2)});
+            //console.log({id: i, ele: world.data.nonbondedEnergy[4*i].toFixed(2), vdw: world.data.nonbondedEnergy[4*i + 1].toFixed(2), kinect: world.data.nonbondedEnergy[4*i + 2].toFixed(2)});
          }
 
          world.energy = world.kEnergy + world.vdwEnergy + world.eEnergy + world.angleEnergy + world.bondEnergy + world.wallEnergy;
@@ -640,6 +663,7 @@ var GPUcomputing = function(world){
     /* SETTEMPERATURE: Set the temperature of the system by adding velocity to
      * the atoms */
     this.setTemperature = function(){
+
         world.gl.activeTexture(world.gl.TEXTURE0);
         world.gl.bindTexture(world.gl.TEXTURE_2D, this.temperatureVelocity);
         switch(this.state){

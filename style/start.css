@@ -92,6 +92,8 @@
         margin-right: 10px
   }
 
+  #someID{display: none}
+
   /* ############## ICONS STYLE ############### */
   .material-icons{
       color: #42157c;

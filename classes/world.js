@@ -121,6 +121,7 @@ World.prototype = {
     nangles: 0,                                   // Track the number of angles in the world
     ntypes: 0,                                    // Track the number of types in the world
     nresiduals: 0,                                // Track the number of residuals in the world
+    nmolecules: 0,                                // Track the number of moelcules in the world
 
     // ######### DEFINE OBJECTS
     scene: null,                                  // See scene class in proteinSimulation.js file
@@ -137,6 +138,12 @@ World.prototype = {
     atomshader: null,                             // Store the atoms (spheres) shader program
     bondshader: null,                             // Store the bonds (cylinders) shader program
     lineshader: null,                             // Store the lines shader program
+
+    // ######### STANDARD MOLECULES TO ADD
+    molecules: {
+        water: null,
+        methane: null,
+    },
 
     // ######### CONSTANTS
     constants: {
@@ -182,8 +189,9 @@ World.prototype = {
         // INFORMATION DATA
         atoms_types: [],
         atoms_residuals: [],
-        atoms_residualIndex: [],
-        residuals_Offset: [],
+        atoms_segnames: [],
+        atoms_moleculesIndex: [],
+        molecules_Offset: [],
         out: [],
     },
 
@@ -213,19 +221,26 @@ World.prototype = {
         if(document.getElementById("prm1").text !== "") prm_content.push(document.getElementById("prm1").text);
         if(document.getElementById("prm2").text !== "") prm_content.push(document.getElementById("prm2").text);
 
-        this.particleSystem = new particleSystem(pdb_content, psf_content)
+        if(this.view.isAddEnabled){
+            this.view.add.style.display = "inline-block";
+            this.molecules.water = new particleSystem(document.getElementById("waterPDB").text, document.getElementById("waterPSF").text);
+
+            prm_content.push(document.getElementById("defaultPRM0").text);
+            prm_content.push(document.getElementById("defaultPRM1").text);
+        }
+
+
         this.forceField = new forceField(prm_content);
+        this.defaultMol = new particleSystem(pdb_content, psf_content)
+
+        this.addMols(this.defaultMol, [0,0,0], true);
+
+        this.center();
 
         this.view.setDefaults();
 
-        this.addMols(this.particleSystem, [0,0,0]);
-
-        this.center();        
-        this.setTemperature();
-        this.gpucomp.calc_energy();
-
         this.animate();
-        this.animate();
+        //this.animate();
 
         window.setInterval(this.view.updateScreenInfo, 100);
     },
@@ -268,8 +283,8 @@ World.prototype = {
             // INFORMATION DATA
             atoms_types: [],
             atoms_residuals: [],
-            atoms_residualIndex: [],
-            residuals_Offset: [],
+            atoms_moleculesIndex: [],
+            molecules_Offset: [],
             out: [],
         }
 
@@ -279,6 +294,7 @@ World.prototype = {
         this.nangles = 0;
         this.ntypes = 0;
         this.nresiduals = 0;
+        this.nmolecules = 0;
         this.temperature = this.temperature0;
 
         this.setup();
@@ -374,7 +390,13 @@ World.prototype = {
     },
 
     /* ADDMOLS: Add a object of type particleSystem to the world centered at the position pos. */
-    addMols: function(particleSystem, pos) {
+    addMols: function(particleSystem, pos, initializeGPUComp) {
+
+        var unpause = this.view.isPaused;
+        this.view.isPaused = true;
+        this.temperature0 = this.temperature;
+
+        this.gpucomp.particlesPositionToData(0, this.natoms-1);
 
         while(this.natoms + particleSystem.natoms > this.texsize.x*this.texsize.y){
             if(this.texsize.x === this.texsize.y) this.texsize.x *= 2;
@@ -443,9 +465,10 @@ World.prototype = {
         this.data.atoms_typeCodes.set(temp.atoms_typeCodes);
         this.data.temperatureVelocity.set(temp.temperatureVelocity);
 
-        this.gpucomp.initialize();
-
         delete temp;
+
+        if(initializeGPUComp) this.gpucomp.initialize();
+
         this.atoms.update();
         this.bonds.update();
 
@@ -475,7 +498,7 @@ World.prototype = {
             this.data.atoms_position[4*(this.natoms + i) + 2] = particleSystem.atomsPos[4*i + 2] + pos[2];
             this.data.atoms_position[4*(this.natoms + i) + 3] = particleSystem.atomsPos[4*i + 3];
             // UPDATE RESIDUALS INDEX
-            this.data.atoms_residualIndex.push(particleSystem.atomsResidualsIndex[i] + this.nresiduals);
+            this.data.atoms_moleculesIndex.push(particleSystem.atomsMoleculeIndex[i] + this.nmolecules);
             // UPDATE BOND INDEXES
             var k;
             for(var j=0; j<4; j++){
@@ -509,7 +532,13 @@ World.prototype = {
         this.data.atoms_types = this.data.atoms_types.concat(particleSystem.atomsTypes);
         // UPDATE RESIDUALS
         this.data.atoms_residuals = this.data.atoms_residuals.concat(particleSystem.atomsResidual);
-        for(var i=0; i<particleSystem.nresiduals; i++) this.data.residuals_Offset.push({firstp: particleSystem.residualsOffset[i].firstp + this.natoms, lastp: particleSystem.residualsOffset[i].lastp + this.natoms});
+        // UPDATE SEGNAMES
+        this.data.atoms_segnames = this.data.atoms_segnames.concat(particleSystem.atomsSegnames);
+
+        for(var i=0; i<particleSystem.nmolecules; i++){
+            this.data.molecules_Offset.push({firstp: particleSystem.moleculesOffset[i].firstp + this.natoms,
+                                             lastp: particleSystem.moleculesOffset[i].lastp + this.natoms});
+        }
 
         // UPDATE NBFIX EPSOLON*12, RMIN^12, RMIN^6
         var row = this.elements.types.list.length*3;
@@ -565,19 +594,24 @@ World.prototype = {
         this.nbonds += particleSystem.nbonds;
         this.nangles += particleSystem.nangles;
         this.nresiduals += particleSystem.nresiduals;
+        this.nmolecules += particleSystem.nmolecules;
         this.ntypes = this.elements.types.list.length;
 
         // ADD NATOM TO SHADER CODE AND COMPILE SHADER
         if(this.exclude13){
             this.comp_shaders[2] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader2').text.addAt(4617,this.natoms));
-            this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7').text.addAt(2249,this.natoms));
+            this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7').text.addAt(2342,this.natoms));
         }else{
             this.comp_shaders[2] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader2_noex13').text.addAt(3469,this.natoms));
             this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7_noex13').text.addAt(1125,this.natoms));
         }
+
         this.gpucomp.getShader2Pointers();
         this.gpucomp.getShader7Pointers();
         this.gpucomp.updateTextures();
+
+        this.setTemperature();
+        this.gpucomp.calc_energy();
 
         // UPDATE SELECTION
         this.select("clear");
@@ -585,10 +619,13 @@ World.prototype = {
 
         this.view.particles.innerHTML = " | Atoms: " + this.natoms;
 
-        this.view.structureInfo.innerHTML = "<tr><td>Bonds</td><td>"+ this.nbonds +"</td></tr>" +
+        this.view.structureInfo.innerHTML = "<tr><td>Molecules</td><td>"+ this.nmolecules +"</td></tr>" +
+                                            "<tr><td>Bonds</td><td>"+ this.nbonds +"</td></tr>" +
                                             "<tr><td>Angles</td><td>"+ this.nangles +"</td></tr>" +
                                             "<tr><td>Residuals</td><td>"+ this.nresiduals +"</td></tr>" +
                                             "<tr><td>Types</td><td>"+ this.ntypes +"</td></tr>";
+
+        this.view.isPaused = unpause;
     },
 
     /* SELECT: Filters all the particles in ther world according to the selection

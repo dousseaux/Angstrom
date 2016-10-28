@@ -347,8 +347,8 @@ var mouse =  function(world){
         norms = Math.sqrt(norms);
         for(var i=0; i<ray_world.length - 1; i++) ray_world[i] /= norms;
 
-        var residual = world.data.residuals_Offset[world.data.atoms_residualIndex[world.view.mouse.selected]];
-        world.gpucomp.particlesPositionToData(residual.firstp, residual.lastp);
+        var molecule = world.data.molecules_Offset[world.data.atoms_moleculesIndex[world.view.mouse.selected]];
+        world.gpucomp.particlesPositionToData(molecule.firstp, molecule.lastp);
 
         var b = world.scene.camera_rot.x*ray_world[0] + world.scene.camera_rot.y*ray_world[1] + world.scene.camera_rot.z*ray_world[2] -
                 world.data.atoms_position[4*world.view.mouse.selected]*ray_world[0] -
@@ -363,13 +363,13 @@ var mouse =  function(world){
         var dy = world.scene.camera_rot.y + t*ray_world[1] - world.data.atoms_position[4*world.view.mouse.selected + 1];
         var dz = world.scene.camera_rot.z + t*ray_world[2] - world.data.atoms_position[4*world.view.mouse.selected + 2];
 
-        for(var i=residual.firstp; i<=residual.lastp; i++){
+        for(var i=molecule.firstp; i<=molecule.lastp; i++){
             world.data.atoms_position[4*i]     += dx;
             world.data.atoms_position[4*i + 1] += dy;
             world.data.atoms_position[4*i + 2] += dz;
         }
 
-        world.gpucomp.particlesPositionToTexture(residual.firstp, residual.lastp);
+        world.gpucomp.particlesPositionToTexture(molecule.firstp, molecule.lastp);
     }
 
     scene.canvas.onmousedown = click;

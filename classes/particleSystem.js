@@ -1,6 +1,26 @@
 // ----------------------------------- MOLECULE SYSTEM CLASS ---------------------------------
 var particleSystem = function(pdb, psf){
 
+    this.natoms = 0;
+    this.nbonds = 0;
+    this.nangles = 0;
+    this.nsegs = 1;
+    this.nresiduals = 1;
+    this.nmolecules = 1;
+    this.atomsPos = [];
+    this.atomsNames = [];
+    this.atomsTypes = [];
+    this.atomsSegnames = [];
+    this.atomsResidual = [];
+    this.atomsMoleculeIndex = [];
+    this.moleculesOffset = [];
+    this.atomsCharge = [];
+    this.atomsMass = [];
+    this.atomsBonds = [];
+    this.atomsAngles = [];
+    this.bonds = [];
+    this.angles = [];
+
     var char = null;
     var len = pdb.length;
     var word = [];
@@ -10,7 +30,7 @@ var particleSystem = function(pdb, psf){
     var ref = 0;
     var bondIndex = [];
     var angleIndex = [];
-    var residualIndex = 0;
+    var moleculeIndex = 0;
     var residual = [];
     var first = true;
     var second = true;
@@ -18,6 +38,8 @@ var particleSystem = function(pdb, psf){
     var element2 = null;
     var element3 = null;
     var reader = new fileReader(psf);
+    var diffResiduals = false;
+    var diffSegnames = false;
 
     // ######################## READ AND ANALYZE PDB ##########################
     while (word !== "ATOM") {
@@ -80,7 +102,7 @@ var particleSystem = function(pdb, psf){
 
     // ######################## READ AND ANALYZE PSF ##########################
 
-    this.residualsOffset.push({firstp: 0, lastp: null});
+    this.moleculesOffset.push({firstp: 0, lastp: null});
 
     for(var i = 0; i<this.natoms; i++){
         bondIndex.push([]);
@@ -93,7 +115,7 @@ var particleSystem = function(pdb, psf){
         reader.skipSpaces();
         reader.readWord();
         reader.skipSpaces();
-        reader.readWord();
+        this.atomsSegnames.push(reader.readWord());
         reader.skipSpaces();
         residual.push(parseFloat(reader.readWord()));
         reader.skipSpaces();
@@ -107,15 +129,28 @@ var particleSystem = function(pdb, psf){
         reader.skipSpaces();
         this.atomsMass.push(parseFloat(reader.readWord()));
         reader.skipLine();
+
         if(residual[i] != residual[i-1] && i > 0){
-            this.residualsOffset[residualIndex].lastp = i-1;
-            this.residualsOffset.push({firstp: i, lastp: null});
+            diffResiduals = true;
             this.nresiduals++;
-            residualIndex++;
         }
-        this.atomsResidualsIndex.push(residualIndex);
+
+        if(this.atomsSegnames[i] != this.atomsSegnames[i-1] && i > 0) diffSegnames = true;
+
+        if(diffResiduals || diffSegnames){
+            this.moleculesOffset[moleculeIndex].lastp = i-1;
+            this.moleculesOffset.push({firstp: i, lastp: null});
+            this.nmolecules++;
+            moleculeIndex++;
+            diffSegnames = false;
+            diffResiduals = false;
+        }
+
+        this.atomsMoleculeIndex.push(moleculeIndex);
     }
-    this.residualsOffset[residualIndex].lastp =  this.natoms-1;
+
+    this.moleculesOffset[moleculeIndex].lastp =  this.natoms-1;
+
     // ############# READ BONDS
     reader.find("!NBOND");
     reader.skipLine();
@@ -190,23 +225,4 @@ var particleSystem = function(pdb, psf){
         }
     }
     this.nangles = this.angles.length/3;
-}
-
-particleSystem.prototype = {
-    natoms: 0,
-    nbonds: 0,
-    nangles: 0,
-    nresiduals: 0,
-    atomsPos: [],
-    atomsNames: [],
-    atomsTypes: [],
-    atomsResidual: [],
-    atomsResidualsIndex: [],
-    residualsOffset: [],
-    atomsCharge: [],
-    atomsMass: [],
-    atomsBonds: [],
-    atomsAngles: [],
-    bonds: [],
-    angles: [],
 }

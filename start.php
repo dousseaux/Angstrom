@@ -43,6 +43,7 @@
             <input id="worldSize" type="hidden" name="worldSize" value="auto">
             <input id="exclude13" type="hidden" name="exclude13" value="1">
             <input id="epsolonR" type="hidden" name="epsolonR" value="1">
+            <input id="enableAdd" type="hidden" name="enableAdd" value="true">
 
             <br>PDB.org URL/ID:<input id="pdburl" type="text" name="url">
         </form>
@@ -70,41 +71,23 @@
             <p class="itemRecommendation">SIZE HERE</p>
             <a class="itemLink" href="">SOME LINK HERE</a>
         </div>
+
         <!-- ####################### END OF EXAMPLE ######################## -->
 
+        <!--
         <div class="item" id="graphene">
             <img class="itemImg" src="images/graphene.png">
             <h2>Graphene</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    Lipids Lipids LipidsLipids LipidsLipids
-                    LipidsLipidsLipidsLipidsLipidsLipidsLipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids LipidsLipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids Lipids
-                    LipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids LipidsLipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids Lipids
-                    LipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids LipidsLipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids Lipids
-                    LipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids Lipids
-                    LipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids
-                    LipidsLipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids Lipids
-                    LipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids
-                    LipidsLipidsLipids
-                    LipidsLipids LipidsLipidsLipidsLipidsLipidsLipids Lipids
-                    LipidsLipids
-                    LipidsLipidsLipids LipidsLipidsLipidsLipids Lipids Lipids
-            </p>
+                    Temp
+                </p>
             </div>
             <p class="itemRecommendation">Small</p>
             <a class="itemLink" href="">PDB.org</a>
         </div>
+        -->
 
         <div class="item" id="two_lipids">
             <img class="itemImg" src="images/two_lipids.png">
@@ -128,6 +111,8 @@
             <a class="itemLink" href="">PDB.org</a>
         </div>
 
+        <br>
+
         <div class="item" id="water_box">
             <img class="itemImg" src="images/water_box.png">
             <h2>Water Box</h2>
@@ -150,7 +135,9 @@
             <a class="itemLink" href="">PDB.org</a>
         </div>
 
-        <div class="item" id="meth">
+        <br>
+
+        <div class="item" id="methane">
             <img class="itemImg" src="images/methane.png">
             <h2>Methane</h2>
             <div class="information">
@@ -172,6 +159,8 @@
             <a class="itemLink" href="">PDB.org</a>
         </div>
 
+        <br>
+
         <div class="item" id="octane_water">
             <img class="itemImg" src="images/water_octane.png">
             <h2>Octane-Water System</h2>
@@ -182,35 +171,6 @@
             <p class="itemRecommendation">Small</p>
             <a class="itemLink" href="">PDB.org</a>
         </div>
-
-        <div class="item" id="two_particles">
-            <img class="itemImg" src="images/two_particles.png">
-            <h2>Two Particles</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    Simple system to test the funcionality of the bond, electrostatic
-                    and Van der Waals forces on the simulation.
-                </p>
-            </div>
-            <p class="itemRecommendation">Small</p>
-            <a class="itemLink" href="">PDB.org</a>
-        </div>
-
-        <div class="item" id="three_particles">
-            <img class="itemImg" src="images/three_particles.png">
-            <h2>Three Particles</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    Simple system to test the funcionality of the bond, electrostatic
-                    and Van der Waals forces on the simulation.
-                </p>
-            </div>
-            <p class="itemRecommendation">Small</p>
-            <a class="itemLink" href="">PDB.org</a>
-        </div>
-    </div>
 
     <script>
 
@@ -319,6 +279,7 @@
         }
         /* #################### END OF EXAMPLE ######################### */
 
+        /*
         document.getElementById("graphene").onclick = function(){
             pdb.value = "files/pdbs/graphene.pdb";
             psf.value = "files/psfs/graphene.psf";
@@ -327,6 +288,7 @@
             prm2.value = "files/parameters/toppar_water_ions_cgenff.str";
             form.submit();
         }
+        */
 
         document.getElementById("two_lipids").onclick = function(){
             pdb.value = "files/pdbs/cg_popc_two.pdb";
@@ -353,16 +315,14 @@
         document.getElementById("water_box").onclick = function(){
             pdb.value = "files/pdbs/water_box.pdb";
             psf.value = "files/psfs/water_box.psf";
-            prm0.value = "files/parameters/par_all36_cgenff.prm";
             prm1.value = "files/parameters/toppar_water_ions_cgenff.str";
             form.submit();
         }
 
-        document.getElementById("meth").onclick = function(){
-            pdb.value = "files/pdbs/meth.pdb";
-            psf.value = "files/psfs/meth.psf";
+        document.getElementById("methane").onclick = function(){
+            pdb.value = "files/pdbs/methane.pdb";
+            psf.value = "files/psfs/methane.psf";
             prm0.value = "files/parameters/par_all36_cgenff.prm";
-            prm1.value = "files/parameters/toppar_water_ions_cgenff.str";
             form.submit();
         }
 
@@ -377,20 +337,6 @@
             pdb.value = "files/pdbs/cg_octane-wat.pdb";
             psf.value = "files/psfs/cg_octane-wat.psf";
             prm0.value = "files/parameters/martini_oco_popc.prm";
-            form.submit();
-        }
-
-        document.getElementById("two_particles").onclick = function(){
-            pdb.value = "files/pdbs/two.pdb";
-            psf.value = "files/psfs/two.psf";
-            prm0.value = "files/parameters/two.par";
-            form.submit();
-        }
-
-        document.getElementById("three_particles").onclick = function(){
-            pdb.value = "files/pdbs/three.pdb";
-            psf.value = "files/psfs/three.psf";
-            prm0.value = "files/parameters/martini_popc.prm";
             form.submit();
         }
     </script>

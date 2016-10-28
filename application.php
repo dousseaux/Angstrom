@@ -34,7 +34,7 @@
 <body>
     <div id="container">
         <a href="start.php"><img id="logo" src="images/logo2.png"></a>
-        
+
         <div id="loading">
           <p id="loadingMessage"><i id="loadingIcon"class="material-icons">alarm</i>LOADING...</p>
         </div>
@@ -69,12 +69,12 @@
           <div>
               <i id="pinWorldMenu" class="material-icons">chevron_right</i>
 
-              <h2>World</h2>
+              <h2>WORLD</h2>
               Temperature (K): <input id="temperature" type="number" name="temperature">
               <br><br>Size: <input id="size" type="text" name="size">
 
               <br><br>
-              <h2>Selection & Drawing</h2>
+              <h2>SELECTION & DRAWING</h2>
 
               Selection Mode:
               <select id="selectionMode" name="selectionMode">
@@ -119,7 +119,7 @@
               Bond radius: <input id="bondRadius" type="number" name="bondRadius">
 
               <br><br>
-              <h2>Time & Frequencies</h2>
+              <h2>TIME & FREQUENCIES</h2>
               Duration (ps): <input id="duration" type="number" name="duration">
               Step (fs): <input id="timeStep" type="number" name="timeStep">
               <br><br>Energy Calculation Frequency (steps): <input id="energyFrequency" type="number" name="energyFrequency">
@@ -127,7 +127,7 @@
               <br><br>Render Frequency (steps): <input id="renderFrequency" type="number" name="renderFrequency">
 
               <br><br>
-              <h2>Data Sample & File Output</h2>
+              <h2>DATA SAMPLE & FILE OUTPUT</h2>
               <button id="activeSampling" class="checkButton"></button> ACTIVATE
               <br><br> Sample Mode:
               <select id="sampleMode" name="sampleMode" width="100px">
@@ -153,7 +153,7 @@
         <div id="settingsMenu">
           <div>
             <i id="pinSettingsMenu" class="material-icons">chevron_right</i>
-            <h2>Colors</h2>
+            <h2>COLORS</h2>
             Background: <input id="backgroundColor" type="text" name="backgroundColor">
             <br><br>Type:
             <select id="typeSelection" name="typeSelection">
@@ -190,7 +190,7 @@
             <br><br>Custom color: <input id="customColor" type="text" name="customColor">
             <br><br>Grid color: <input id="gridColor" type="text" name="gridColor">
 
-            <h2>Scene</h2>
+            <h2>SCENE</h2>
             Far clip: <input id="farClip" type="number">
             Near clip: <input id="nearClip" type="number">
             <br><br>Projection mode:
@@ -207,7 +207,7 @@
             </select>
             <i class="material-icons selectArrow">keyboard_arrow_down</i>
 
-            <h2>Material</h2>
+            <h2>MATERIAL</h2>
             <br>Shininess: <input id="shininess" type="number">
             Ambient:  <input id="ambientColor" type="number">
             <br><br>Diffuse:  <input id="diffuseColor" type="number">
@@ -221,7 +221,36 @@
           </div>
         </div>
         <div id="addMenu">
-            <i id="pinAddMenu" class="material-icons">chevron_right</i>
+            <div>
+                <i id="pinAddMenu" class="material-icons">chevron_right</i>
+
+                <h2>ADD PARTICLES</h2>
+
+                Number of particles to add: <input id="particlesToAdd" type="number"><br><br>
+
+                <div class="addParticle" id="addWater">
+                    <img class="particleImg" src="images/water.png">
+                    <span>WATER</span>
+                </div>
+
+                <div class="addParticle">
+                    <img class="particleImg" src="images/water.png">
+                    <span>WATER</span>
+                </div>
+
+                <div class="addParticle">
+                    <img class="particleImg" src="images/water.png">
+                    <span>WATER</span>
+                </div>
+
+                <br>
+
+                <div class="addParticle">
+                    <img class="particleImg" src="images/water.png">
+                    <span>WATER</span>
+                </div>
+
+            </div>
         </div>
         <div id="infoMenu">
             <div>
@@ -329,6 +358,8 @@
         w.exclude13 = parseInt("<?php echo $_POST['exclude13'] ?>");
         w.constants.epsolonR = parseFloat("<?php echo $_POST['epsolonR'] ?>");
 
+        if("<?php echo $_POST['enableAdd'] ?>" == "true") w.view.isAddEnabled = true;
+
         /* Function that will be executed when leaving or reloading the page.
          * Free the memory */
         window.onbeforeunload = function(){
@@ -348,6 +379,29 @@
 <script id='prm0' type='text/psf'><?php readfile($_POST["prm0"])?></script>
 <script id='prm1' type='text/psf'><?php readfile($_POST["prm1"])?></script>
 <script id='prm2' type='text/psf'><?php readfile($_POST["prm2"])?></script>
+
+<?php
+    if($_POST["enableAdd"] == "true"){
+
+        # DEFAULT PARAMETERS
+        echo "<script id='defaultPRM0' type='text/pdb'>\n";
+        readfile("files/parameters/par_all36_cgenff.prm");
+        echo "</script>\n";
+        echo "<script id='defaultPRM1' type='text/pdb'>\n";
+        readfile("files/parameters/toppar_water_ions_cgenff.str");
+        echo "</script>\n";
+
+        # WATER FILES
+        echo "<script id='waterPDB' type='text/pdb'>\n";
+        readfile("files/pdbs/water.pdb");
+        echo "</script>\n";
+        echo "<script id='waterPSF' type='text/psf'>\n";
+        readfile("files/psfs/water.psf");
+        echo "</script>\n";
+
+        
+    }
+?>
 
 <?php
     /* Deletes the temporary files created in the beggining */

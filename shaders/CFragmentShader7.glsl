@@ -20,6 +20,11 @@ uniform float dt;
 uniform float natoms;
 uniform float ntypes;
 
+bool isnan(float val)
+{
+  return ( val < 0.0 || 0.0 < val || val == 0.0 ) ? false : true;
+}
+
 void main(void) {
 
     vec4 atomBonds = texture2D(atomBondsTex, texPos);
@@ -101,6 +106,9 @@ void main(void) {
         }
     }
 
+    energy.z = 0.5*mass*pow(length((pos1 - pos0)/dt),2.0);
+    if(isnan(energy.z)) energy.z = 0.0;
+
     /*vec3 diff = vec3(0.0,0.0,0.0);
     if(pos1.x > positiveLimit.x) diff.x += (pos1.x - positiveLimit.x);
     else if(pos1.x < negativeLimit.x) diff.x += (pos1.x - negativeLimit.x);
@@ -110,9 +118,6 @@ void main(void) {
     else if(pos1.z < negativeLimit.z) diff.z += (pos1.z - negativeLimit.z);
     float magsq_diff = dot(diff, diff);
     energy.x += 0.5*k*magsq_diff;*/
-
-    // KINECT ENERGY;
-    energy.z = 0.5*mass*pow(length((pos1 - pos0)/dt),2.0);
 
     gl_FragColor = vec4(energy, 1.0);
 }

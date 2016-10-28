@@ -328,7 +328,7 @@ function mult(a, b, factor){
 }
 
 // --------------------------- CREATE TEXTURE FRAME BUFFER ------------------------------
-function createTextureFrameBuffer(gl, x, y, texture){
+function createTextureFrameBuffer(gl, texture){
 
     var frameBuffer = gl.createFramebuffer();
 
@@ -378,6 +378,14 @@ function createDataTexture(gl, width, height, data, dimension){
     else if(dimension === 4) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.FLOAT, data);
 
     return texture;
+}
+
+// --------------------------- CREATE TEXTURE FRAME BUFFER ------------------------------
+function updateTextureFrameBuffer(gl, frameBuffer, texture){
+    gl.bindFramebuffer(gl.FRAMEBUFFER, frameBuffer);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
 // --------------------------- UPDATE 1D TEXTURE CONTENT --------------------------------
