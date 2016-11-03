@@ -69,9 +69,12 @@
           <div>
               <i id="pinWorldMenu" class="material-icons">chevron_right</i>
 
-              <h2>WORLD</h2>
-              Temperature (K): <input id="temperature" type="number" name="temperature">
-              <br><br>Size: <input id="size" type="text" name="size">
+              <div class="hideOnAdd">
+                  <h2>WORLD</h2>
+                  Temperature (K): <input id="temperature" type="number" name="temperature">
+                  <br><br>Size: <input id="size" type="text" name="size">
+                  <br><br>Boost factor: <input id="boostFactor" type="number" name="boostFactor">
+              </div>
 
               <br><br>
               <h2>SELECTION & DRAWING</h2>
@@ -119,25 +122,28 @@
               Bond radius: <input id="bondRadius" type="number" name="bondRadius">
 
               <br><br>
-              <h2>TIME & FREQUENCIES</h2>
-              Duration (ps): <input id="duration" type="number" name="duration">
-              Step (fs): <input id="timeStep" type="number" name="timeStep">
-              <br><br>Energy Calculation Frequency (steps): <input id="energyFrequency" type="number" name="energyFrequency">
-              <br><br>Thermostat Execution Frequency (steps): <input id="thermostatFrequency" type="number" name="thermostatFrequency">
-              <br><br>Render Frequency (steps): <input id="renderFrequency" type="number" name="renderFrequency">
 
-              <br><br>
-              <h2>DATA SAMPLE & FILE OUTPUT</h2>
-              <button id="activeSampling" class="checkButton"></button> ACTIVATE
-              <br><br> Sample Mode:
-              <select id="sampleMode" name="sampleMode" width="100px">
-                <option value="energy">ENERGY</option>
-                <option value="trajectory">TRAJECTORY</option>
-              </select>
-              <i class="material-icons selectArrow">keyboard_arrow_down</i>
+              <div class="hideOnAdd">
+                  <h2>TIME & FREQUENCIES</h2>
+                  Duration (ps): <input id="duration" type="number" name="duration">
+                  Step (fs): <input id="timeStep" type="number" name="timeStep">
+                  <br><br>Energy Calculation Frequency (steps): <input id="energyFrequency" type="number" name="energyFrequency">
+                  <br><br>Thermostat Execution Frequency (steps): <input id="thermostatFrequency" type="number" name="thermostatFrequency">
+                  <br><br>Render Frequency (steps): <input id="renderFrequency" type="number" name="renderFrequency">
 
-              <br><br>Sample Frequency (steps): <input id="sampleFrequency" type="number" name="sampleFrequency"><br>
-              <br>Output name: <input id="outputName" type="text" name="outputName" value="data_out.dat"><br>
+                  <br><br>
+                  <h2>DATA SAMPLE & FILE OUTPUT</h2>
+                  <button id="activeSampling" class="checkButton"></button> ACTIVATE
+                  <br><br> Sample Mode:
+                  <select id="sampleMode" name="sampleMode" width="100px">
+                    <option value="energy">ENERGY</option>
+                    <option value="trajectory">TRAJECTORY</option>
+                  </select>
+                  <i class="material-icons selectArrow">keyboard_arrow_down</i>
+
+                  <br><br>Sample Frequency (steps): <input id="sampleFrequency" type="number" name="sampleFrequency"><br>
+                  <br>Output name: <input id="outputName" type="text" name="outputName" value="data_out.dat"><br>
+            </div>
 
           </div>
         </div>
@@ -157,6 +163,8 @@
             Background: <input id="backgroundColor" type="text" name="backgroundColor">
             <br><br>Type:
             <select id="typeSelection" name="typeSelection">
+                <option value="CL">CL</option>
+                <option value="SO">SO</option>
                 <option value="C">C</option>
                 <option value="H">H</option>
                 <option value="L">L</option>
@@ -213,9 +221,6 @@
             <br><br>Diffuse:  <input id="diffuseColor" type="number">
             Specular: <input id="specularColor" type="number">
 
-            <h2>Toggle</h2>
-
-
             <input type="file" id="uploader" style="display:none">
             <a id="downloader"></a>
           </div>
@@ -226,29 +231,65 @@
 
                 <h2>ADD PARTICLES</h2>
 
-                Number of particles to add: <input id="particlesToAdd" type="number"><br><br>
+                Number of particles to add: <input id="particlesToAdd" type="number" value="1"><br><br>
 
                 <div class="addParticle" id="addWater">
-                    <img class="particleImg" src="images/water.png">
+                    <img id="water_img" class="particleImg" src="images/water.png">
                     <span>WATER</span>
                 </div>
 
-                <div class="addParticle">
-                    <img class="particleImg" src="images/water.png">
-                    <span>WATER</span>
+                <div class="addParticle", id="addOctane">
+                    <img class="particleImg" src="images/octane.png">
+                    <span>OCTANE</span>
                 </div>
 
-                <div class="addParticle">
-                    <img class="particleImg" src="images/water.png">
-                    <span>WATER</span>
+                <div class="addParticle", id="addLipid">
+                    <img class="particleImg" src="images/lipid.png">
+                    <span>LIPID</span>
                 </div>
+
+                <div class="addParticle", id="addMethane">
+                    <img class="particleImg" src="images/methane.png">
+                    <span>METHANE</span>
+                </div>
+
+                <div class="addParticle", id="addSodium">
+                    <img class="particleImg" src="images/sodium.png">
+                    <span>SODIUM</span>
+                </div>
+
+
 
                 <br>
 
-                <div class="addParticle">
-                    <img class="particleImg" src="images/water.png">
-                    <span>WATER</span>
+
+
+                <div class="addParticle", id="addChloride">
+                    <img class="particleImg" src="images/chloride.png">
+                    <span>CHLORIDE</span>
                 </div>
+
+                <div class="addParticle", id="addDinitrogen">
+                    <img class="particleImg" src="images/dinitrogen.png">
+                    <span>N2</span>
+                </div>
+
+                <div class="addParticle", id="addDioxygen">
+                    <img class="particleImg" src="images/dioxygen.png">
+                    <span>O2</span>
+                </div>
+
+
+
+                <br>
+
+
+
+                <div class="addParticle", id="addCarbon_dioxide">
+                    <img class="particleImg" src="images/carbon_dioxide.png">
+                    <span>CO2</span>
+                </div>
+
 
             </div>
         </div>
@@ -320,6 +361,120 @@
 <script src='libs/miscFuncs.js'></script>
 <script src='libs/webGLfuncs.js'></script>
 
+<!------------- LOAD DEFAULT FILES ------------->
+<?php
+    if($_POST["enableAdd"] == "true"){
+
+
+        if($_POST["martine"] != "true"){
+            # DEFAULT PARAMETERS
+            echo "<script id='defaultPRM0' type='text/prm'>\n";
+            readfile("files/parameters/par_all36_cgenff.prm");
+            echo "</script>\n";
+            echo "<script id='defaultPRM1' type='text/prm'>\n";
+            readfile("files/parameters/toppar_water_ions_cgenff.str");
+            echo "</script>\n";
+            echo "<script id='defaultPRM2' type='text/str'>\n";
+            readfile("files/parameters/toppar_all36_prot_heme.str");
+            echo "</script>\n";
+
+            # WATER FILES
+            echo "<script id='waterPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/water.pdb");
+            echo "</script>\n";
+            echo "<script id='waterPSF' type='text/psf'>\n";
+            readfile("files/psfs/water.psf");
+            echo "</script>\n";
+
+            # METHANE FILES
+            echo "<script id='methanePDB' type='text/pdb'>\n";
+            readfile("files/pdbs/methane.pdb");
+            echo "</script>\n";
+            echo "<script id='methanePSF' type='text/psf'>\n";
+            readfile("files/psfs/methane.psf");
+            echo "</script>\n";
+
+            # SODIUM FILES
+            echo "<script id='sodiumPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/sodium.pdb");
+            echo "</script>\n";
+            echo "<script id='sodiumPSF' type='text/psf'>\n";
+            readfile("files/psfs/sodium.psf");
+            echo "</script>\n";
+
+            # CHLORIDE FILES
+            echo "<script id='chloridePDB' type='text/pdb'>\n";
+            readfile("files/pdbs/chloride.pdb");
+            echo "</script>\n";
+            echo "<script id='chloridePSF' type='text/psf'>\n";
+            readfile("files/psfs/chloride.psf");
+            echo "</script>\n";
+
+            # DINITROGEN FILES
+            echo "<script id='dinitrogenPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/dinitrogen.pdb");
+            echo "</script>\n";
+            echo "<script id='dinitrogenPSF' type='text/psf'>\n";
+            readfile("files/psfs/dinitrogen.psf");
+            echo "</script>\n";
+
+            # DIOXYGEN FILES
+            echo "<script id='dioxygenPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/dioxygen.pdb");
+            echo "</script>\n";
+            echo "<script id='dioxygenPSF' type='text/psf'>\n";
+            readfile("files/psfs/dioxygen.psf");
+            echo "</script>\n";
+
+            # CARBON DIOXIDE FILES
+            echo "<script id='carbon_dioxidePDB' type='text/pdb'>\n";
+            readfile("files/pdbs/carbon_dioxide.pdb");
+            echo "</script>\n";
+            echo "<script id='carbon_dioxidePSF' type='text/psf'>\n";
+            readfile("files/psfs/carbon_dioxide.psf");
+            echo "</script>\n";
+        }else{
+            # DEFAULT PARAMETERS
+            echo "<script id='defaultPRM0' type='text/prm'>\n";
+            readfile("files/parameters/martini_oco_popc.prm");
+            echo "</script>\n";
+            echo "<script id='defaultPRM1' type='text/prm'>\n";
+            echo "</script>\n";
+            echo "<script id='defaultPRM2' type='text/prm'>\n";
+            echo "</script>\n";
+
+            # WATER FILES
+            echo "<script id='waterPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/cg_water.pdb");
+            echo "</script>\n";
+            echo "<script id='waterPSF' type='text/psf'>\n";
+            readfile("files/psfs/cg_water.psf");
+            echo "</script>\n";
+
+            echo "<script id='octanePDB' type='text/pdb'>\n";
+            readfile("files/pdbs/cg_octane.pdb");
+            echo "</script>\n";
+            echo "<script id='octanePSF' type='text/psf'>\n";
+            readfile("files/psfs/cg_octane.psf");
+            echo "</script>\n";
+
+            echo "<script id='lipidPDB' type='text/pdb'>\n";
+            readfile("files/pdbs/cg_lipid.pdb");
+            echo "</script>\n";
+            echo "<script id='lipidPSF' type='text/psf'>\n";
+            readfile("files/psfs/cg_lipid.psf");
+            echo "</script>\n";
+        }
+    }
+?>
+
+<!-- Files containing the data necessary to simulate the molecules being used -->
+<script id='pdb' type='text/pdb'><?php readfile($_POST["pdb"])?></script>
+<script id='psf' type='text/psf'><?php readfile($_POST["psf"])?></script>
+<script id='prm0' type='text/psf'><?php readfile($_POST["prm0"])?></script>
+<script id='prm1' type='text/psf'><?php readfile($_POST["prm1"])?></script>
+<script id='prm2' type='text/psf'><?php readfile($_POST["prm2"])?></script>
+
 <script>
     /* ######################### PROGRAM STARTS HERE ###########################
      * Intialize the program. Creates the WORLD and VIEW objects and set the world
@@ -342,13 +497,14 @@
         w.view = v;
 
         /* Set the world properties to the PHP Post variables */
+        w.constants.boostFactor = parseInt("<?php echo $_POST['boostFactor'] ?>");
         w.constants.timeStep = parseInt("<?php echo $_POST['timeStep'] ?>");
         w.maxSteps = parseInt("<?php echo $_POST['maxSteps'] ?>");
         w.temperature0 = parseFloat("<?php echo $_POST['temperature'] ?>");
         w.exec_thermostat = parseInt("<?php echo $_POST['thermostat'] ?>");
         w.energyTempFrequency = parseFloat("<?php echo $_POST['energyFrequency'] ?>");
         w.thermostatFrequency = parseFloat("<?php echo $_POST['thermostatFrequency'] ?>");
-        w.renderFrequency = parseFloat("<?php echo $_POST['renderFrequency'] ?>");
+        w.renderFrequency = parseFloat("<?php echo $_POST['renderFrequency'] ?>")*w.constants.boostFactor;
         w.view.mouse.mode = "<?php echo $_POST['mouseMode'] ?>";
         w.drawingMode = "<?php echo $_POST['drawingMode'] ?>";
         w.colorMode = "<?php echo $_POST['colorMode'] ?>" ;
@@ -359,6 +515,8 @@
         w.constants.epsolonR = parseFloat("<?php echo $_POST['epsolonR'] ?>");
 
         if("<?php echo $_POST['enableAdd'] ?>" == "true") w.view.isAddEnabled = true;
+        if("<?php echo $_POST['martine'] ?>" == "true") w.isMartine = true;
+        if("<?php echo $_POST['visualize'] ?>" == "true") w.vizualizationMode = true;
 
         /* Function that will be executed when leaving or reloading the page.
          * Free the memory */
@@ -372,36 +530,6 @@
         setTimeout(function(){w.setup();}, 50);
     };
 </script>
-
-<!-- Files containing the data necessary to simulate the molecules being used -->
-<script id='pdb' type='text/pdb'><?php readfile($_POST["pdb"])?></script>
-<script id='psf' type='text/psf'><?php readfile($_POST["psf"])?></script>
-<script id='prm0' type='text/psf'><?php readfile($_POST["prm0"])?></script>
-<script id='prm1' type='text/psf'><?php readfile($_POST["prm1"])?></script>
-<script id='prm2' type='text/psf'><?php readfile($_POST["prm2"])?></script>
-
-<?php
-    if($_POST["enableAdd"] == "true"){
-
-        # DEFAULT PARAMETERS
-        echo "<script id='defaultPRM0' type='text/pdb'>\n";
-        readfile("files/parameters/par_all36_cgenff.prm");
-        echo "</script>\n";
-        echo "<script id='defaultPRM1' type='text/pdb'>\n";
-        readfile("files/parameters/toppar_water_ions_cgenff.str");
-        echo "</script>\n";
-
-        # WATER FILES
-        echo "<script id='waterPDB' type='text/pdb'>\n";
-        readfile("files/pdbs/water.pdb");
-        echo "</script>\n";
-        echo "<script id='waterPSF' type='text/psf'>\n";
-        readfile("files/psfs/water.psf");
-        echo "</script>\n";
-
-        
-    }
-?>
 
 <?php
     /* Deletes the temporary files created in the beggining */

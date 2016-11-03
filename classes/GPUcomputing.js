@@ -435,55 +435,25 @@ var GPUcomputing = function(world){
     /* DRAW: Draw the position texture in the screen */
     this.draw = function() {
 
-        world.gl.activeTexture(world.gl.TEXTURE0);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_mass);         // 0
-        world.gl.activeTexture(world.gl.TEXTURE1);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondsKB);            // 1
-        world.gl.activeTexture(world.gl.TEXTURE2);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.anglesTheta0NK);     // 2
-        world.gl.activeTexture(world.gl.TEXTURE3);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_charge);       // 3
-        world.gl.activeTexture(world.gl.TEXTURE4);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bondIndex);    // 4
-        world.gl.activeTexture(world.gl.TEXTURE5);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bonds);        // 5
-        world.gl.activeTexture(world.gl.TEXTURE6);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_angleIndex);   // 6
-        world.gl.activeTexture(world.gl.TEXTURE7);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bonds);              // 7
-        world.gl.activeTexture(world.gl.TEXTURE8);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.angles);             // 8
-        world.gl.activeTexture(world.gl.TEXTURE9);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_typeCodes);    // 9
-        world.gl.activeTexture(world.gl.TEXTURE10);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.nbE12R12R6);         // 10
-        world.gl.activeTexture(world.gl.TEXTURE11);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondForces);         // 11
-        world.gl.activeTexture(world.gl.TEXTURE12);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.angleForces);        // 12
-
         switch(this.state){
             case 0:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
-                world.gl.activeTexture(world.gl.TEXTURE14);
+                world.gl.activeTexture(world.gl.TEXTURE0);
                 world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
             break;
 
             case 1:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
-                world.gl.activeTexture(world.gl.TEXTURE14);
+                world.gl.activeTexture(world.gl.TEXTURE0);
                 world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
             break;
 
             case 2:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
-                world.gl.activeTexture(world.gl.TEXTURE14);
+                world.gl.activeTexture(world.gl.TEXTURE0);
                 world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
             break;
         }
+
+        //initViewport(world.gl, world.canvas);
+        //world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, null);
 
         world.gl.useProgram(world.comp_shaders[4]);
         // BUFFERS
@@ -494,7 +464,7 @@ var GPUcomputing = function(world){
         world.gl.vertexAttribPointer(this.vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
         world.gl.enableVertexAttribArray(this.vertexPositionAttribute);
         // UNIFORMS
-        world.gl.uniform1i(this.positionsTexUniform, 14);
+        world.gl.uniform1i(this.positionsTexUniform, 0);
         world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
     }
 
@@ -747,22 +717,25 @@ var GPUcomputing = function(world){
         var lambda = Math.sqrt(1 + world.constants.timeStep/world.thermosTau * (world.temperature0/world.temperature - 1));
         if(world.temperature === 0) lambda = 1;
 
-        // ######### RENDER S8
-        world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
-        world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
-        world.gl.useProgram(world.comp_shaders[9]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(S9vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S9vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(S9vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S9vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform1i(S9positions0TexUniform, 13);
-        world.gl.uniform1i(S9positionsTexUniform, 14);
-        world.gl.uniform1f(S9lambdaUniform, lambda);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
+        if(lambda < 0.995 && !world.isMartine) world.setTemperature();
+        else{
+            // ######### RENDER S8
+            world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
+            world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
+            world.gl.useProgram(world.comp_shaders[9]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(S9vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S9vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(S9vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S9vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform1i(S9positions0TexUniform, 13);
+            world.gl.uniform1i(S9positionsTexUniform, 14);
+            world.gl.uniform1f(S9lambdaUniform, lambda);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
+        }
     }
 
     /* PARTICLEPOSITIONTODATA: Export the position of a particle from the texture

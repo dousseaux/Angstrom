@@ -12,21 +12,6 @@ var World = function() {
     this.scene = new scene(this.gl, this.canvas);       // See scene class in proteinSimulation.js file
     this.elements = new elements();                     // See elements class in proteinSimulation.js file
 
-    // ######### LOAD AND CREATE SHADERS - See files for information
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader0').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader1').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader2').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader3').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader4').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader5').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader6').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader8').text));
-    this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader9').text));
-    this.atomshader = createShaderProgram(this.gl, document.getElementById('SVertexShader').text, document.getElementById('SFragmentShader').text);
-    this.bondshader = createShaderProgram(this.gl, document.getElementById('BVertexShader').text, document.getElementById('BFragmentShader').text);
-    this.lineshader = createShaderProgram(this.gl, document.getElementById('LVertexShader').text, document.getElementById('LFragmentShader').text);
-
     var self = this; // Points to itself
 
     /* Function that keeps looping to itself that makes the simulation run continuously.
@@ -35,7 +20,20 @@ var World = function() {
         self.update();
         self.renderCount++;
         if(self.renderCount === self.renderFrequency) self.draw();
-        window.requestAnimationFrame(self.animate);
+        self.animationFrameId = window.requestAnimationFrame(self.animate);
+    }
+
+    this.resetBoostFactor = function(){
+        if(self.constants.boostFactor > 0){
+            cancelAnimationFrame(self.animationFrameId);
+            self.constants.boostFactor--;
+        }else{
+            clearTimeout(self.resetBoostFactorTimer);
+            self.constants.boostFactor = parseInt(self.view.boostFactor.value);
+            self.renderFrequency *= self.constants.boostFactor;
+            self.renderCount = 0;
+            for(var i=0; i<self.constants.boostFactor; i++) self.animate();
+        }
     }
 };
 
@@ -58,6 +56,11 @@ World.prototype = {
     selectionColor: [1.4,0.5,0.1,1.0],            // Color of the particles when selected
     selected: [],                                 // Array with the ID of the particles selected
     time: 0,                                      // Current simulation time
+    vizualizationMode: false,                     // Specify if should only vizualize
+    isMartine: false,                             // Specify wheter is martine force field or not
+    initializeGPUComp: true,                      // Specify wheter should intialize GPUcomp shaders on particles adding or not
+    animationFrameId: null,                       // Store the id of all animation frames
+    resetBoostFactorTimer: null,                  // Timer handle to stop all the current Animation Frames
 
     // ######### PHYSICS PROPERTIES
     energy: 0,                                    // Total energy of the world
@@ -143,10 +146,15 @@ World.prototype = {
     molecules: {
         water: null,
         methane: null,
+        sodium: null,
+        chloride: null,
+        octane: null,
+        lipid: null,
     },
 
     // ######### CONSTANTS
     constants: {
+        boostFactor: 0,                               // Specify how many threads of update will be fired
         timeFactor: 48.88821,
         timeStep: 1,            // ns
         dt: 0,
@@ -198,6 +206,21 @@ World.prototype = {
     /* SETUP: Set the initial configurations, estanciate the objects abd starts
      * the simulation loop by calling animate(). */
     setup: function() {
+        // ######### LOAD AND CREATE SHADERS - See files for information
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader0').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader1').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader2').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader3').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader4').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader5').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader6').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader8').text));
+        this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader9').text));
+        this.atomshader = createShaderProgram(this.gl, document.getElementById('SVertexShader').text, document.getElementById('SFragmentShader').text);
+        this.bondshader = createShaderProgram(this.gl, document.getElementById('BVertexShader').text, document.getElementById('BFragmentShader').text);
+        this.lineshader = createShaderProgram(this.gl, document.getElementById('LVertexShader').text, document.getElementById('LFragmentShader').text);
+
         this.time -= ((new Date).getTime()/1000);
 
         // ####### CREATE GPU COMPUTATION, ATOMS AND BONDS OBJECT.
@@ -221,28 +244,72 @@ World.prototype = {
         if(document.getElementById("prm1").text !== "") prm_content.push(document.getElementById("prm1").text);
         if(document.getElementById("prm2").text !== "") prm_content.push(document.getElementById("prm2").text);
 
+        this.initializeGPUComp = true;
+
         if(this.view.isAddEnabled){
+
             this.view.add.style.display = "inline-block";
             this.molecules.water = new particleSystem(document.getElementById("waterPDB").text, document.getElementById("waterPSF").text);
 
+            if(!this.isMartine){
+                this.view.addOctane.style.display = "none";
+                this.view.addLipid.style.display = "none";
+                this.molecules.methane = new particleSystem(document.getElementById("methanePDB").text, document.getElementById("methanePSF").text);
+                this.molecules.sodium = new particleSystem(document.getElementById("sodiumPDB").text, document.getElementById("sodiumPSF").text);
+                this.molecules.chloride = new particleSystem(document.getElementById("chloridePDB").text, document.getElementById("chloridePSF").text);
+                this.molecules.dinitrogen = new particleSystem(document.getElementById("dinitrogenPDB").text, document.getElementById("dinitrogenPSF").text);
+                this.molecules.dioxygen = new particleSystem(document.getElementById("dioxygenPDB").text, document.getElementById("dioxygenPSF").text);
+                this.molecules.carbon_dioxide = new particleSystem(document.getElementById("carbon_dioxidePDB").text, document.getElementById("carbon_dioxidePSF").text);
+            }else {
+                this.view.addMethane.style.display = "none";
+                this.view.addSodium.style.display = "none";
+                this.view.addChloride.style.display = "none";
+                this.view.addDinitrogen.style.display = "none";
+                this.view.addDioxygen.style.display = "none";
+                this.view.addCarbon_dioxide.style.display = "none";
+                document.getElementById("water_img").src = "images/sodium.png";
+                this.molecules.octane = new particleSystem(document.getElementById("octanePDB").text, document.getElementById("octanePSF").text);
+                this.molecules.lipid = new particleSystem(document.getElementById("lipidPDB").text, document.getElementById("lipidPSF").text);
+            }
+
             prm_content.push(document.getElementById("defaultPRM0").text);
             prm_content.push(document.getElementById("defaultPRM1").text);
+            prm_content.push(document.getElementById("defaultPRM2").text);
+
+            this.forceField = new forceField(prm_content);
+            this.view.pinAddMenu.onclick();
+
+        }else{
+
+            this.defaultMol = new particleSystem(pdb_content, psf_content)
+            this.forceField = new forceField(prm_content);
+
+            if(!this.vizualizationMode){
+                this.addMols(this.defaultMol, [0,0,0]);
+            }else{
+                this.view.pause.style.display = "none";
+                this.view.restart.style.display = "none";
+                this.view.home.style.display = "none";
+                this.view.mouseMode.style.display = "none";
+                this.view.add.style.display = "none";
+                this.view.energyTemp.style.display = "none";
+                this.view.energyInfo.style.display = "none";
+                this.view.hideOnAdd[0].style.display = "none";
+                this.view.hideOnAdd[1].style.display = "none";
+                this.view.structureInfo.style.left = 10;
+                this.vizualizeMols(this.defaultMol);
+            }
         }
 
-
-        this.forceField = new forceField(prm_content);
-        this.defaultMol = new particleSystem(pdb_content, psf_content)
-
-        this.addMols(this.defaultMol, [0,0,0], true);
-
         this.center();
-
         this.view.setDefaults();
 
-        this.animate();
-        //this.animate();
+        for(var i=0; i<this.constants.boostFactor; i++) this.animate();
 
         window.setInterval(this.view.updateScreenInfo, 100);
+
+        this.view.isPaused = true;
+        this.view.pause.innerHTML = "play_arrow";
     },
 
     /* RESET: Set the initial configurations again, delete the old data and load
@@ -283,10 +350,11 @@ World.prototype = {
             // INFORMATION DATA
             atoms_types: [],
             atoms_residuals: [],
+            atoms_segnames: [],
             atoms_moleculesIndex: [],
             molecules_Offset: [],
             out: [],
-        }
+        };
 
         this.nmols = 0;
         this.natoms = 0;
@@ -295,10 +363,10 @@ World.prototype = {
         this.ntypes = 0;
         this.nresiduals = 0;
         this.nmolecules = 0;
+
         this.temperature = this.temperature0;
 
         this.setup();
-
     },
 
     /* UPDATE: Call the calculation and sampling function according to the their
@@ -390,11 +458,10 @@ World.prototype = {
     },
 
     /* ADDMOLS: Add a object of type particleSystem to the world centered at the position pos. */
-    addMols: function(particleSystem, pos, initializeGPUComp) {
+    addMols: function(particleSystem, pos) {
 
         var unpause = this.view.isPaused;
         this.view.isPaused = true;
-        this.temperature0 = this.temperature;
 
         this.gpucomp.particlesPositionToData(0, this.natoms-1);
 
@@ -467,7 +534,7 @@ World.prototype = {
 
         delete temp;
 
-        if(initializeGPUComp) this.gpucomp.initialize();
+        if(this.initializeGPUComp) this.gpucomp.initialize();
 
         this.atoms.update();
         this.bonds.update();
@@ -492,7 +559,7 @@ World.prototype = {
             }
         }
         for(var i=0; i<particleSystem.natoms; i++){
-            // UPDATE ATOMS POSITIONS
+            // UPDATE AtempTOMS POSITIONS
             this.data.atoms_position[4*(this.natoms + i)] = particleSystem.atomsPos[4*i] + pos[0];
             this.data.atoms_position[4*(this.natoms + i) + 1] = particleSystem.atomsPos[4*i + 1] + pos[1];
             this.data.atoms_position[4*(this.natoms + i) + 2] = particleSystem.atomsPos[4*i + 2] + pos[2];
@@ -603,15 +670,18 @@ World.prototype = {
             this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7').text.addAt(2342,this.natoms));
         }else{
             this.comp_shaders[2] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader2_noex13').text.addAt(3469,this.natoms));
-            this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7_noex13').text.addAt(1125,this.natoms));
+            this.comp_shaders[7] = createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader7_noex13').text.addAt(1218,this.natoms));
         }
 
         this.gpucomp.getShader2Pointers();
         this.gpucomp.getShader7Pointers();
         this.gpucomp.updateTextures();
 
+        var temp = this.temperature0;
+        this.temperature0 = this.temperature;
         this.setTemperature();
         this.gpucomp.calc_energy();
+        this.temperature0 = temp;
 
         // UPDATE SELECTION
         this.select("clear");
@@ -624,6 +694,189 @@ World.prototype = {
                                             "<tr><td>Angles</td><td>"+ this.nangles +"</td></tr>" +
                                             "<tr><td>Residuals</td><td>"+ this.nresiduals +"</td></tr>" +
                                             "<tr><td>Types</td><td>"+ this.ntypes +"</td></tr>";
+
+        this.initializeGPUComp = false;
+
+        this.view.isPaused = unpause;
+    },
+
+    /* VIZUALIZEMOLS: Add a object of type particleSystem to the world but not for simulation */
+    vizualizeMols: function(particleSystem) {
+
+        var unpause = this.view.isPaused;
+        this.view.isPaused = true;
+
+        this.gpucomp.particlesPositionToData(0, this.natoms-1);
+
+        while(this.natoms + particleSystem.natoms > this.texsize.x*this.texsize.y){
+            if(this.texsize.x === this.texsize.y) this.texsize.x *= 2;
+            else this.texsize.y *= 2;
+        }
+
+        var temp = {
+            atoms_position: new Float32Array(this.data.atoms_position),
+            bondForces: new Float32Array(this.data.bondForces),
+            angleForces: new Float32Array(this.data.angleForces),
+            nonbondedForces: new Float32Array(this.data.nonbondedForces),
+            bondEnergy: new Float32Array(this.data.bondEnergy),
+            angleEnergy: new Float32Array(this.data.angleEnergy),
+            nonbondedEnergy: new Float32Array(this.data.nonbondedEnergy),
+            atoms_mass: new Float32Array(this.data.atoms_mass),
+            atoms_radius: new Float32Array(this.data.atoms_radius),
+            bondsKB: new Float32Array(this.data.bondsKB),
+            anglesTheta0NK: new Float32Array(this.data.anglesTheta0NK),
+            atoms_charge: new Float32Array(this.data.atoms_charge),
+            atoms_bondIndex: new Float32Array(this.data.atoms_bondIndex),
+            atoms_bonds: new Float32Array(this.data.atoms_bonds),
+            atoms_angleIndex: new Float32Array(this.data.atoms_angleIndex),
+            bonds: new Float32Array(this.data.bonds),
+            angles: new Float32Array(this.data.angles),
+            atoms_typeCodes: new Float32Array(this.data.atoms_typeCodes),
+            temperatureVelocity: new Float32Array(this.data.temperatureVelocity),
+        }
+
+        this.data.atoms_position = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.bondForces = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.angleForces = new Float32Array(this.texsize.x*this.texsize.y*16);
+        this.data.nonbondedForces = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.bondEnergy = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.angleEnergy = new Float32Array(this.texsize.x*this.texsize.y*16);
+        this.data.nonbondedEnergy = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.atoms_mass = new Float32Array(this.texsize.x*this.texsize.y);
+        this.data.atoms_radius = new Float32Array(this.texsize.x*this.texsize.y);
+        this.data.bondsKB = new Float32Array(this.texsize.x*this.texsize.y*3);
+        this.data.anglesTheta0NK = new Float32Array(this.texsize.x*this.texsize.y*12);
+        this.data.atoms_charge = new Float32Array(this.texsize.x*this.texsize.y);
+        this.data.atoms_bondIndex = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.atoms_bonds = new Float32Array(this.texsize.x*this.texsize.y*4);
+        this.data.atoms_angleIndex = new Float32Array(this.texsize.x*this.texsize.y*8);
+        this.data.bonds = new Float32Array(this.texsize.x*this.texsize.y*3);
+        this.data.angles = new Float32Array(this.texsize.x*this.texsize.y*16);
+        this.data.atoms_typeCodes = new Float32Array(this.texsize.x*this.texsize.y);
+        this.data.temperatureVelocity = new Float32Array(this.texsize.x*this.texsize.y*3);
+
+        this.data.atoms_position.set(temp.atoms_position);
+        this.data.bondForces.set(temp.bondForces);
+        this.data.angleForces.set(temp.angleForces);
+        this.data.nonbondedForces.set(temp.nonbondedForces);
+        this.data.bondEnergy.set(temp.bondEnergy);
+        this.data.angleEnergy.set(temp.angleEnergy);
+        this.data.nonbondedEnergy.set(temp.nonbondedEnergy);
+        this.data.atoms_mass.set(temp.atoms_mass);
+        this.data.atoms_radius.set(temp.atoms_radius);
+        this.data.bondsKB.set(temp.bondsKB);
+        this.data.anglesTheta0NK.set(temp.anglesTheta0NK);
+        this.data.atoms_charge.set(temp.atoms_charge);
+        this.data.atoms_bondIndex.set(temp.atoms_bondIndex);
+        this.data.atoms_bonds.set(temp.atoms_bonds);
+        this.data.atoms_angleIndex.set(temp.atoms_angleIndex);
+        this.data.bonds.set(temp.bonds);
+        this.data.angles.set(temp.angles);
+        this.data.atoms_typeCodes.set(temp.atoms_typeCodes);
+        this.data.temperatureVelocity.set(temp.temperatureVelocity);
+
+        delete temp;
+
+        if(this.initializeGPUComp) this.gpucomp.initialize();
+
+        this.atoms.update();
+        this.bonds.update();
+
+        // UPDATE ATOMS MASSES
+        this.data.atoms_mass.set(particleSystem.atomsMass, this.natoms);
+        // UPDATE ATOMS CHARGES
+        this.data.atoms_charge.set(particleSystem.atomsCharge, this.natoms);
+        //UPDATE BONDS
+        for(var i=0; i<particleSystem.nbonds; i++){
+            this.data.bonds[(this.nbonds + i)*3] = particleSystem.bonds[i*3] + this.natoms;
+            this.data.bonds[(this.nbonds + i)*3 + 1] = particleSystem.bonds[i*3 + 1] + this.natoms;
+            this.data.bonds[(this.nbonds + i)*3 + 2] = particleSystem.bonds[i*3 + 2] + this.natoms;
+        }
+        // UPDATE ANGLES
+        for(var i=0; i<particleSystem.nangles; i++){
+            for(var j=0; j<3; j++){
+                this.data.angles[(this.nangles + i)*12 + j*4] = particleSystem.angles[i*3] + this.natoms;
+                this.data.angles[(this.nangles + i)*12 + j*4 + 1] = particleSystem.angles[i*3 + 1] + this.natoms;
+                this.data.angles[(this.nangles + i)*12 + j*4 + 2] = particleSystem.angles[i*3 + 2] + this.natoms;
+                this.data.angles[(this.nangles + i)*12 + j*4 + 3] = j+1;
+            }
+        }
+        for(var i=0; i<particleSystem.natoms; i++){
+            // UPDATE ATOMS POSITIONS
+            this.data.atoms_position[4*(this.natoms + i)] = particleSystem.atomsPos[4*i];
+            this.data.atoms_position[4*(this.natoms + i) + 1] = particleSystem.atomsPos[4*i + 1];
+            this.data.atoms_position[4*(this.natoms + i) + 2] = particleSystem.atomsPos[4*i + 2];
+            this.data.atoms_position[4*(this.natoms + i) + 3] = particleSystem.atomsPos[4*i + 3];
+            // UPDATE RESIDUALS INDEX
+            this.data.atoms_moleculesIndex.push(particleSystem.atomsMoleculeIndex[i] + this.nmolecules);
+            // UPDATE BOND INDEXES
+            var k;
+            for(var j=0; j<4; j++){
+                k = 4*(this.natoms+i) + j;
+                if(particleSystem.atomsBonds[i*4 + j] !== 0){
+                    this.data.atoms_bondIndex[k] = particleSystem.atomsBonds[i*4 + j] + Math.sign(particleSystem.atomsBonds[i*4 + j])*this.nbonds;
+                    if(this.data.atoms_bondIndex[k] > 0.0) this.data.atoms_bonds[k] = this.data.bonds[3*(this.data.atoms_bondIndex[k]-1) + 1];
+                    else this.data.atoms_bonds[k] = this.data.bonds[3*(-this.data.atoms_bondIndex[k]-1)];
+                }else{
+                    this.data.atoms_bondIndex[k] = 0;
+                    this.data.atoms_bonds[k] = -1;
+                }
+            }
+            // UPDATE ANGLE INDEXES
+            for(var j=0; j<8; j++){
+                if(particleSystem.atomsAngles[i*8 + j] !== -1) this.data.atoms_angleIndex[8*(this.natoms + i) + j] = particleSystem.atomsAngles[i*8 + j] + 3*this.nangles;
+                else this.data.atoms_angleIndex[8*(this.natoms + i) + j] = -1;
+            }
+            // UPDATE TYPE LIST AND CODE
+            if(isNaN(this.elements.types.code[particleSystem.atomsTypes[i]])){
+                this.elements.types.list.push(particleSystem.atomsTypes[i]);
+                if(this.forceField.elementRadius[particleSystem.atomsTypes[i]])
+                    this.elements.types.radius.push(this.forceField.elementRadius[particleSystem.atomsTypes[i]]);
+                else this.elements.types.radius.push(this.elements.atoms_radius[particleSystem.atomsTypes[i][0]]);
+
+                this.elements.types.code[particleSystem.atomsTypes[i]] = this.elements.types.list.length - 1;
+            }
+            // UPDATE ATOM TYPE CODE
+            this.data.atoms_typeCodes[this.natoms + i] = this.elements.types.code[particleSystem.atomsTypes[i]];
+            this.data.atoms_radius[this.natoms + i] = this.elements.types.radius[this.elements.types.code[particleSystem.atomsTypes[i]]];
+            //if(this.data.atoms_radius[this.natoms + i] < 1) this.data.atoms_radius[i + this.natoms] = 1;
+        }
+        // UPDATE TYPES
+        this.data.atoms_types = this.data.atoms_types.concat(particleSystem.atomsTypes);
+        // UPDATE RESIDUALS
+        this.data.atoms_residuals = this.data.atoms_residuals.concat(particleSystem.atomsResidual);
+        // UPDATE SEGNAMES
+        this.data.atoms_segnames = this.data.atoms_segnames.concat(particleSystem.atomsSegnames);
+
+        for(var i=0; i<particleSystem.nmolecules; i++){
+            this.data.molecules_Offset.push({firstp: particleSystem.moleculesOffset[i].firstp + this.natoms,
+                                             lastp: particleSystem.moleculesOffset[i].lastp + this.natoms});
+        }
+
+        // UPDATE TRACKERS
+        this.nmols++;
+        this.natoms += particleSystem.natoms;
+        this.nbonds += particleSystem.nbonds;
+        this.nangles += particleSystem.nangles;
+        this.nresiduals += particleSystem.nresiduals;
+        this.nmolecules += particleSystem.nmolecules;
+        this.ntypes = this.elements.types.list.length;
+
+        this.gpucomp.updateTextures();
+
+        // UPDATE SELECTION
+        this.select("clear");
+        this.select("all");
+
+        this.view.particles.innerHTML = " | Atoms: " + this.natoms;
+
+        this.view.structureInfo.innerHTML = "<tr><td>Molecules</td><td>"+ this.nmolecules +"</td></tr>" +
+                                            "<tr><td>Bonds</td><td>"+ this.nbonds +"</td></tr>" +
+                                            "<tr><td>Angles</td><td>"+ this.nangles +"</td></tr>" +
+                                            "<tr><td>Residuals</td><td>"+ this.nresiduals +"</td></tr>" +
+                                            "<tr><td>Types</td><td>"+ this.ntypes +"</td></tr>";
+
+        this.initializeGPUComp = false;
 
         this.view.isPaused = unpause;
     },
@@ -757,6 +1010,10 @@ World.prototype = {
         ymean /= this.natoms;
         zmean /= this.natoms;
 
+        if(isNaN(xmean)) xmean = 0;
+        if(isNaN(ymean)) ymean = 0;
+        if(isNaN(zmean)) zmean = 0;
+
         xmax -= Math.abs(xmean);
         ymax -= Math.abs(ymean);
         zmax -= Math.abs(zmean);
@@ -765,6 +1022,7 @@ World.prototype = {
         ymax = (ymax + 1)*1.15;
         zmax = (zmax + 1)*1.15;
 
+        if(xmax < 2.5) xmax = 5;
         if(ymax < 2.5) ymax = 5;
         if(zmax < 2.5) zmax = 5;
 

@@ -257,10 +257,22 @@
         line-height: 20px;
     }
 
+    #drawingMode{
+        width: 130px;
+    }
+
     #worldMenu .checkButton{
         margin-left: 0;
         margin-right: 5px;
     }
+
+    #worldMenu .hideOnAdd{
+        margin: 0;
+        padding: 0;
+        height: auto;
+        display: inline-block;
+    }
+
     /* ############## ANALYSIS MENU ############### */
 
     #analysisMenu{
@@ -492,6 +504,7 @@
     input[type=number]{
         -moz-appearance: textfield;
         -webkit-appearance: none;
+        max-width: 50px;
     }
 
     input:hover, input:focus {
@@ -503,6 +516,10 @@
         display: inline-block;
         vertical-align:middle;
         box-shadow: none;
+    }
+
+    input[type=text]{
+        max-width: 150px;
     }
 
     .selectArrow{

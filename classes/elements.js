@@ -9,6 +9,8 @@ var elements = function(){
     this.atom_colors["C"] = [0.15,0.65,0.15,1.0]; // OK
     this.atom_colors["H"] = [0.85,0.85,0.85,1.0];
     this.atom_colors["L"] = [0.20,0.80,0.30,1.0]; // OK
+
+    this.atom_colors["M"] = [0.15,0.65,0.65,1.0]; // OK
     this.atom_colors["N"] = [0.15,0.15,0.65,1.0]; // OK
 
     this.atom_colors["O"] = [0.8,0.1,0.1,1.0];    // OK
@@ -18,6 +20,29 @@ var elements = function(){
     this.atom_colors["S"] = [0.85,0.85,0.25,1.0]; // OK
     this.atom_colors["X"] = [0.8,0.8,0.8,1.0];    // OK
     this.atom_colors["Z"] = [0.8,0.8,0.8,1.0];    // OK
+
+    this.atom_colors["CL"] = [0.65,0.65,0.15,1.0]; // OK
+    this.atom_colors["SO"] = [0.15,0.65,0.65,1.0]; // OK
+
+    // ################ TYPE RADIUS PER FIRST LETTER
+    this.atoms_radius = new Array();
+    this.atoms_radius["A"] = 2;       // OK
+    this.atoms_radius["B"] = 2;       // OK
+    this.atoms_radius["C"] = 2;       // OK
+    this.atoms_radius["F"] = 1.6;       // OK
+
+    this.atoms_radius["H"] = 1.3;
+    this.atoms_radius["L"] = 1.3;     // OK
+    this.atoms_radius["M"] = 1.15;    // OK
+    this.atoms_radius["N"] = 1.85;    // OK
+
+    this.atoms_radius["O"] = 1.65;    // OK
+    this.atoms_radius["P"] = 2.15;    // OK
+    this.atoms_radius["Q"] = 1;
+
+    this.atoms_radius["S"] = 2;       // OK
+    this.atoms_radius["X"] = 1;       // OK
+    this.atoms_radius["Z"] = 1.09;    // OK
 
     // ################ RESIDUAL COLORS PER FIRST LETTER
     this.residual_colors = new Array();

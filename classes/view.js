@@ -108,8 +108,18 @@ var view = function(world){
     this.duration = document.getElementById("duration");
     this.clearSelection = document.getElementById("clearSelection");
     this.outputName = document.getElementById("outputName");
-
+    this.particlesToAdd = document.getElementById("particlesToAdd");
+    this.hideOnAdd = document.getElementsByClassName("hideOnAdd");
     this.addWater = document.getElementById("addWater");
+    this.addMethane = document.getElementById("addMethane");
+    this.addSodium = document.getElementById("addSodium");
+    this.addChloride = document.getElementById("addChloride");
+    this.addDinitrogen = document.getElementById("addDinitrogen");
+    this.addDioxygen = document.getElementById("addDioxygen");
+    this.addCarbon_dioxide = document.getElementById("addCarbon_dioxide");
+    this.addOctane = document.getElementById("addOctane");
+    this.addLipid = document.getElementById("addLipid");
+    this.boostFactor = document.getElementById("boostFactor");
 
     if(document.getElementById("saveModel")){
         this.saveModel = document.getElementById("saveModel");
@@ -130,9 +140,12 @@ var view = function(world){
     this.analysisMenu.ontouchend = world.scene.canvas.ontouchend;
     this.analysisMenu.ontouchmove = world.scene.canvas.ontouchmove;
 
+    window.onresize = function(){
+        console.log("oi");
+        self.resize();
+    }
     // ------------------------- KEYBOARD HANDLERS -------------------------------
-    window.onkeypress = function(e){
-      //console.log(e.keyCode);
+    window.onkeydown = function(e){
       if(e.keyCode === 108 || e.keyCode === 76){
           //getFrameData4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, world.gpucomp.FBangleForces, world.data.angleForces);
           getFrameData4d(world.gl, world.texsize, world.gpucomp.FBnbforces, world.data.nonbondedForces);
@@ -249,6 +262,8 @@ var view = function(world){
     }
     this.colorMode.onchange = function(e){
       world.colorMode = self.colorMode.value;
+      world.atoms.paint(world.atoms.atoms);
+      world.bonds.paint(world.bonds.bonds)
     }
     this.drawingMode.onchange = function(e){
       if(self.drawingMode.value == "bonds"){
@@ -274,9 +289,9 @@ var view = function(world){
           world.atoms.radiusScale = 0.0;
           world.atoms.minradius = 0.2;
           self.bondRadius.value = 0.2;
+          self.bondRadius.onchange();
           self.bondResolution.value = 28;
           self.atomResolution.value = 28;
-          self.bondRadius.onchange();
           self.bondResolution.onchange();
           self.atomResolution.onchange();
       }
@@ -346,7 +361,8 @@ var view = function(world){
           world.elements.atom_colors[self.typeSelection.value][1] = parseInt(str[3].concat(str[4]),16)/255;
           world.elements.atom_colors[self.typeSelection.value][2] = parseInt(str[5].concat(str[6]),16)/255;
       }
-      self.colorMode.onchange();
+      world.atoms.paint(world.atoms.atoms);
+      world.bonds.paint(world.bonds.bonds)
     }
     this.residueColor.onchange = function(e){
       var str = self.residueColor.value;
@@ -540,22 +556,24 @@ var view = function(world){
         world.maxSteps = parseFloat(self.duration.value)*1000/world.constants.timeStep;
     }
     this.sampleFrequency.onchange = function(e){
-        world.sampleFrequency = parseFloat(this.sampleFrequency.value);
+        world.sampleFrequency = parseFloat(self.sampleFrequency.value);
     }
-
+    this.boostFactor.onchange = function(e){
+        world.renderFrequency /= world.constants.boostFactor;
+        world.resetBoostFactorTimer = window.setInterval(world.resetBoostFactor, 30);
+    }
     // --------------------------- CLICK HANDLERS --------------------------------
     this.pause.onclick = function(){
         if(self.isPaused === false){
           self.isPaused = true;
           self.pause.innerHTML = "play_arrow";
-        }else{
+      }else if(world.natoms > 0){
           self.isPaused = false;
           self.pause.innerHTML = "pause";
         }
     }
     this.restart.onclick = function(){
           world.reset();
-          //world.setup();
     }
     this.recenter.onclick = function(){
           world.recenter();
@@ -735,9 +753,41 @@ var view = function(world){
         world.selected = [];
     }
     this.addWater.onclick = function(){
-        world.addMols(world.molecules.water, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit), false);
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.water, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
     }
-
+    this.addMethane.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.methane, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addSodium.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.sodium, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addChloride.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.chloride, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addDinitrogen.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.dinitrogen, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addDioxygen.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.dioxygen, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addCarbon_dioxide.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.carbon_dioxide, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addOctane.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.octane, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
+    this.addLipid.onclick = function(){
+        for(var i = 0; i< parseInt(particlesToAdd.value); i++)
+        world.addMols(world.molecules.lipid, getPositionOutOfTheBox(world.size, world.positiveLimit, world.negativeLimit));
+    }
 
     // ---------------------- MOUSE OVER AND OUT HANDLERS ------------------------
     this.side.onmouseover = function() {
@@ -849,6 +899,9 @@ var view = function(world){
     // --------------------------- RESIZE ELMENTS --------------------------------
     this.resize = function(){
 
+        var bodystyle = window.getComputedStyle(document.body);
+        this.windowSize = {x: parseFloat(bodystyle.width), y: parseFloat(bodystyle.height)};
+
         var containerstyle = window.getComputedStyle(self.container);
         var menustyle = window.getComputedStyle(self.menu);
         //var headerstyle = window.getComputedStyle(self.header);
@@ -934,8 +987,9 @@ var view = function(world){
 
     this.setDefaults = function(){
 
+        this.boostFactor.value = world.constants.boostFactor;
         this.timeStep.value = world.constants.timeStep;
-        this.temperature.value = world.temperature;
+        this.temperature.value = world.temperature0;
         this.temperature.onchange();
         if(world.exec_thermostat) this.activeThermostat.innerHTML = "<i class='material-icons'>check</i>";
         if(world.drawGrids) this.activeGrids.innerHTML = "<i class='material-icons'>check</i>";
@@ -952,10 +1006,34 @@ var view = function(world){
         }
         this.colorMode.value = world.colorMode;
         this.drawingMode.value = world.drawingMode;
-        this.drawingMode.onchange();
+        if(self.drawingMode.value == "bonds"){
+            world.drawBonds = true;
+            world.drawAtoms = false;
+            self.bondRadius.value = 0.2;
+            self.bondRadius.onchange();
+        }else if(self.drawingMode.value == "vdw"){
+            world.drawBonds = false;
+            world.drawAtoms = true;
+            world.atoms.minradius = 0.4;
+            world.atoms.radiusScale = 1.0;
+        }else if(self.drawingMode.value == "bas"){
+            world.drawBonds = true;
+            world.drawAtoms = true;
+            world.atoms.radiusScale = 0.2;
+            world.atoms.minradius = 0.25;
+            self.bondRadius.value = 0.125;
+            self.bondRadius.onchange();
+        }else if(self.drawingMode.value == "licorice"){
+            world.drawBonds = true;
+            world.drawAtoms = true;
+            world.atoms.radiusScale = 0.0;
+            world.atoms.minradius = 0.2;
+            self.bondRadius.value = 0.2;
+            self.bondRadius.onchange();
+        }
         this.bondResolution.value = world.bonds.precision;
         this.atomResolution.value = world.atoms.sphereLongitude;
-        this.size.value = world.size.x + " " +  world.size.y + " "+ world.size.z;
+        this.size.value = world.size.x.toFixed(2) + " " +  world.size.y.toFixed(2) + " "+ world.size.z.toFixed(2);
 
         this.bondRadius.value = world.bonds.radius;
         this.backgroundColor.value = parseInt(255*world.scene.backgroundColor[0]) + ", " + parseInt(255*world.scene.backgroundColor[1]) + ", " +
@@ -981,6 +1059,9 @@ var view = function(world){
        this.specularColor.value = parseInt(255*world.atoms.specularColor[0]);
        this.radiusScale.value = world.atoms.radiusScale;
        self.duration.value = world.maxSteps*world.constants.timeStep/1000;
+
+       self.bondResolution.onchange();
+       self.atomResolution.onchange();
 
        this.loading.style.display = "none";
     }

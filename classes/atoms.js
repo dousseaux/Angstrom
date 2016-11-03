@@ -104,7 +104,9 @@ var atoms = function(world, shader){
         var color = [];
         if(world.colorMode === "atoms"){
             for(var i=0; i<ids.length; i++){
-                color = world.elements.atom_colors[world.data.atoms_types[ids[i]][0]];
+                if(world.elements.atom_colors[world.data.atoms_types[ids[i]][0] + world.data.atoms_types[ids[i]][1]])
+                    color = world.elements.atom_colors[world.data.atoms_types[ids[i]][0] + world.data.atoms_types[ids[i]][1]];
+                else color = world.elements.atom_colors[world.data.atoms_types[ids[i]][0]];
                 this.colors[4*ids[i]] = color[0];
                 this.colors[4*ids[i] + 1] = color[1];
                 this.colors[4*ids[i] + 2] = color[2];

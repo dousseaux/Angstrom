@@ -20,6 +20,11 @@ uniform float dt;
 uniform float natoms;
 uniform float ntypes;
 
+bool isnan(float val)
+{
+  return ( val < 0.0 || 0.0 < val || val == 0.0 ) ? false : true;
+}
+
 void main(void) {
 
     vec4 atomBonds = texture2D(atomBondsTex, texPos);
@@ -85,6 +90,7 @@ void main(void) {
 
     // KINECT ENERGY;
     energy.z = 0.5*mass*pow(length((pos1 - pos0)/dt),2.0);
+    if(isnan(energy.z)) energy.z = 0.0;
 
     gl_FragColor = vec4(energy, 1.0);
 }

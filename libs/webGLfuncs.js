@@ -66,7 +66,7 @@ function createShaderProgram(gl, vertexShaderSource, fragmentShaderSource){
         gl.compileShader(shader);
 
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            alert(gl.getShaderInfoLog(shader));
+            //alert(gl.getShaderInfoLog(shader));
             return null;
         }
 
@@ -83,7 +83,7 @@ function createShaderProgram(gl, vertexShaderSource, fragmentShaderSource){
     gl.linkProgram(shaderProgram);
 
     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-        alert("Could not initialise shaders");
+        //alert("Could not initialise shaders");
     }
 
     return shaderProgram;
