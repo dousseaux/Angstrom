@@ -1,24 +1,24 @@
 <head>
     <title>Angstrom</title>
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='style/header.css' rel='stylesheet' type="text/css">
-    <link href='style/visualize.css' rel='stylesheet' type="text/css">
+    <link href= 'style/fonts/Poiret_One.css' rel="stylesheet" />
+    <link href= 'style/fonts/Noto_Sans.css' rel="stylesheet" />
+    <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href= 'style/visualize.css' rel='stylesheet' type="text/css" />
+    <link href= 'style/header.css' rel='stylesheet' type="text/css" />
 </head>
 
 <body>
 
     <div id="header">
       <div id="background"></div>
-      <a href="index.php"><img id="logo" src="images/logo.png"></a>
+      <a href="index.html"><img id="logo" src="images/logo.png"></a>
       <div id="menu">
           <b> <a href="">ABOUT</a> | <a href="">TUTORIALS</a> | <a href="">DOCUMENTATION</a> | <a href="">GITHUB</a> </b>
       </div>
     </div>
 
     <div id="container">
-        <h3>UPLOAD FROM PDB.org</h3>
+        <h3>UPLOAD FROM RCSB PROTEIN DATA BANK</h3>
         <div id="submission">
             <form id="form1" action="application.php" method="post">
 
@@ -28,7 +28,7 @@
                 <input id="prmfile0" type="hidden" name="prm0">
                 <input id="prmfile1" type="hidden" name="prm1">
                 <input id="prmfile2" type="hidden" name="prm2">
-                <input id="information" type="hidden" name="information" value="information_default.html">
+                <input id="information" type="hidden" name="information" value="files/information/default.html">
 
                 <input id="timeStep" type="hidden" name="timeStep" value="1">
                 <input id="maxSteps" type="hidden" name="maxSteps" value="1000000">
@@ -56,72 +56,149 @@
                 <input id="enableAdd" type="hidden" name="enableAdd" value="false">
                 <input id="visualize" type="hidden" name="visualize" value="true">
 
-                <br><br>URL/ID:<input id="pdburl" type="text" name="url">
+                <br><br>URL/PDB ID:<input id="pdburl" type="text" name="url">
                 <button id="upload">LOAD</button>
                 <br><i id="loadingIcon"class="material-icons">alarm</i>
             </form>
         </div>
 
         <h3>PRESETS</h3>
-        <!-- ######################## EXAMPLE HERE  #########################
+        <!-- See simulate.php for example -->
 
-             In order to create a box link like this just copy the following
-             div and edit where especified. Then go to the javascript code in the
-             bottom of the file. There you will create a new onclick function for
-             the created div ID and set the simulation configurations there.
-             Follow the comments there.                                     -->
+        <div class="item">
+            <img id="benzene" class="itemImg" src="images/benzene.png">
+            <h2>Benzene</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    Component of gasoline. C6H6.
+                </p>
+            </div>
+            <p class="itemRecommendation">12 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Benzene">WIKIPEDIA</a>
+        </div>
 
-        <div class="item" id="graphene">
+        <div class="item">
+            <img id="cholesterol" class="itemImg" src="images/cholesterol.png">
+            <h2>Cholesterol</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    A major component of cell membranes. C27H46O.
+                </p>
+            </div>
+            <p class="itemRecommendation">74 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Cholesterol">WIKIPEDIA</a>
+        </div>
+
+        <div class="item">
+            <img id="glucose" class="itemImg" src="images/glucose.png">
+            <h2>Glucose</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    Common sugar in blood. High fructose in corn syrup. C6H12O6.
+                </p>
+            </div>
+            <p class="itemRecommendation">24 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Glucose">WIKIPEDIA</a>
+        </div>
+
+        <div class="item">
+            <img id="glutamate" class="itemImg" src="images/glutamate.png">
+            <h2>Glutamate</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    An amino acid, one of the twenty amino acids used to construct proteins. In the nervous system it plays a special additional role as a neurotransmitter.
+                </p>
+            </div>
+            <p class="itemRecommendation">18 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Glutamate_(neurotransmitter)">WIKIPEDIA</a>
+        </div>
+
+        <div class="item">
+            <img id="triolein" class="itemImg" src="images/triolein.png">
+            <h2>Triolein</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    A major component of olive oil. Triglyeride of oleic acid.
+                </p>
+            </div>
+            <p class="itemRecommendation">167 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Triolein">WIKIPEDIA</a>
+        </div>
+
+        <div class="item" id="graphene" style="display: none;">
             <img class="itemImg" src="images/graphene.png">
             <h2>Graphene</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    Temp
+                    A thin layer of pure carbon. Looks like hexagonal honeycomb. This one is surrounded by water and has a small protein above it.
                 </p>
             </div>
             <p class="itemRecommendation">Small</p>
-            <a class="itemLink" href="">PDB.org</a>
+            <a class="itemLink" target="_blank" href="">PDB.org</a>
         </div>
 
-
-        <div class="item" id="two_lipids">
-            <img class="itemImg" src="images/two_lipids.png">
-            <h2>Two Lipids</h2>
+        <div class="item">
+            <img id="2y9j" class="itemImg" src="images/2y9j.png">
+            <h2>2Y9J</h2>
             <div class="information">
                 <br>
-                <p class="itemDescription">Lipids</p>
+                <p class="itemDescription">
+                    Three-dimensional model of Salmonella's needle complex at subnanometer resolution.
+                </p>
             </div>
-            <p class="itemRecommendation">Small</p>
-            <a class="itemLink" href="">PDB.org</a>
+            <p class="itemRecommendation">142 848 ATOMS</p>
+            <a class="itemLink" target="_blank" href="http://www.rcsb.org/pdb/explore/explore.do?structureId=2y9j">RCSB.org</a>
         </div>
 
-        <div class="item" id="2y9j">
-            <img class="itemImg" src="images/2y9j.png">
-            <h2>Two Lipids</h2>
+
+        <div class="item">
+            <img id="5ire" class="itemImg" src="images/5ire.png">
+            <h2>5IRE</h2>
             <div class="information">
                 <br>
-                <p class="itemDescription">Lipids</p>
+                <p class="itemDescription">
+                    The cryo-EM structure of Zika Virus capsule.
+                </p>
             </div>
-            <p class="itemRecommendation">Small</p>
-            <a class="itemLink" href="">PDB.org</a>
+            <p class="itemRecommendation">26 385 ATOMS</p>
+            <a class="itemLink" target="_blank" href="http://www.rcsb.org/pdb/explore/explore.do?structureId=5IRE">RCSB.org</a>
         </div>
 
+
+        <div class="item">
+            <img id="5jb1" class="itemImg" src="images/5jb1.png">
+            <h2>5JB1</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    Pseudo-atomic structure of Human Papillomavirus Type 59 L1 Virus-like particle.
+                </p>
+            </div>
+            <p class="itemRecommendation">42 851 ATOMS</p>
+            <a class="itemLink" target="_blank" href="http://www.rcsb.org/pdb/explore/explore.do?structureId=5jb1">RCSB.org</a>
+        </div>
+
+
+        <div class="item">
+            <img  id="ubq" class="itemImg" src="images/ubq.png">
+            <h2>Ubiquitin</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    A small regulatory protein that has been found in almost all tissues of eukaryotic organisms.
+                </p>
+            </div>
+            <p class="itemRecommendation">1 231 ATOMS</p>
+            <a class="itemLink" target="_blank" href="https://en.wikipedia.org/wiki/Ubiquitin">WIKIPEDIA</a>
+        </div>
 
     <script>
-
-        var colorClock = function(){
-            document.getElementById("loadingIcon").style.color = "rgba(" + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + ", 1)";
-        }
-
-        window.onfocus = function(){
-            document.getElementById("loadingIcon").style.display = "none";
-        }
-
-        /* ######################### IMPORTANT #############################
-           EDIT THE .VALUE PROPERTY OF THE FOLLOWING VARIABLES AND SUBMIT THE
-           FORM TO MAKE THE SET CONFIGURATIONS. ALL THE VALUE MUST BE INSIDE OF
-           A STRING. TO CHANGE THE DEFAULT VALUES GO TO THE TOP OF THE FILE  */
         var pdb = document.getElementById("pdbfile");           // Required
         var psf = document.getElementById("psffile");           // Required
         var prm0 = document.getElementById("prmfile0");         // Required
@@ -129,32 +206,6 @@
         var prm2 = document.getElementById("prmfile2");         // Optional
 
         var form = document.getElementById("form1");
-        // Number in ns. Default = 1
-        var timeStep = document.getElementById("timeStep");
-
-        // Integer. Default = 1000000
-        var maxSteps = document.getElementById("maxSteps");
-
-        // Number. Default = 0
-        var temperature = document.getElementById("temperature");
-
-        // Boolean (1 or 0). Default = 0 > off
-        var thermostat = document.getElementById("thermostat");
-
-        // Integer (do each n steps). Default = 10
-        var energyFrequency = document.getElementById("energyFrequency");
-
-        // Integer (do each n steps). Default = 2
-        var thermostatFrequency = document.getElementById("thermostatFrequency");
-
-        // Integer (do each n steps). Default = 15
-        var renderFrequency = document.getElementById("renderFrequency");
-
-        /* Values:
-         *  -select: select atoms to see information.
-         *  -move: grab molecules and move.
-         * Default = select */
-        var mouseMode = document.getElementById("mouseMode");
 
         /* Values:
          *  - bas: Ball and sticks. Particles are sized to a scale of the vdw radius and bonds are displayed.
@@ -182,15 +233,21 @@
          *   - auto
          *   - xyz vector of type: number, number, number
          *   - xyz vector of type: number number number
-         * Desfault: auto */
+         * Default: auto */
         var worldSize = document.getElementById("worldSize");
 
-        // Boolean (1 or 0). Default = 1 >> on
-        var exclude13 = document.getElementById("exclude13");
+        var colorClock = function(){
+            document.getElementById("loadingIcon").style.color = "rgba(" + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + ", 1)";
+        }
 
-        // Number. Default = 1
-        var epsolonR = document.getElementById("epsolonR");
-
+        window.onpageshow = function(){
+            document.getElementById("loadingIcon").style.display = "none";
+            drawingMode.value = "bas";
+            colorMode.value = "atoms";
+            atomResolution.value = "10";
+            bondResolution.value = "10";
+            worldSize.value = "auto"
+        }
         form1.onsubmit = function(){
             colorClock();
             window.setInterval(colorClock, 250);
@@ -199,11 +256,116 @@
             document.getElementById("createpsf").value = "true";
         }
 
+        document.getElementById("benzene").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/benzene.pdb";
+            psf.value = "files/psfs/visualize_defaults/benzene.psf";
+            prm0.value = "files/parameters/par_all36_cgenff.prm";
+            drawingMode.value = "bas";
+            colorMode.value = "atoms";
+            atomResolution.value = "25";
+            bondResolution.value = "25";
+            form.submit();
+        }
+
+        document.getElementById("cholesterol").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/cholesterol.pdb";
+            psf.value = "files/psfs/visualize_defaults/cholesterol.psf";
+            prm0.value = "files/parameters/par_all36_lipid.prm";
+            drawingMode.value = "bas";
+            colorMode.value = "atoms";
+            atomResolution.value = "25";
+            bondResolution.value = "25";
+            form.submit();
+        }
+
+        document.getElementById("glucose").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/glucose.pdb";
+            psf.value = "files/psfs/visualize_defaults/glucose.psf";
+            prm0.value = "files/parameters/par_all36_carb.prm";
+            drawingMode.value = "licorice";
+            colorMode.value = "atoms";
+            atomResolution.value = "25";
+            bondResolution.value = "25";
+            form.submit();
+        }
+
+        document.getElementById("glutamate").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/glutamate.pdb";
+            psf.value = "files/psfs/visualize_defaults/glutamate.psf";
+            prm0.value = "files/parameters/par_all36_prot.prm";
+            drawingMode.value = "bas";
+            colorMode.value = "atoms";
+            atomResolution.value = "25";
+            bondResolution.value = "25";
+            form.submit();
+        }
+
+        document.getElementById("triolein").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/triolein.pdb";
+            psf.value = "files/psfs/visualize_defaults/triolein.psf";
+            prm0.value = "files/parameters/par_all36_cgenff.prm";
+            drawingMode.value = "licorice";
+            colorMode.value = "atoms";
+            atomResolution.value = "25";
+            bondResolution.value = "25";
+            form.submit();
+        }
+
+        document.getElementById("graphene").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/graphene.pdb";
+            psf.value = "files/psfs/visualize_defaults/graphene.psf";
+            prm0.value = "files/parameters/par_all36_cgenff.prm";
+            prm1.value = "files/parameters/par_all36_prot.prm";
+            prm2.value = "files/parameters/toppar_water_ions_cgenff.str";
+            form.submit();
+        }
+
         document.getElementById("2y9j").onclick = function(){
             pdb.value = "files/pdbs/visualize_defaults/2y9j.pdb";
             psf.value = "files/psfs/visualize_defaults/2y9j.psf";
             prm0.value = "files/parameters/par_all27_prot_lipid.prm";
+            drawingMode.value = "bonds";
+            colorMode.value = "single";
+            atomResolution.value = "5";
+            bondResolution.value = "7";
             form.submit();
+        }
+
+        document.getElementById("5ire").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/5ire.pdb";
+            psf.value = "files/psfs/visualize_defaults/5ire.psf";
+            prm0.value = "files/parameters/par_all27_prot_lipid.prm";
+            drawingMode.value = "vdw";
+            colorMode.value = "residuals";
+            atomResolution.value = "8";
+            bondResolution.value = "5";
+            form.submit();
+        }
+
+        document.getElementById("5jb1").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/5jb1.pdb";
+            psf.value = "files/psfs/visualize_defaults/5jb1.psf";
+            prm0.value = "files/parameters/par_all27_prot_lipid.prm";
+            drawingMode.value = "vdw";
+            colorMode.value = "residuals";
+            atomResolution.value = "8";
+            bondResolution.value = "5";
+            form.submit();
+        }
+
+        document.getElementById("ubq").onclick = function(){
+            pdb.value = "files/pdbs/visualize_defaults/ubq.pdb";
+            psf.value = "files/psfs/visualize_defaults/ubq.psf";
+            prm0.value = "files/parameters/par_all36_cgenff.prm";
+            drawingMode.value = "bas";
+            colorMode.value = "residuals";
+            atomResolution.value = "20";
+            bondResolution.value = "20";
+            form.submit();
+        }
+
+        window.onload = function(){
+            document.body.style.visibility = 'visible';
         }
 
     </script>

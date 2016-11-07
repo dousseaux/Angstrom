@@ -25,20 +25,18 @@
 
 <head>
     <title>Angstrom</title>
-    <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='style/application.css' rel='stylesheet' type="text/css">
+    <link href= 'style/fonts/Oswald.css' rel="stylesheet" />
+    <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href= 'style/application.css' rel='stylesheet' type="text/css">
 </head>
 
 <!-- USER INTERFACE STRUCTURE -->
 <body>
+    <div id="loading">
+        <i id="loadingIcon" class="material-icons">alarm</i><a id="loadingMessage">LOADING...</a>
+    </div>
     <div id="container">
-        <a href="start.php"><img id="logo" src="images/logo2.png"></a>
-
-        <div id="loading">
-          <p id="loadingMessage"><i id="loadingIcon"class="material-icons">alarm</i>LOADING...</p>
-        </div>
-
+        <a href="index.html"><img id="logo" src="images/logo2.png"></a>
         <div id="status">
             <span id="time"></span>
             <span id="particles"></span>
@@ -144,7 +142,7 @@
                   <br><br>Sample Frequency (steps): <input id="sampleFrequency" type="number" name="sampleFrequency"><br>
                   <br>Output name: <input id="outputName" type="text" name="outputName" value="data_out.dat"><br>
             </div>
-
+            <br><br><br><br><br><br>
           </div>
         </div>
         <div id="analysisMenu">
@@ -223,6 +221,8 @@
 
             <input type="file" id="uploader" style="display:none">
             <a id="downloader"></a>
+
+            <br><br><br><br><br><br>
           </div>
         </div>
         <div id="addMenu">
@@ -364,8 +364,6 @@
 <!------------- LOAD DEFAULT FILES ------------->
 <?php
     if($_POST["enableAdd"] == "true"){
-
-
         if($_POST["martine"] != "true"){
             # DEFAULT PARAMETERS
             echo "<script id='defaultPRM0' type='text/prm'>\n";

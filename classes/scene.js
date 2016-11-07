@@ -1,4 +1,4 @@
-var scene = function(gl, canvas){
+var scene = function(gl, canvas) {
 
     this.gl = gl;
     this.canvas = canvas;
@@ -37,30 +37,42 @@ scene.prototype = {
 
     // ORTHOGRAPHIC VIEW PARAMETERS
     bottom: -8,
-    top   :  8,
-    left  : -8,
-    right :  8,
+    top: 8,
+    left: -8,
+    right: 8,
 
     // VIEW PARAMETERS
-    camera    : {x:0, y: 0, z:10},
-    look      : {x:0, y:0, z:0},
-    up        : {x:0, y:1, z:0},
+    camera: {
+        x: 0,
+        y: 0,
+        z: 10
+    },
+    look: {
+        x: 0,
+        y: 0,
+        z: 0
+    },
+    up: {
+        x: 0,
+        y: 1,
+        z: 0
+    },
 
     // LIGHT PARAMETERS
-    light    : [4, -3, -5],
+    light: [4, -3, -5],
     lightmode: 0,
 
     backgroundColor: [0.07, 0.07, 0.15, 1.0],
 
-    updateCamera: function(){
+    updateCamera: function() {
         viewMatrix(this)
     },
 
-    updateProjection: function(){
+    updateProjection: function() {
         projectionMatrix(this)
     },
 
-    draw: function(){
+    draw: function() {
         initViewport(this.gl, this.canvas);
         this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);

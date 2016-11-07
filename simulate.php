@@ -1,17 +1,17 @@
 <head>
     <title>Angstrom</title>
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='style/header.css' rel='stylesheet' type="text/css">
-    <link href='style/simulate.css' rel='stylesheet' type="text/css">
+    <link href= 'style/fonts/Poiret_One.css' rel="stylesheet" />
+    <link href= 'style/fonts/Noto_Sans.css' rel="stylesheet" />
+    <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href= 'style/header.css' rel='stylesheet' type="text/css" />
+    <link href= 'style/simulate.css' rel='stylesheet' type="text/css" />
 </head>
 
 <body>
 
     <div id="header">
       <div id="background"></div>
-      <a href="index.php"><img id="logo" src="images/logo.png"></a>
+      <a href="index.html"><img id="logo" src="images/logo.png"></a>
       <div id="menu">
           <b> <a href="">ABOUT</a> | <a href="">TUTORIALS</a> | <a href="">DOCUMENTATION</a> | <a href="">GITHUB</a> </b>
       </div>
@@ -26,7 +26,7 @@
             <input id="prmfile0" type="hidden" name="prm0">
             <input id="prmfile1" type="hidden" name="prm1">
             <input id="prmfile2" type="hidden" name="prm2">
-            <input id="information" type="hidden" name="information" value="information_default.html">
+            <input id="information" type="hidden" name="information" value="files/information/default.html">
 
             <input id="timeStep" type="hidden" name="timeStep" value="1">
             <input id="maxSteps" type="hidden" name="maxSteps" value="1000000">
@@ -46,16 +46,13 @@
             <input id="boostFactor" type="hidden" name="boostFactor" value="3">
             <input id="martine" type="hidden" name="martine" value="false">
             <input id="enableAdd" type="hidden" name="enableAdd" value="false">
+            <input id="visualize" type="hidden" name="visualize" value="false">
 
             <br>PDB.org URL/ID:<input id="pdburl" type="text" name="url">
         </form>
-        <button id="upload">LOAD</button>
-        <br> <i id="loadingIcon"class="material-icons">alarm</i>
     </div>
 
     <div id="container">
-
-
         <!-- ######################## EXAMPLE HERE  #########################
 
              In order to create a box link like this just copy the following
@@ -76,146 +73,121 @@
 
         <!-- ####################### END OF EXAMPLE ######################## -->
 
-        <div class="item" id="buildCharmm">
-            <img class="itemImg" src="images/buildCharmm.png">
+        <div class="item">
+            <img id="buildCharmm" class="itemImg" src="images/buildCharmm.png">
             <h2>Build your own!</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    Build your own simulation using preset molecules made
-                    with Charmm force fields.
+                    Build your own simulation using preset molecules made with Charmm force fields.
                 </p>
             </div>
             <p class="itemRecommendation"></p>
-            <a class="itemLink" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
+            <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
         </div>
 
-        <div class="item" id="buildMartine">
-            <img class="itemImg" src="images/buildMartine.png">
-            <h2>Build your own!</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    Build your own coarse grain simulation using preset
-                    molecules made with Martine force fields.
-                </p>
-            </div>
-            <p class="itemRecommendation"></p>
-            <a class="itemLink" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
-        </div>
-
-        <br>
-
-        <div class="item" id="two_lipids">
-            <img class="itemImg" src="images/two_lipids.png">
-            <h2>Two Lipids</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    See a pair of lipids interacting with each other inside of
-                    a small box!<br><br>
-                    Incial temperature: 300 K. <br>
-                    Thermostat off.
-                </p>
-            </div>
-            <p class="itemRecommendation">26 PARTICLES 2 MOLECULES</p>
-            <a class="itemLink" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
-        </div>
-
-        <div class="item" id="lipids_membrane">
-            <img class="itemImg" src="images/lipid_bilayer.png">
-            <h2>Lipids Membrane</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    See a membrane full of lipids surrounded by several water
-                    molecules. <br><br>
-                    Incial temperature: 300 K. <br>
-                    Thermostat off.
-                </p>
-            </div>
-            <p class="itemRecommendation">1522 PARTICLES 922 MOLECULES</p>
-            <a class="itemLink" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
-        </div>
-
-        <br>
-
-        <div class="item" id="water_box">
-            <img class="itemImg" src="images/water_box.png">
-            <h2>Water Box</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    Want to make some ice? What about some vapor? You can.
-                    Change the box size and temperature to make it happen.
-                    It may take some time.<br><br>
-                    Incial temperature: 50 K. Thermostat off.<br>
-                </p>
-            </div>
-            <p class="itemRecommendation">779 MOLECULES</p>
-            <a class="itemLink" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
-        </div>
-
-        <div class="item" id="water_and_atoms">
-            <img class="itemImg" src="images/water_atoms.png">
-            <h2>Water and Atoms</h2>
-            <div class="information">
-                <br>
-                <p class="itemDescription">
-                    A box full of water with chloride, sodium and methane mixed.<br><br>
-                    Incial temperature: 300 K.<br>Thermostat off.
-                </p>
-            </div>
-            <p class="itemRecommendation">304 MOLECULES</p>
-            <a class="itemLink" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
-        </div>
-
-        <br>
-
-        <div class="item" id="methane">
-            <img class="itemImg" src="images/methane.png">
+        <div class="item">
+            <img id="methane" class="itemImg" src="images/methane.png">
             <h2>Methane</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    How do we get so warm in the winter? Methane is the major
-                    component of natural gas used for heating homes<br><br>
-                    Incial temperature: 200 K. Thermostat off.
+                    How do we get so warm in the winter? Methane is the major component of natural gas used for heating homes<br><br> Incial temperature: 200 K. Thermostat off.
                 </p>
             </div>
             <p class="itemRecommendation">1 MOLECULES</p>
-            <a class="itemLink" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
+            <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
         </div>
 
-        <div class="item" id="water">
-            <img class="itemImg" src="images/water.png">
+        <div class="item">
+            <img id="water" class="itemImg" src="images/water.png">
             <h2>Water</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    Take a look on the most famous molecule of the earth. H 2 0.<br><br>
-                    Incial temperature: 200 K.<br>Thermostat off.
+                    Take a look on the most famous molecule of the earth. H 2 0.<br><br> Incial temperature: 200 K.<br>Thermostat off.
                 </p>
             </div>
             <p class="itemRecommendation">1 MOLECULES</p>
-            <a class="itemLink" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
+            <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
         </div>
 
-        <br>
+        <div class="item">
+            <img id="water_box" class="itemImg" src="images/water_box.png">
+            <h2>Water Box</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    Want to make some ice? What about some vapor? You can. Change the box size and temperature to make it happen. It may take some time.<br><br> Incial temperature: 50 K. Thermostat off.<br>
+                </p>
+            </div>
+            <p class="itemRecommendation">779 MOLECULES</p>
+            <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
+        </div>
 
-        <div class="item" id="octane_water">
-            <img class="itemImg" src="images/water_octane.png">
+        <div class="item">
+            <img id="water_and_atoms" class="itemImg" src="images/water_atoms.png">
+            <h2>Water and Atoms</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    A box full of water with chloride, sodium and methane mixed.<br><br> Incial temperature: 300 K.<br>Thermostat off.
+                </p>
+            </div>
+            <p class="itemRecommendation">304 MOLECULES</p>
+            <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
+        </div>
+
+        <div class="item">
+            <img id="buildMartine" class="itemImg" src="images/buildMartine.png">
+            <h2>Build your own! (Coarse Grain)</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    Build your own coarse grain simulation using preset molecules made with Martine force fields.
+                </p>
+            </div>
+            <p class="itemRecommendation"></p>
+            <a class="itemLink" target="_blank" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
+        </div>
+
+        <div class="item">
+            <img  id="octane_water" class="itemImg" src="images/water_octane.png">
             <h2>Octane-Water System</h2>
             <div class="information">
                 <br>
                 <p class="itemDescription">
-                    Why water and gasoline do not mix? See octane, a component of
-                    gasoline, not mixing with water<br><br>
-                    Incial temperature: 300 K.<br>Thermostat off.
+                    Why water and gasoline do not mix? See octane, a component of gasoline, not mixing with water<br><br> Incial temperature: 300 K.<br>Thermostat off.
                 </p>
             </div>
             <p class="itemRecommendation">100 PARTICLES 75 MOLECULES</p>
-            <a class="itemLink" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
+            <a class="itemLink" target="_blank" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
+        </div>
+
+        <div class="item">
+            <img id="two_lipids" class="itemImg" src="images/two_lipids.png">
+            <h2>Two Lipids</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    See a pair of lipids interacting with each other inside of a small box!<br><br> Incial temperature: 300 K. <br> Thermostat off.
+                </p>
+            </div>
+            <p class="itemRecommendation">26 PARTICLES 2 MOLECULES</p>
+            <a class="itemLink" target="_blank" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
+        </div>
+
+        <div class="item">
+            <img  id="lipids_membrane" class="itemImg" src="images/lipid_bilayer.png">
+            <h2>Lipids Membrane</h2>
+            <div class="information">
+                <br>
+                <p class="itemDescription">
+                    See a membrane full of lipids surrounded by several water molecules. <br><br> Incial temperature: 300 K. <br> Thermostat off.
+                </p>
+            </div>
+            <p class="itemRecommendation">1522 PARTICLES 922 MOLECULES</p>
+            <a class="itemLink" target="_blank" href="http://www.ks.uiuc.edu/Research/CG/">COARSE GRAIN</a>
         </div>
 
     <script>
@@ -351,12 +323,7 @@
         }
         */
 
-        var colorClock = function(){
-            document.getElementById("loadingIcon").style.color = "rgba(" + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + "," + parseInt(Math.random()*255) + ", 1)";
-        }
-
         window.onpageshow = function(){
-            document.getElementById("loadingIcon").style.display = "none";
             timeStep.value = "1";
             maxSteps.value = "1000000";
             temperature.value = "0";
@@ -483,6 +450,10 @@
             martine.value = "true";
             boostFactor.value = "5";
             form.submit();
+        }
+
+        window.onload = function(){
+            document.body.style.visibility = 'visible';
         }
     </script>
 

@@ -1,0 +1,77 @@
+<head>
+    <title>Angstrom</title>
+    <link href= '../style/fonts/Poiret_One.css' rel="stylesheet"/>
+    <link href= '../style/fonts/Raleway.css' rel="stylesheet"/>
+    <link href= '../style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href='../style/index_desktop.css' rel='stylesheet' type="text/css">
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="presenting">
+
+            <a href="index.php"><img id="logo" src="../images/logo3.png"></a>
+
+            <br>
+
+            <a href="../simulate.html">
+                <div id="simulate" class="gotoButton">
+                    <i class="material-icons">play_circle_outline</i>
+                    <h3>Start a simulation!</h3>
+                </div>
+            </a>
+
+            <br>
+
+            <a href="../visualize.html">
+                <div id="visualize" class="gotoButton">
+                    <i class="material-icons">zoom_in</i>
+                    <h3>Vizualize a molecule!</h3>
+                </div>
+            </a>
+
+            <br>
+
+            <!--
+            <a href="administration.txt">
+                <div id="download" class="gotoButton">
+                    <i class="material-icons">file_download</i>
+                    <h3>Download</h3>
+                </div>
+            </a>-->
+
+        </div>
+
+        <div id="menu">
+            <b><a href="">DOCUMENTATION</a> | <a href="">ABOUT</a></b>
+        </div>
+
+    </div>
+
+    <script>
+
+        window.onload = function() {
+
+            var container = document.getElementById("container");
+            var presenting = document.getElementById("presenting");
+            var containerstyle = window.getComputedStyle(container);
+            var presentingStyle = window.getComputedStyle(document.getElementById("logo"));
+            presenting.style.marginTop = (parseInt(containerstyle.height) - parseInt(presentingStyle.height) - parseInt(presentingStyle.paddingBottom)) / 2;
+
+            var loadContent = function() {
+                document.getElementById("logo").style.width = 300;
+            }
+
+            setTimeout(loadContent, 200);
+        }
+
+        window.onresize = function(){
+            containerstyle = window.getComputedStyle(container);
+            presentingStyle = window.getComputedStyle(presenting);
+            presenting.style.marginTop = (parseInt(containerstyle.height) - parseInt(presentingStyle.height) - parseInt(presentingStyle.paddingBottom)) / 2;
+        }
+
+    </script>
+
+</body>

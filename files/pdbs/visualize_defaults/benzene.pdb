@@ -1,0 +1,14 @@
+REMARK original generated coordinate pdb file
+ATOM      1  CG  BENZS   1      -1.375   0.000  -0.002  1.00  0.00      ADSB  
+ATOM      2  HG  BENZS   1      -2.455   0.000  -0.001  1.00  0.00      ADSB  
+ATOM      3  CD1 BENZS   1      -0.688   1.191   0.002  1.00  0.00      ADSB  
+ATOM      4  HD1 BENZS   1      -1.227   2.126  -0.001  1.00  0.00      ADSB  
+ATOM      5  CD2 BENZS   1      -0.688  -1.191  -0.001  1.00  0.00      ADSB  
+ATOM      6  HD2 BENZS   1      -1.227  -2.126   0.004  1.00  0.00      ADSB  
+ATOM      7  CE1 BENZS   1       0.688   1.191  -0.004  1.00  0.00      ADSB  
+ATOM      8  HE1 BENZS   1       1.227   2.126   0.005  1.00  0.00      ADSB  
+ATOM      9  CE2 BENZS   1       0.688  -1.191  -0.002  1.00  0.00      ADSB  
+ATOM     10  HE2 BENZS   1       1.227  -2.126  -0.003  1.00  0.00      ADSB  
+ATOM     11  CZ  BENZS   1       1.375   0.000  -0.001  1.00  0.00      ADSB  
+ATOM     12  HZ  BENZS   1       2.455   0.000  -0.004  1.00  0.00      ADSB  
+END

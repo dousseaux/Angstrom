@@ -1,594 +1,669 @@
-<style>
+@keyframes loadingAnimation {
+    0%   {color: #00a0dc;}
+    25%  {color: #509916;}
+    50%  {color: #f83e7f;}
+    75%  {color: #fefa37;}
+    100% {color: #42157c;}
+}
 
-    h1{ font: 25px 'Oswald', sans-serif }
+h1 {
+    font: 25px 'Oswald', sans-serif
+}
 
-    h3{ display: inline-block; font: 15px 'Oswald', sans-serif; margin-left: 5px}
+h3 {
+    display: inline-block;
+    font: 15px 'Oswald', sans-serif;
+    margin-left: 5px
+}
 
+body {
+    font: 12px 'Oswald', sans-serif;
+    color: white;
+    background-color: #eee;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+canvas {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    background-color: transparent;
+}
+
+#container {
+    margin: 10px 10px;
+    padding: 0px;
+    border: 4px solid #42157c;
+    border-right: none;
+    visibility: hidden;
+}
+
+#container:-webkit-full-screen, #container:-moz-full-screen, {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#time {
+    margin-left: 5px
+}
+
+
+/* ############# HEADER ################ */
+
+#header {
+    margin: 10px 20px;
+    padding: 0px;
+    height: 70px;
+}
+
+#header div h1 {
+    color: #42157c;
+    vertical-align: middle;
+    background: rgba(238, 238, 238, 0.95);
+    border: 2px solid #42157c;
+    border-left: none;
+    border-right: none;
+    position: absolute;
+    ;
+    margin-left: 0px;
+    margin-top: 15px;
+    display: inline-block;
+    padding: 0;
+    width: inherit;
+}
+
+#title {
+    margin-left: 80px
+}
+
+#header div {
+    border: 2px solid #42157c;
+    width: inherit;
+    height: 50px;
+    background: url("../images/background.png");
+    background-size: auto 70px;
+}
+
+#logo {
+    position: absolute;
+    height: 65px;
+    margin: 12px 10px;
+}
+
+#loading {
+    width: 400px;
+    height: inherit;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 70px;
+    color: #000;
+    animation-name: loadingAnimation;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+#loading a{
+    text-decoration: none;
+}
+
+#loadingIcon {
+    font-size: 100;
+    color: inherit;
+    position: absolute;
+    margin-top: 2;
+}
+
+#loadingMessage{
+    margin-left: 110px;
+}
+
+/* ############## MENU BAR STYLE ############### */
+
+#menu {
+    /* DO NOT CHANGE */
+    display: inline-block;
+    position: absolute;
+    width: 40;
+    padding: 0;
+    margin: 0;
+    /* CHANGE */
+    border-right: 4px solid #42157c;
+    border-left: 4px solid #42157c;
+    background-color: white;
+}
+
+#side {
+    display: inline-block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    margin-left: 41;
+    width: 2;
+}
+
+#homeMenu {
+    display: none;
+}
+
+
+/* ############## ICONS STYLE ############### */
+
+.material-icons {
+    color: #42157c;
+    cursor: default;
+}
+
+#pause {
+    margin-top: 10px;
+}
+
+#pause, #restart, #recenter, #home, #worldIcon, #analysis, #settings, #add, #snapshot, #goFull {
+    font-size: 40px;
+}
+
+#goFull {
+    font-size: 50px;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+#mouseMode {
+    font-size: 35px;
+    margin: 2.5 0;
+}
+
+#info {
+    font-size: 35px;
+    margin: 0.0 2.5;
+}
+
+#pinHomeMenu, #pinWorldMenu, #pinAnalysisMenu, #pinSettingsMenu, #pinAddMenu {
+    color: #ff5500;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+#status {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20;
+    margin-left: 5;
+}
+
+
+/* ############## HOME MENU ############### */
+
+#homeMenu {
+    display: none;
+    position: absolute;
+    width: 300;
+    padding: 0;
+    background-color: rgba(30, 30, 30, 0.97);
+    z-index: 2;
+}
+
+#homeMenu div {
+    overflow-y: auto;
+    margin: 10px;
+    height: inherit;
+    line-height: 7px;
+    color: white;
+}
+
+#temperatureSlider {
+    width: 250px;
+}
+
+#rescaleSize {
+    width: 250px;
+}
+
+
+/* ############## WORLD MENU ############### */
+
+#worldMenu {
+    display: none;
+    position: absolute;
+    width: 300;
+    padding: 0;
+    background-color: rgba(30, 30, 30, 0.97);
+    z-index: 2;
+}
+
+#worldMenu div {
+    margin: 10px;
+    margin-top: 20px;
+    overflow-y: auto;
+    height: inherit;
+    line-height: 7px;
+}
+
+#worldMenu h2 {
+    margin-left: 1px;
+    text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
+}
+
+#selectionPar2 {
+    display: none;
+    width: 50px;
+    margin: 5px;
+}
+
+#selectionPar1 {
+    width: 100px;
+    margin: 5px;
+}
+
+#radiusScale, #atomResolution, #bondResolution, #temperature, #timeStep, #duration, #energyFrequency, #thermostatFrequency, #renderFrequency, #sampleFrequency, #bondRadius {
+    width: 50px;
+    margin-right: 10px;
+    height: 22px;
+}
+
+#size {
+    width: 100px;
+    margin-right: 10px;
+    height: 22px;
+}
+
+#selectionView {
+    margin-top: -10px;
+    line-height: 20px;
+}
+
+#drawingMode {
+    width: 130px;
+}
+
+#worldMenu .checkButton {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+#worldMenu .hideOnAdd {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    display: inline-block;
+}
+
+
+/* ############## ANALYSIS MENU ############### */
+
+#analysisMenu {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 0;
+    background-color: rgba(30, 30, 30, 0.6);
+}
+
+#particlesInfo, #energyInfo, #structureInfo {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+#particlesInfo td, #energyInfo td, #structureInfo td {
+    min-width: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#energyInfo td, #structureInfo td {
+    font-size: 13px;
+    height: 25px;
+    border-right: 2px solid grey;
+    border-bottom: 1px solid grey;
+    text-align: left;
+}
+
+#energyInfo, #structureInfo {
+    position: absolute;
+    border-left: 2px solid grey;
+    border-top: 2px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+#energyInfo {
+    left: 10px;
+}
+
+#particlesInfo {
+    position: absolute;
+    margin-top: 5px;
+    height: 200px;
+    overflow-y: auto;
+    right: 20;
+    bottom: 20;
+    border: 2px solid grey;
+}
+
+#energyInfo, #structureInfo {
+    bottom: 28;
+}
+
+#energyInfo {
+    width: 160px;
+}
+
+#structureInfo {
+    left: 185px;
+}
+
+#particlesInfo th {
+    min-width: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 13px;
+    border-right: 2px solid grey;
+    border-bottom: 2px solid #42157c;
+}
+
+#particlesInfo td {
+    font-size: 12px;
+    border-right: 2px solid grey;
+    border-bottom: 1px solid grey;
+    text-align: center;
+}
+
+#energyInfo td {
+    width: 100px;
+}
+
+#particlesInfo td:last-of-type {
+    border-right: none
+}
+
+#particlesInfo th:last-of-type {
+    border-right: none
+}
+
+#clearSelection {
+    position: absolute;
+    right: 22;
+    bottom: 22;
+    padding: 0;
+    font-size: 20px;
+    color: #ff5500;
+    vertical-align: top;
+    margin-top: 7px;
+    margin-left: 2px;
+}
+
+
+/* ############## SETTINGS MENU ############### */
+
+#settingsMenu {
+    display: none;
+    position: absolute;
+    width: 300;
+    padding: 0;
+    z-index: 2;
+    background-color: rgba(30, 30, 30, 0.97);
+}
+
+#settingsMenu div {
+    margin: 10px;
+    margin-top: 20px;
+    overflow-y: auto;
+    height: inherit;
+    line-height: 7px;
+}
+
+#settingsMenu h2 {
+    margin-left: 1px;
+    text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
+}
+
+
+/* COLOR SECTION */
+
+#typeColor, #backgroundColor, #customColor, #residueColor {
+    width: 130px;
+}
+
+#typeSelection, #residueSelection {
+    width: 50px;
+}
+
+
+/* SCENE SECTION */
+
+#farClip, #nearClip {
+    width: 75px;
+    margin-right: 10px;
+}
+
+#perspectiveAngle {
+    width: 50px;
+}
+
+#lightPosition {
+    width: 110px;
+}
+
+#shininess, #ambientColor, #diffuseColor, #specularColor {
+    width: 50px;
+    margin-right: 5px;
+}
+
+/* ############## INFO MENU ############### */
+
+#infoMenu {
+    display: none;
+    position: absolute;
+    width: 300;
+    padding: 0;
+    background-color: rgba(30, 30, 30, 0.97);
+    z-index: 2;
+}
+
+#infoMenu div {
+    overflow-y: auto;
+    margin: 10px;
+    height: inherit;
+    line-height: 18px;
+    color: white;
+}
+
+
+/* ############## ADD MENU ############### */
+
+#add {
+    display: none
+}
+
+#addMenu {
+    display: none;
+    position: absolute;
+    width: 300;
+    padding: 0;
+    background-color: rgba(30, 30, 30, 0.97);
+    z-index: 2;
+}
+
+#addMenu div {
+    margin: 10px;
+    margin-top: 30px;
+    line-height: 7px;
+    color: white;
+}
+
+#addMenu h2 {
+    margin-left: 1px;
+    text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
+}
+
+#particlesToAdd {
+    width: 100px;
+}
+
+#addMenu div .addParticle {
+    border: 2px solid #42157c;
+    display: inline-block;
+    padding: 0;
+    height: 90px;
+    width: 75px;
+    margin-top: 10px;
+    margin-right: 0;
+    margin-left: 5px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #42157c;
+    overflow: hidden;
+}
+
+#addMenu div .addParticle:hover {
+    border: 2px solid #ff5500;
+    background-color: #ff5500;
+}
+
+.addParticle span {
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.particleImg {
+    display: inline-block;
+    float: left;
+    height: 75px;
+    width: 75;
+    margin-right: 10px
+}
+
+
+/* ############## FORM ELEMENTS ############### */
+
+input {
+    vertical-align: middle;
+    text-align: right;
+    border: solid 2px #42157c;
+    height: 25px;
+    margin-left: 5px;
+    background-color: transparent;
+    color: white;
+}
+
+input[disabled] {
+    color: #333;
+    border: solid 2px #333;
+}
+
+input[disabled]:hover, input[disabled]:focus {
+    border: solid 2px #333;
+    box-shadow: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    max-width: 50px;
+}
+
+input:hover, input:focus {
+    border: solid 2px #42157c;
+    box-shadow: 0 0 5px 1px #969696;
+}
+
+input[type=checkbox] {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: none;
+}
+
+input[type=text] {
+    max-width: 150px;
+}
+
+.selectArrow {
+    vertical-align: middle;
+    margin-top: 3px;
+    margin-left: -30px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    z-index: 0;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    overflow: hidden;
+    width: 100px;
+    padding: 5px;
+    font-size: 12px;
+    line-height: 1;
+    border: 1px solid #42157c;
+    border-radius: 0;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 10px;
+    position: relative;
+    z-index: 1;
+    color: #999;
+}
+
+button {
+    margin-left: 10px;
+    margin-top: 10px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: #42157c;
+    color: white;
+    border: solid 2px #42157c;
+    cursor: default;
+    height: 25px;
+}
+
+input[type="range"] {
+    border: solid 2px #42157c;
+    box-shadow: 0 0 5px 1px #969696;
+}
+
+.checkButton {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    color: white;
+    border: solid 2px #42157c;
+}
+
+.checkButton i {
+    margin-left: -8.5px;
+    margin-top: -3px;
+    color: white;
+    font-size: 20px;
+}
+
+button:hover {
+    box-shadow: 0 0 5px 1px #969696
+}
+
+
+/* ############ RESPONSIVE ############ */
+
+@media screen and (max-height:414px) {
     body {
-      font: 12px 'Oswald', sans-serif;
-      color: white;
-      background-color: #eee;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
-
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+        overflow: auto
     }
-
-    canvas{
-        padding: 0;
-        margin: 0;
-        display: inline-block;
-        background-color: transparent;
-    }
-
-    div#container{
-        margin: 10px 20px;
-        padding: 0px;
-        border: 4px solid #42157c;
-        border-right: none;
-    }
-
-    div#container:-webkit-full-screen,
-    div#container:-moz-full-screen,
-    {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    #time{margin-left: 5px}
-
-    /* ############# HEADER ################ */
-    #header{
-        margin: 10px 20px;
-        padding: 0px;
-        height: 70px;
-    }
-
-    #header div h1{
-      color: #42157c;
-      vertical-align: middle;
-      background: rgba(238,238,238,0.95);
-      border: 2px solid #42157c;
-      border-left: none;
-      border-right: none;
-      position: absolute;;
-      margin-left: 0px;
-      margin-top: 15px;
-      display: inline-block;
-      padding: 0;
-      width: inherit;
-    }
-
-    #title{ margin-left: 80px }
-
-    #header div{
-        border: 2px solid #42157c;
-        width: inherit;
-        height: 50px;
-        background: url("../images/background.png");
-        background-size: auto 70px;
-    }
-
-    #logo{
-        position: absolute;
-        height: 65px;
-        margin: 12px 10px;
-    }
-
-    /* ############## MENU BAR STYLE ############### */
-
-    #menu{
-        /* DO NOT CHANGE */
-        display: inline-block;
-        position: absolute;
-        width: 40;
-        padding: 0;
-        margin: 0;
-
-        /* CHANGE */
-        border-right: 4px solid #42157c;
-        border-left: 4px solid #42157c;
-        background-color: white;
-    }
-
-    #side{
-        display: inline-block;
-        position: absolute;
-        margin: 0;
-        padding: 0;
-        margin-left: 41;
-        width: 2;
-    }
-
-    #loading{
-        text-align: center;
-        color: #000;
-        position: absolute;
-        margin: 0;
-        padding:0;
-        background-color: #FFF;
-        font-size: 40px;
-        display: inline-block;
-    }
-
-    #homeMenu{
-        display: none;
-    }
-
-    /* ############## ICONS STYLE ############### */
-    .material-icons{
-        color: #42157c;
-        cursor: default;
-    }
-
-    #pause{
-        margin-top: 10px;
-    }
-
-    #pause, #restart, #recenter, #home, #worldIcon,
-    #analysis, #settings, #add, #snapshot, #goFull{
-        font-size: 40px;
-    }
-
-    #goFull{
-        font-size: 50px;
-        margin-top: -5px;
-        margin-left: -5px;
-    }
-
-    #mouseMode{
-        font-size: 35px;
-        margin: 2.5 0;
-    }
-
-    #info{
-        font-size: 35px;
-        margin: 0.0 2.5;
-    }
-
-    #loadingIcon{
-        font-size: 50px;
-        vertical-align: middle;
-    }
-
-    #pinHomeMenu, #pinWorldMenu, #pinAnalysisMenu, #pinSettingsMenu, #pinAddMenu{
-        color: #ff5500;
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin-top: 15px;
-        margin-right: 15px;
-    }
-
-    #status{
-        display: inline-block;
-        position: absolute;
-        bottom: 0;
-        margin-bottom: 25;
-        margin-left: 5;
-    }
-
-    /* ############## HOME MENU ############### */
-    #homeMenu{
-        display: none;
-        position: absolute;
-        width: 300;
-        padding: 0;
-        background-color: rgba(30,30,30,0.97);
-        z-index: 2;
-    }
-
-    #homeMenu div{
-        overflow-y: auto;
-        margin: 10px;
-        height: inherit;
-        line-height: 7px;
-        color: white;
-    }
-
-    #temperatureSlider{
-        width:250px;
-    }
-
-    #rescaleSize{
-        width:250px;
-    }
-
-    /* ############## WORLD MENU ############### */
-
-    #worldMenu{
-        display: none;
-        position: absolute;
-        width: 300;
-        padding: 0;
-        background-color: rgba(30,30,30,0.97);
-        z-index: 2;
-    }
-
-    #worldMenu div{
-        margin: 10px;
-        margin-top: 20px;
-        overflow-y: auto;
-        height: inherit;
-        line-height: 7px;
-    }
-
-    #worldMenu h2{
-        margin-left: 1px;
-        text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
-    }
-
-    #selectionPar2{
-        display: none;
-        width: 50px;
-        margin: 5px;
-    }
-
-    #selectionPar1{
-        width: 100px;
-        margin: 5px;
-    }
-
-    #radiusScale, #atomResolution, #bondResolution, #temperature,
-    #timeStep, #duration, #energyFrequency, #thermostatFrequency, #renderFrequency,
-    #sampleFrequency, #bondRadius{
-        width: 50px;
-        margin-right: 10px;
-        height: 22px;
-    }
-
-    #size{
-        width: 100px;
-        margin-right: 10px;
-        height: 22px;
-    }
-
-    #selectionView{
-        margin-top: -10px;
-        line-height: 20px;
-    }
-
-    #drawingMode{
-        width: 130px;
-    }
-
-    #worldMenu .checkButton{
-        margin-left: 0;
-        margin-right: 5px;
-    }
-
-    #worldMenu .hideOnAdd{
-        margin: 0;
-        padding: 0;
-        height: auto;
-        display: inline-block;
-    }
-
-    /* ############## ANALYSIS MENU ############### */
-
-    #analysisMenu{
-        display: none;
-        position: absolute;
-        margin: 0;
-        padding:0;
-        z-index: 0;
-        background-color: rgba(30,30,30,0.6);
-    }
-    #particlesInfo, #energyInfo, #structureInfo{
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-    }
-    #particlesInfo td, #energyInfo td, #structureInfo td{
-        min-width: 40px;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-    #energyInfo td, #structureInfo td{
-        font-size: 13px;
-        height: 25px;
-        border-right: 2px solid grey;
-        border-bottom: 1px solid grey;
-        text-align: left;
-    }
-    #energyInfo, #structureInfo{
-        position: absolute;
-        border-left: 2px solid grey;
-        border-top: 2px solid grey;
-        border-bottom: 1px solid grey;
-    }
-    #energyInfo { left: 10px;}
-    #particlesInfo{
-        position: absolute;
-        margin-top: 5px;
-        height: 200px;
-        overflow-y: auto;
-        right: 20;
-        bottom: 20;
-        border: 2px solid grey;
-    }
-    #energyInfo, #structureInfo{ bottom: 28; }
-    #energyInfo{ width: 160px; }
-    #structureInfo{ left: 185px;}
-    #particlesInfo th{
-        min-width: 40px;
-        padding-left: 5px;
-        padding-right: 5px;
-        font-size: 13px;
-        border-right: 2px solid grey;
-        border-bottom: 2px solid #42157c;
-    }
-    #particlesInfo td{
-        font-size: 12px;
-        border-right: 2px solid grey;
-        border-bottom: 1px solid grey;
-        text-align: center;
-    }
-    #energyInfo td{ width: 100px;}
-    #particlesInfo td:last-of-type {border-right: none}
-    #particlesInfo th:last-of-type { border-right: none }
-    #clearSelection {
-        position: absolute;
-        right: 22;
-        bottom: 22;
-        padding: 0;
-        font-size: 20px;
-        color: #ff5500;
-        vertical-align: top;
-        margin-top: 7px;
-        margin-left: 2px;
-    }
-
-    /* ############## SETTINGS MENU ############### */
-
-    #settingsMenu{
-        display: none;
-        position: absolute;
-        width: 300;
-        padding: 0;
-        z-index: 2;
-        background-color: rgba(30,30,30,0.97);
-    }
-
-    #settingsMenu div{
-        margin: 10px;
-        margin-top: 20px;
-        overflow-y: auto;
-        height: inherit;
-        line-height: 7px;
-    }
-
-    #settingsMenu h2{
-        margin-left: 1px;
-        text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
-    }
-
-    /* COLOR SECTION */
-    #typeColor, #backgroundColor, #customColor, #residueColor{
-        width: 130px;
-    }
-
-    #typeSelection, #residueSelection{
-        width: 50px;
-    }
-
-    /* SCENE SECTION */
-    #farClip, #nearClip{
-        width: 75px;
-        margin-right: 10px;
-    }
-
-    #perspectiveAngle{
-        width: 50px;
-    }
-
-    #lightPosition{
-        width: 110px;
-    }
-
-    #shininess, #ambientColor, #diffuseColor, #specularColor{
-        width: 50px;
-        margin-right: 5px;
-    }
-
-    /* ############## INFO MENU ############### */
-
-    #infoMenu{
-        display: none;
-        position: absolute;
-        width: 300;
-        padding: 0;
-        background-color: rgba(30,30,30,0.97);
-        z-index: 2;
-    }
-
-    #infoMenu div{
-        overflow-y: auto;
-        margin: 10px;
-        height: inherit;
-        line-height: 18px;
-        color: white;
-    }
-
-    /* ############## ADD MENU ############### */
-    #add{display: none}
-
-    #addMenu{
-        display: none;
-        position: absolute;
-        width: 300;
-        padding: 0;
-        background-color: rgba(30,30,30,0.97);
-        z-index: 2;
-    }
-
-    #addMenu div{
-        margin: 10px;
-        margin-top: 30px;
-        line-height: 7px;
-        color: white;
-    }
-
-    #addMenu h2{
-        margin-left: 1px;
-        text-shadow: 0.1px 0 1px #42157c, -0.1px 0 1px #42157c, 0 0.1px 1px #42157c, 0 -0.1px 1px #42157c;
-    }
-
-    #particlesToAdd{
-        width: 100px;
-    }
-
-    #addMenu div .addParticle{
-        border: 2px solid #42157c;
-        display: inline-block;
-        padding: 0;
-        height: 90px;
-        width: 75px;
-        margin-top: 10px;
-        margin-right: 0;
-        margin-left: 5px;
-        cursor: pointer;
-        text-align: center;
-        background-color: #42157c;
-        overflow: hidden;
-    }
-
-    #addMenu div .addParticle:hover{
-        border: 2px solid #ff5500;
-        background-color: #ff5500;
-    }
-
-    .addParticle span{
-        display: inline-block;
-        margin-top: 6px;
-    }
-
-    .particleImg{
-          display: inline-block;
-          float: left;
-          height: 75px;
-          width: 75;
-          margin-right: 10px
-    }
-
-    /* ############## FORM ELEMENTS ############### */
-
-    input{
-        vertical-align:middle;
-        text-align: right;
-        border: solid 2px #42157c;
-        height: 25px;
-        margin-left: 5px;
-        background-color: transparent;
-        color: white;
-    }
-
-    input[disabled] {
-        color: #333;
-        border: solid 2px #333;
-    }
-    input[disabled]:hover, input[disabled]:focus {
-        border: solid 2px #333;
-        box-shadow: none;
-    }
-
-    input[type=number]{
-        -moz-appearance: textfield;
-        -webkit-appearance: none;
-        max-width: 50px;
-    }
-
-    input:hover, input:focus {
-        border: solid 2px #42157c;
-        box-shadow: 0 0 5px 1px #969696;
-    }
-
-    input[type=checkbox]{
-        display: inline-block;
-        vertical-align:middle;
-        box-shadow: none;
-    }
-
-    input[type=text]{
-        max-width: 150px;
-    }
-
-    .selectArrow{
-        vertical-align:middle;
-        margin-top: 3px;
-        margin-left: -30px;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        position: relative;
-        z-index: 0;
-    }
-
-    select{
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-color: transparent;
-        overflow: hidden;
-        width: 100px;
-        padding: 5px;
-        font-size: 12px;
-        line-height: 1;
-        border: 1px solid #42157c;
-        border-radius: 0;
-        height: 25px;
-        vertical-align:middle;
-        margin-left: 10px;
-        position: relative;
-        z-index: 1;
-        color: #999;
-    }
-
-    button{
-        margin-left: 10px;
-        margin-top: 10px;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        background-color: #42157c;
-        color: white;
-        border: solid 2px #42157c;
-        cursor: default;
-        height: 25px;
-    }
-
-    input[type="range"] {
-        border: solid 2px #42157c;
-        box-shadow: 0 0 5px 1px #969696;
-    }
-
-    .checkButton{
-        width: 20px;
-        height: 20px;
-        background-color: transparent;
-        color: white;
-        border: solid 2px #42157c;
-    }
-
-    .checkButton i{
-        margin-left: -8.5px;
-        margin-top: -3px;
-        color: white;
-        font-size: 20px;
-    }
-
-    button:hover{box-shadow: 0 0 5px 1px #969696}
-
-    /* ############ RESPONSIVE ############ */
-    @media screen and (max-height:414px) {
-        body{ overflow: auto }
-    }
-
-
-</style>
+}

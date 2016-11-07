@@ -1,192 +1,254 @@
-<style>
+h1 {
+    font: 25px 'Noto Sans', sans-serif;
+}
 
-  h1{
-      font: 25px 'Noto Sans', sans-serif
-  }
+h2 {
+    font-size: 15px;
+    text-transform: uppercase
+}
 
-  h2{
-      font-size: 15px;
-      text-transform: uppercase
-  }
+body {
+    font: 14px 'Noto Sans', sans-serif;
+    color: black;
+    background-color: #f3f3f3;
+    cursor: default;
+    visibility: hidden;
+}
 
-  body {
-      font: 14px 'Noto Sans', sans-serif;
-      color: black;
-      background-color: #f3f3f3;
-      cursor: default;
-  }
+@media screen and (max-height:414px) {
+    body {
+        overflow: auto
+    }
+}
 
-  @media screen and (max-height:414px) {
-    body{ overflow: auto }
-  }
+#container {
+    margin: 10px auto;
+    width: 1015;
+    height: auto;
+}
 
-  #container{
-      margin: 10px auto;
-      width: 1015;
-      padding-left: 5px;
-      height: auto;
-      padding-left: auto;
-  }
+#submission {
+    display: none;
+    margin: 10px 20px;
+    padding: 10px;
+    line-height: 30px;
+}
 
-  #submission{
-      display: none;
-      margin: 10px 20px;
-      padding: 10px;
-      line-height: 30px;
-  }
 
-  /* ############# ITEMS ##################### */
-  .item{
-      border: 2px solid #42157c;
-      display: inline-block;
-      padding: 0;
-      height: 150px;
-      width: 498px;
-      margin: 2.5px;
-      margin-left: 0px;
-      vertical-align: center;
-      cursor: pointer;
-      background-color: inherit;
-      z-index: 5;
-  }
+/* ############# ITEMS ##################### */
 
-  .item:hover{
-      box-shadow: 0 0 3px 2px #42157c;
-  }
+.item {
+    border: 2px solid #42157c;
+    display: inline-block;
+    padding: 0;
+    height: 150px;
+    width: 498px;
+    margin: 2.5px;
+    margin-left: 0px;
+    vertical-align: center;
+    background-color: inherit;
+    z-index: 5;
+}
 
-  .item h2{
-      font-size: 14px;
-      position: absolute;
-      width: 340px;
-      margin-top: 2px;
-      margin-left: 160px;
-  }
+.item:hover {
+    box-shadow: 0 0 3px 2px #42157c;
+}
 
-  .itemDescription{
-      margin: 0px;
-      line-height: 15px;
-      z-index: 4;
-      text-align: justify;
-      margin-right: 10px;
-  }
+.item h2 {
+    font-size: 14px;
+    position: absolute;
+    width: 340px;
+    margin-top: 2px;
+    margin-left: 160px;
+}
 
-  .information{
-      position: absolute;
-      height: 100px;
-      width: 340px;
-      margin-left: 160px;
-      margin-top: 22px;
-      overflow: hidden;
-      z-index: 4;
-  }
+.itemDescription {
+    margin: 0px;
+    line-height: 15px;
+    z-index: 4;
+    text-align: justify;
+    margin-right: 10px;
+}
 
-  .itemRecommendation{
-        display: inline-block;
-        margin-top: 130px;
-  }
+.information {
+    position: absolute;
+    height: 105px;
+    width: 340px;
+    margin-left: 160px;
+    margin-top: 22px;
+    overflow: hidden;
+    z-index: 4;
+}
 
-  .itemImg{
-        display: inline-block;
-        float: left;
-        height: 150px;
-        width: auto;
-        margin-right: 10px
-  }
+.itemRecommendation {
+    display: inline-block;
+    margin-top: 130px;
+}
 
-  #someID{display: none}
+.itemImg {
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    height: 150px;
+    width: auto;
+    margin-right: 10px;
+}
 
-  /* ############## ICONS STYLE ############### */
-  .material-icons{
-      color: #42157c;
-  }
-  /* ############## SUBMISSION FORM ############### */
+.item i{
+    display: flex;
+    align-items:center;
+    max-height: 150px;
+    margin: auto;
+    padding: 0 40px;
+    color: #777;
+    font-size: 70px;
+    background-color: rgb(17, 17, 38);
+}
 
-  input{
-      border: solid 2px #42157c;
-      height: 25px;
-      margin-left: 5px;
-      background-color: transparent;
-  }
+#someID {
+    display: none
+}
 
-  #drawingMode{
-      margin-left: 11px;
-  }
+/* ############## LOAD FILES FORM STYLE ############### */
+#loadFilesForm{
+    height: auto;
+    width: 405;
+    margin: 75px auto;
+    display: none;
+    text-align: center;
+    padding: 50px;
+    padding-bottom: 25px;
+    border-radius: 15px;
+    border: 2px solid #42157c;
+}
 
-  #maxAtoms{
-      width: 70px;
-      margin-right: 10px;
-      height: 22px;
-  }
+#loadFilesForm img{
+    width: 250;
+}
 
-  #atomResolution, #bondResolution{
-      width: 40px;
-      margin-right: 10px;
-      height: 22px;
-  }
+.loadFileButton{
+    vertical-align: center;
+    font-weight: bold;
+    color: white;
+    background-color:  #42157c;
+    width: 200px;
+    height: 50px;
+}
+.loadFileButton:hover{
+    border: 2px solid #ff5500;
+}
+.controlButton{
+    color: #42157c;
+    font-weight: bold;
+    background-color: white;
+    width: 98.2px;
+    height: 50px;
+}
 
-  #pdburl{
-      width: 300px
-  }
+#load:hover{
+    background-color: #61b108;
+}
 
-  #loadingIcon{
-      margin-left: 200px;
-      margin-top: 20px;
-      font-size: 64px;
-      color: rgba(70,70,70,0.15);
-      display: none;
-  }
+#cancel:hover{
+    background-color: #ff3d3d;
+}
 
-  button{
-      margin-left: 10x;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      background-color: #42157c;
-      color: white;
-      border: solid 2px #42157c;
-      cursor: pointer;
-      height: 25px;
-  }
+/* ############## ICONS STYLE ############### */
 
-  input[type=number]{
-      -moz-appearance: textfield;
-      -webkit-appearance: none;
-      text-align: right;
-  }
+.material-icons {
+    color: #42157c;
+}
 
-  input:hover, input:focus, button:hover{ box-shadow: 0 0 5px 1px #969696 }
 
-  input[type=checkbox]{
-      display: inline-block;
-      vertical-align:middle;
-      box-shadow: none;
-  }
+/* ############## SUBMISSION FORM ############### */
 
-  .selectArrow{
-      vertical-align:middle;
-      margin-left: -30px;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      position: absolute;
-      z-index: 0;
-      margin-top: 5px
-  }
-  select{
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-color: transparent;
-      overflow: hidden;
-      width: 100px;
-      padding: 5px;
-      font-size: 12px;
-      line-height: 1;
-      border: 2px solid #42157c;
-      border-radius: 0;
-      height: 30px;
-      vertical-align:middle;
-      margin-left: 10px;
-      position: relative;
-      z-index: 1;
-      color: #333333;
-  }
+input {
+    border: solid 2px #42157c;
+    height: 25px;
+    margin-left: 5px;
+    background-color: transparent;
+}
 
-</style>
+#drawingMode {
+    margin-left: 11px;
+}
+
+#maxAtoms {
+    width: 70px;
+    margin-right: 10px;
+    height: 22px;
+}
+
+#atomResolution, #bondResolution {
+    width: 40px;
+    margin-right: 10px;
+    height: 22px;
+}
+
+#pdburl {
+    width: 300px
+}
+
+#loadingIcon {
+    margin-left: 200px;
+    margin-top: 20px;
+    font-size: 64px;
+    color: rgba(70, 70, 70, 0.15);
+    display: none;
+}
+
+button {
+    margin-left: 10x;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: #42157c;
+    color: white;
+    border: solid 2px #42157c;
+    cursor: pointer;
+    height: 25px;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    text-align: right;
+}
+
+input:hover, input:focus, button:hover {
+    box-shadow: 0 0 5px 1px #969696
+}
+
+input[type=checkbox] {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: none;
+}
+
+.selectArrow {
+    vertical-align: middle;
+    margin-left: -30px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    position: absolute;
+    z-index: 0;
+    margin-top: 5px
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    overflow: hidden;
+    width: 100px;
+    padding: 5px;
+    font-size: 12px;
+    line-height: 1;
+    border: 2px solid #42157c;
+    border-radius: 0;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 10px;
+    position: relative;
+    z-index: 1;
+    color: #333333;
+}
