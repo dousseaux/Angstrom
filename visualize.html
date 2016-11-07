@@ -284,10 +284,10 @@
                 worldSize.value = "auto"
             }
             form1.onsubmit = function() {
-                form1.method = 'post';
                 form1.action = 'http://dousseau.me/application.php';
                 pdb.value = document.getElementById("pdburl").value
                 document.getElementById("createpsf").value = "true";
+                form1.submit();
             }
 
             document.getElementById("benzene").onclick = function() {
