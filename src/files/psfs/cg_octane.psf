@@ -1,0 +1,23 @@
+2 !NATOM
+1 O0   1    OCT  C2   C1     0.000000       72.0000           0
+2 O0   1    OCT  C1   C1     0.000000       72.0000           0
+
+0 !NBOND: bonds
+1       2
+
+0 !NTHETA: angles
+
+
+0 !NPHI: dihedrals
+
+
+0 !NIMPHI: impropers
+
+
+0 !NDON: donors
+
+
+0 !NACC: acceptors
+
+
+0 !NNB

@@ -1,0 +1,142 @@
+body {
+    background-color: #f3f3f3;
+    font-family: "Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif;
+}
+
+#container {
+    margin: 10px auto;
+    padding: 0px;
+    width: 1008;
+    height: auto;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+
+/* ################## FIRST PART ################# */
+
+#presenting {
+    padding: 120px 320px;
+    padding-bottom: 0;
+    width: auto;
+    height: 420;
+    background-color: #f3f3f3;
+    text-align: justify;
+    color: #66595c;
+    background: url("../images/app_screenshot.png");
+    background-size: 1008px auto;
+    background-repeat: no-repeat;
+}
+
+.gotoButton {
+    display: inline-block;
+    height: 80px;
+    width: 300px;
+    background-color: #42157c;
+    border-radius: 15px;
+    text-decoration: none;
+    z-index: 0;
+    box-shadow: 0 0 3px 2px white;
+    padding: 0;
+}
+
+.gotoButton .material-icons {
+    color: white;
+    font-size: 50px;
+    margin-top: 15px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+.gotoButton h3 {
+    display: inline-block;
+    font: 25px 'Raleway', sans-serif;
+    color: white;
+    margin-top: 26px;
+    position: absolute;
+}
+
+.gotoButton:hover {
+    background-color: #ff5500;
+}
+
+#simulate {
+    margin-bottom: 30px;
+}
+
+#simulate .material-icons {
+    margin-left: 15px;
+}
+
+#visualize {
+    margin-bottom: 30px;
+}
+
+#visualize .material-icons {
+    margin-right: -5;
+    margin-left: 2;
+}
+
+#download .material-icons {
+    margin-left: 40px;
+}
+
+
+/* ################## SECOND PART ################# */
+
+#description {
+    padding: 50px 120px;
+    padding-bottom: 0;
+    width: auto;
+    height: 200;
+    /*background-color: #faf6ec;*/
+    text-align: justify;
+    color: #66595c;
+}
+
+#description img {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+    border: 4px solid #66595c;
+    border-radius: 10px;
+}
+
+#description div {
+    font-size: 20;
+    display: inline-block;
+    width: 500;
+}
+
+
+/* ################## THIRD PART ################# */
+
+#features {
+    padding: 50px 250px;
+    width: auto;
+    height: auto;
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #66595c;
+    border-radius: 10px
+}
+
+.featureBox {
+    display: inline-block;
+    padding: 0;
+    width: 110;
+    height: 150;
+    text-align: center;
+    color: #66595c;
+    line-height: 20px;
+    margin-right: 50px;
+}
+
+.featureBox .material-icons {
+    color: #42157c;
+    font-size: 70px;
+}
+
+#mobilePlatDiv {
+    margin-right: 0px;
+}

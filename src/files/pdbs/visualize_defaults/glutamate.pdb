@@ -1,0 +1,20 @@
+REMARK original generated coordinate pdb file
+ATOM      1  N   GLU P 226       5.755 -28.393  36.750  1.00  0.00      PROB  
+ATOM      2  HT1 GLU P 226       6.706 -28.467  37.051  0.00  0.00      PROB  
+ATOM      3  HT2 GLU P 226       5.623 -28.915  35.907  0.00  0.00      PROB  
+ATOM      4  HT3 GLU P 226       5.144 -28.736  37.463  0.00  0.00      PROB  
+ATOM      5  CA  GLU P 226       5.446 -26.992  36.494  1.00  0.00      PROB  
+ATOM      6  HA  GLU P 226       5.545 -26.448  37.421  1.00  0.00      PROB  
+ATOM      7  CB  GLU P 226       6.409 -26.439  35.440  1.00  0.00      PROB  
+ATOM      8  HB1 GLU P 226       6.395 -25.329  35.480  1.00  0.00      PROB  
+ATOM      9  HB2 GLU P 226       6.074 -26.766  34.433  1.00  0.00      PROB  
+ATOM     10  CG  GLU P 226       7.836 -26.931  35.678  1.00  0.00      PROB  
+ATOM     11  HG1 GLU P 226       7.894 -28.000  35.383  1.00  0.00      PROB  
+ATOM     12  HG2 GLU P 226       8.066 -26.837  36.760  1.00  0.00      PROB  
+ATOM     13  CD  GLU P 226       8.893 -26.175  34.908  1.00  0.00      PROB  
+ATOM     14  OE1 GLU P 226       9.100 -24.979  35.225  1.00  0.00      PROB  
+ATOM     15  OE2 GLU P 226       9.532 -26.791  34.016  1.00  0.00      PROB  
+ATOM     16  C   GLU P 226       3.994 -26.934  36.040  1.00  0.00      PROB  
+ATOM     17  OT1 GLU P 226       3.619 -27.861  36.031  0.00  0.00      PROB  
+ATOM     18  OT2 GLU P 226       3.748 -25.982  35.855  0.00  0.00      PROB  
+END

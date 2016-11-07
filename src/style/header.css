@@ -1,0 +1,49 @@
+#background{
+    margin: 0;
+    padding: 0px;
+    width: 1008;
+    height: 120px;
+    background: url("../images/background.png");
+    background-size: auto;
+    opacity: 0.1;
+    border-radius: 10px;
+    position: absolute;
+}
+
+#menu{
+    font: 20px 'Poiret One', sans-serif;
+    position: absolute;
+    display: inline;
+    margin-top: 50px;
+    margin-left: 350px;
+    color: #999;
+}
+
+#menu a{
+  text-decoration: none;
+  margin: 0 15px;
+  color: black;
+}
+
+#menu a:hover{
+  text-decoration: underline;
+  color: #ff5500;
+}
+
+#logo{
+    position: absolute;
+    display: inline;
+    height: 100px;
+    margin: 10;
+}
+
+#header{
+    margin: 10px auto;
+    margin-bottom: -2px;
+    padding: 0px;
+    border: 2px solid #42157c;
+    width: 1008;
+    height: 120px;
+    background-color: white;
+    border-radius: 10px;
+}

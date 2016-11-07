@@ -1,0 +1,4 @@
+REMARK original generated coordinate pdb file
+ATOM      1  N1  N2  X   1       1.400   0.000   0.000  1.00  0.00      MOL
+ATOM      2  N2  N2  X   1       0.000   0.000   0.000  1.00  0.00      MOL   
+END

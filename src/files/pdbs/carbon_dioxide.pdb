@@ -1,0 +1,5 @@
+REMARK original generated coordinate pdb file
+ATOM      1  C   CO2 X   1       0.000   0.000   0.000  1.00  0.00      MOL  C
+ATOM      2  OC1 CO2 X   1       1.160   0.000   0.000  0.00  0.00      MOL  O
+ATOM      3  OC2 CO2 X   1      -1.160   0.000   0.000  0.00  0.00      MOL  O
+END
