@@ -1,11 +1,14 @@
 {
-    "name": "angstromDSK",
-    "version": "1.0.0",
-    "description": "",
-    "main": "desktop/main.js",
-    "scripts": {
-        "start": "electron ."
-    },
-    "author": "Pedro Dousseau",
-    "license": "GPLv3"
+  "name": "angstromDSK",
+  "version": "1.0.2a",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron-prebuilt": "^1.4.5"
+  },
+  "author": "Pedro Dousseau",
+  "license": "GPL-3.0"
 }
