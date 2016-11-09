@@ -1,14 +1,18 @@
 {
-  "name": "angstromDSK",
-  "version": "1.0.3a",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "dependencies": {
-    "electron-prebuilt": "^1.4.5"
-  },
-  "author": "Pedro Dousseau",
-  "license": "GPL-3.0"
+    "name": "Angstrom",
+    "version": "1.0.3-a",
+    "description": "Were you curious to know how things work in the nano scale? Now you can, and even better than the nano scale, in the angstrom scale. Angstrom is a free and open source platform that makes molecular dynamcics easy. With it you can simulate and visualize sets of molecules and atoms in real time with features that allows you to configure and see what is going on in the simulation.",
+    "main": "main.js",
+    "license": "GPL-3.0",
+    "author": "Pedro Dousseau <pedro.dousseau@gmail.com>",
+    "scripts": {
+        "start": "electron ."
+    },
+    "build": {
+        "appId": "Angstrom",
+        "category": "Science"
+    },
+    "devDependencies": {
+        "electron-prebuilt": "^1.4.5"
+    }
 }

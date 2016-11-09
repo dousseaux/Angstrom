@@ -746,7 +746,6 @@ var view = function(world) {
             } else if (element.webkitRequestFullscreen) {
                 element.webkitRequestFullscreen();
             }
-
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -943,12 +942,16 @@ var view = function(world) {
         var menustyle = window.getComputedStyle(self.menu);
 
         if (self.isFull) {
-            self.container.style.width = window.screen.availWidth - parseInt(containerstyle.borderWidth);
-            self.container.style.height = window.screen.availHeight - 2*parseInt(containerstyle.borderWidth);
+            self.container.style.width = window.screen.width - parseInt(containerstyle.borderWidth);
+            self.container.style.height = window.screen.height - 2*parseInt(containerstyle.borderWidth);
         } else {
             self.container.style.width = self.windowSize.x - parseInt(containerstyle.marginLeft) - parseInt(containerstyle.marginRight) - parseInt(containerstyle.borderWidth);
             self.container.style.height = self.windowSize.y - parseInt(containerstyle.marginTop) - parseInt(containerstyle.marginBottom) - 2*parseInt(containerstyle.borderWidth);
         }
+
+
+        containerstyle = window.getComputedStyle(self.container);
+        console.log(self.container.style.height);
 
         self.canvas.height = parseInt(self.container.style.height);
         self.canvas.width = parseInt(self.container.style.width) - parseInt(menustyle.width) - 2*parseInt(containerstyle.borderWidth);

@@ -2,6 +2,7 @@
     <title>Angstrom</title>
     <link href= 'style/fonts/Poiret_One.css' rel="stylesheet" />
     <link href= 'style/fonts/Noto_Sans.css' rel="stylesheet" />
+    <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
     <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
     <link href= 'style/header.css' rel='stylesheet' type="text/css" />
     <link href= 'style/simulate.css' rel='stylesheet' type="text/css" />
@@ -10,10 +11,10 @@
 <body>
 
     <div id="header">
-      <div id="background"></div>
+     <div id="background"></div>
       <a href="index.html"><img id="logo" src="images/logo.png"></a>
       <div id="menu">
-          <b> <a href="">ABOUT</a> | <a href="">TUTORIALS</a> | <a href="">DOCUMENTATION</a> | <a href="">GITHUB</a> </b>
+          <b> <a href="about.html">ABOUT</a> | <a href="tutorials.html">TUTORIALS</a> | <a href="documentation.html">DOCUMENTATION</a> | <a href="github.html">GITHUB</a> </b>
       </div>
     </div>
 
@@ -95,7 +96,7 @@
                     How do we get so warm in the winter? Methane is the major component of natural gas used for heating homes<br><br> Incial temperature: 200 K. Thermostat off.
                 </p>
             </div>
-            <p class="itemRecommendation">1 MOLECULES</p>
+            <p class="itemRecommendation">1 MOLECULE</p>
             <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
         </div>
 
@@ -108,7 +109,7 @@
                     Take a look on the most famous molecule of the earth. H 2 0.<br><br> Incial temperature: 200 K.<br>Thermostat off.
                 </p>
             </div>
-            <p class="itemRecommendation">1 MOLECULES</p>
+            <p class="itemRecommendation">1 MOLECULE</p>
             <a class="itemLink" target="_blank" href="http://mackerell.umaryland.edu/charmm_ff.shtml">CHARMM FORCE FIELD</a>
         </div>
 

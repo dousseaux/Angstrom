@@ -25,7 +25,8 @@
 
 <head>
     <title>Angstrom</title>
-    <link href= 'style/fonts/Oswald.css' rel="stylesheet" />
+    <link href= 'style/fonts/Oswald.css' rel="stylesheet" />    
+    <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
     <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
     <link href= 'style/application.css' rel='stylesheet' type="text/css">
 </head>
@@ -115,9 +116,9 @@
               <i class="material-icons selectArrow">keyboard_arrow_down</i>
 
               <br><br><br>Atom resolution: <input id="atomResolution" type="number" name="atomResolution">
-              Radius Scale: <input id="radiusScale" type="number" name="radiusScale">
+              <br><br>Atom radius Scale: <input id="radiusScale" type="number" name="radiusScale">
               <br><br>Bond resolution: <input id="bondResolution" type="number" name="bondResolution">
-              Bond radius: <input id="bondRadius" type="number" name="bondRadius">
+              <br><br>Bond radius: <input id="bondRadius" type="number" name="bondRadius">
 
               <br><br>
 
@@ -125,9 +126,9 @@
                   <h2>TIME & FREQUENCIES</h2>
                   Duration (ps): <input id="duration" type="number" name="duration">
                   Step (fs): <input id="timeStep" type="number" name="timeStep">
-                  <br><br>Energy Calculation Frequency (steps): <input id="energyFrequency" type="number" name="energyFrequency">
-                  <br><br>Thermostat Execution Frequency (steps): <input id="thermostatFrequency" type="number" name="thermostatFrequency">
-                  <br><br>Render Frequency (steps): <input id="renderFrequency" type="number" name="renderFrequency">
+                  <br><br>Energy comp. frequency (steps): <input id="energyFrequency" type="number" name="energyFrequency">
+                  <br><br>Thermostat frequency (steps): <input id="thermostatFrequency" type="number" name="thermostatFrequency">
+                  <br><br>Render frequency (steps): <input id="renderFrequency" type="number" name="renderFrequency">
 
                   <br><br>
                   <h2>DATA SAMPLE & FILE OUTPUT</h2>

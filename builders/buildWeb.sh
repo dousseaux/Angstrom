@@ -20,6 +20,11 @@ cp $SRC/index.html $TARGET/index.html
 cp $SRC/application.php $TARGET/application.php
 cp $SRC/simulate.php $TARGET/simulate.php
 cp $SRC/visualize.php $TARGET/visualize.php
+cp $SRC/about.html $TARGET/about.html
+cp $SRC/documentation.html $TARGET/documentation.html
+cp $SRC/download.html $TARGET/download.html
+cp $SRC/github.html $TARGET/github.html
+cp $SRC/tutorials.html $TARGET/tutorials.html
 cp $SRC/DSKapplication_cloud.php $TARGET/DSKapplication_cloud.php
 
 # GIVE PERMISSIONS TO THE FOLDER

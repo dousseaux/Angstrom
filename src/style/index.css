@@ -1,6 +1,7 @@
 body {
     background-color: #f3f3f3;
-    font-family: "Helvetica Neue", Helvetica, arial, freesans, clean, sans-serif;
+    font: 200 16px 'Libre Franklin', sans-serif;
+    visibility: hidden;
 }
 
 #container {
@@ -12,7 +13,18 @@ body {
     border-radius: 10px;
 }
 
+h4 {
+    font: 400 25px 'Libre Franklin', sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
+h5 {
+    font: 400 18px 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 5 0;
+    padding: 0;
+}
 /* ################## FIRST PART ################# */
 
 #presenting {
@@ -22,7 +34,6 @@ body {
     height: 420;
     background-color: #f3f3f3;
     text-align: justify;
-    color: #66595c;
     background: url("../images/app_screenshot.png");
     background-size: 1008px auto;
     background-repeat: no-repeat;
@@ -89,9 +100,7 @@ body {
     padding-bottom: 0;
     width: auto;
     height: 200;
-    /*background-color: #faf6ec;*/
     text-align: justify;
-    color: #66595c;
 }
 
 #description img {
@@ -117,7 +126,6 @@ body {
     height: auto;
     background-color: #f3f3f3;
     text-align: center;
-    color: #66595c;
     border-radius: 10px
 }
 
@@ -127,7 +135,6 @@ body {
     width: 110;
     height: 150;
     text-align: center;
-    color: #66595c;
     line-height: 20px;
     margin-right: 50px;
 }

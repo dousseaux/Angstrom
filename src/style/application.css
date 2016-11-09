@@ -7,17 +7,22 @@
 }
 
 h1 {
-    font: 25px 'Oswald', sans-serif
+    font: 25px 'Libre Franklin', sans-serif
+}
+
+
+h2 {
+    font: 17px 'Libre Franklin', sans-serif;
 }
 
 h3 {
     display: inline-block;
-    font: 15px 'Oswald', sans-serif;
-    margin-left: 5px
+    font: 17px 'Libre Franklin', sans-serif;
+    margin-left: 5px;
 }
 
 body {
-    font: 12px 'Oswald', sans-serif;
+    font: 12px 'Libre Franklin', sans-serif;
     color: white;
     background-color: #eee;
     width: 100%;
@@ -107,7 +112,7 @@ canvas {
     display: flex;
     align-items: center;
     text-align: center;
-    font-size: 70px;
+    font: 70px 'Oswald', sans-serif;
     color: #000;
     animation-name: loadingAnimation;
     animation-duration: 4s;
@@ -329,7 +334,7 @@ canvas {
 }
 
 #energyInfo td, #structureInfo td {
-    font-size: 13px;
+    font-size: 12px;
     height: 25px;
     border-right: 2px solid grey;
     border-bottom: 1px solid grey;

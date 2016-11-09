@@ -1,0 +1,168 @@
+<head>
+    <title>Angstrom</title>
+    <link href='style/fonts/Poiret_One.css' rel="stylesheet" />
+    <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
+    <link href='style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href='style/about.css' rel='stylesheet' type="text/css" />
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="submenu">
+            <ul class="menuList">
+                <li><a id="aboutLink" href="#about">What is Angstrom about?</a></li>
+                <li><a id="featuresLink" href="#features">Features</a></li>
+                <li><a id="nextLink" href="#next">What is coming next?</a></li>
+                <li><a id="authorsLink" href="#authors">Authors</a></li>
+                <li><a id="developmentLink" href="#development">How is it developed?</a></li>
+            </ul>
+        </div>
+
+        <div id="intro">
+            Angstrom is an application that has the purpose of bringing science closer
+            to people who wants to see what happens in the atomic scale. It started being
+            developed in the <a target="_blank" href="http://nicks.ksu.edu/">Nanotechnology
+            Innovation Center of Kansas State (NICKS)</a>, at Kansas State University, by
+            <a id="pedroLink" href="#authors">Pedro Dousseau</a> (Assistant Researcher) and
+            his mentor <a id="jeffLink" href="#authors">Jeffrey Comer</a> (Assistant Professor)
+            in the summer of 2016.
+        </div>
+
+        <div class="paragraph" id="about">
+            <h2>What is Angstrom about?</h2>
+            <ul class="simpleList">
+                <li>Easy access molecular dynamics simulations.</li>
+                <li>Easy access molecule visualization.</li>
+                <li>Offer a simple and intuitive user interface.</li>
+                <li>Be educative and technical at the same time.</li>
+                <li>Easy to share, install and use.</li>
+                <li>Be a light application.</li>
+                <li>Get the world to know what is in the nano.</li>
+                <li>[TODO]</li>
+            </ul>
+        </div>
+
+        <div class="paragraph" id="features">
+            <h2>Features</h2>
+            <ul class="simpleList">
+                <li>Real time simulation.</li>
+                <li>PDB, PSF and Parameters file support.</li>
+                <li>Energy calculations.</li>
+                <li>Embedded thermostat.</li>
+                <li>Boost option.</li>
+
+            </ul>
+            <ul class="simpleList">
+                <li>Customizable visualization settings.</li>
+                <li>Energy and trajectory file logging.</li>
+                <li>Real time variable box size.</li>
+                <li>Real time variable temperature.</li>
+                <li>[TODO]</li>
+            </ul>
+        </div>
+
+        <div class="paragraph" id="next">
+            <h2>What is coming next?</h2>
+            <ul class="simpleList">
+                <li>Implementation of dihedrals.</li>
+                <li>Mobile app.</li>
+                <li>Augmented reality.</li>
+                <li>Profiles and simulation sharing.</li>
+                <li>Personal default configurations.</li>
+                <li>Molecules database.</li>
+                <li>[TODO]</li>
+            </ul>
+        </div>
+
+        <div class="paragraph" id="authors">
+            <h2>Authors</h2>
+            <div id="pedroDescription"class="authorDescription">
+                <img src="images/pedro.jpg"/>
+                <h3>Pedro Dousseau</h3>
+                <br><h4>Computer Engineering Undergraduate Student</h4>
+                <br><h4>[ pedro.dousseau@gmail.com ]</h4>
+                <br><br>Computer Engineer undergraduate student participant of the Brazilian Scientific Mobility Program - Science Without Borders, an exchange program that is offered by the Brazilian government for the best qualified students from the most reliable universities of the country with the purpose of learning, reaching, and exchanging technology. Graduated as a mechatronics technician at the Everardo Passos Technical School, and worked as an intern at LHColus Technology and OnsetComp Brazil. As undergraduate student, researched at the National Institute for Space Research in the project Numeric Simulation of the Geometric Factor of Electrostatic Analyzer of Energy ELISA, at the Associated Laboratory of Plasma. Currently engaged as an undergraduate researcher at the Nanotechnology Innovation Center of Kansas State.
+            </div>
+
+            <div class="authorDescription">
+                <img src="images/jeff.jpg"/>
+                <h3>Jeffrey Comer</h3>
+                <br><h4>Assistant Professor of Anatomy and Physiology</h4>
+                <br><h4>[ jeffcomer@ksu.edu ]</h4>
+                <br><br>Dr. Jeffrey Comer is an Assistant Professor in the Department of Anatomy and Physiology at Kansas State University and is associated with the Institute of Computational Comparative Medicine and the Nanotechnology Innovation Center of Kansas State. Dr. Comer’s experience in computational biophysics dates from 2006, and he has coauthored 32 publications in peer-reviewed journals and 6 book chapters involving molecular simulation, receiving more than 900 citations (<a href="http://scholar.google.com/citations?user=kkA073MAAAAJ">Google scholar</a>). He is also a contributor to the popular molecular dynamics software NAMD (doi: 10.1021/ct500874p). His research interests include rational design and virtual screening of nanomaterials for biological applications, surface interactions between nanomaterials and biomolecules, biomolecular kinetics, free-energy calculations, and ion channels and transporters.
+            </div>
+        </div>
+
+        <div class="paragraph" id="development">
+            <h2>How is it developed?</h2>
+            <br>
+            Angstrom uses your computers GPU to do parallel computation. All the
+            physics computation is done by packing data into textures and using it
+            inside of fragment shaders. [TODO]
+            <br>
+            <ul class="simpleList">
+                <li><a href="https://www.khronos.org/webgl/" target="_blank">WebGl</a></li>
+                <li><a href="https://www.javascript.com/" target="_blank">JavaScript</a></li>
+                <li><a href="https://secure.php.net/" target="_blank">PHP</a></li>
+            </ul>
+
+            <ul class="simpleList">
+                <li><a href="http://electron.atom.io/" target="_blank">Electron</a></li>
+                <li><a href="http://www.ks.uiuc.edu/Research/vmd/" target="_blank">VMD (Create PSF files)</a></li>
+                <li>[TODO]</li>
+            </ul>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    window.onload = function() {
+        document.body.style.visibility = "visible";
+        window.resizeTo(1050, 600);
+    }
+
+    document.getElementById('aboutLink').onclick = function() {
+        var obj = document.getElementById('about');
+        obj.style.background = "rgba(255,85,0,0.75)";
+        setTimeout(function() {
+            obj.style.background  = "inherit";
+        }, 500);
+    }
+
+    document.getElementById('featuresLink').onclick = function() {
+        var obj = document.getElementById('features');
+        obj.style.background = "rgba(255,85,0,0.75)";
+        setTimeout(function() {
+            obj.style.background  = "inherit";
+        }, 500);
+    }
+
+    document.getElementById('nextLink').onclick = function() {
+        var obj = document.getElementById('next');
+        obj.style.background = "rgba(255,85,0,0.75)";
+        setTimeout(function() {
+            obj.style.background  = "inherit";
+        }, 500);
+    }
+
+    document.getElementById('authorsLink').onclick = function() {
+        var obj = document.getElementById('authors');
+        obj.style.background = "rgba(255,85,0,0.75)";
+        setTimeout(function() {
+            obj.style.background  = "inherit";
+        }, 500);
+    }
+
+    document.getElementById('pedroLink').onclick = document.getElementById('authorsLink').onclick;
+    document.getElementById('jeffLink').onclick = document.getElementById('authorsLink').onclick;
+
+    document.getElementById('developmentLink').onclick = function() {
+        var obj = document.getElementById('development');
+        obj.style.background = "rgba(255,85,0,0.75)";
+        setTimeout(function() {
+            obj.style.background  = "inherit";
+        }, 500);
+    }
+</script>

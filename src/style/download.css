@@ -1,0 +1,56 @@
+body {
+    background-color: #f3f3f3;
+    font: 14px 'Libre Franklin', sans-serif;
+    visibility: hidden;
+}
+
+#container {
+    margin: 10px auto;
+    padding: 0px;
+    width: 1008;
+    height: auto;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+#intro {
+    height: auto;
+    width: 400;
+    margin: auto;
+    text-align: center;
+    padding: 50px;
+    padding-bottom: 25px;
+}
+
+.downloadFile {
+    vertical-align: center;
+    font-weight: bold;
+    color: white;
+    background-color: #42157c;
+    width: 200px;
+    height: 50px;
+    font: 15px 'Libre Franklin', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.downloadFile:hover {
+    border: 2px solid #ff5500;
+}
+
+button {
+    outline: 0;
+    box-shadow: none;
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}

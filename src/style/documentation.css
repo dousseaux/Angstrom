@@ -1,0 +1,39 @@
+body {
+    background-color: #f3f3f3;
+    font: 200 20px 'Libre Franklin', sans-serif;
+    visibility: hidden;
+}
+
+#container {
+    margin: 10px auto;
+    padding: 0px;
+    width: 1008;
+    height: auto;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+#intro {
+    padding: 20px 0;
+    width: auto;
+    height: auto;
+    margin: auto;
+    text-align: center;
+    color: #00041f;
+}
+
+a{
+    color: green;
+    text-decoration: none;
+}
+a:visited {
+    color: green;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,183 @@
+body {
+    background-color: #f3f3f3;
+    font: 200 20px 'Libre Franklin', sans-serif;
+    font-size: 18px;
+    visibility: hidden;
+}
+
+h2 {
+    font: 400 25px 'Libre Franklin', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    margin: 2px auto;
+    padding: 0;
+    width: 1008;
+    height: auto;
+    background-color: #f3f3f3;
+}
+
+a{
+    color: green;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: green;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* ########## SUB MENU DIV ############ */
+
+#submenu {
+    width: 400px;
+    height: auto;
+    margin: auto;
+    margin-bottom: -20px;
+    text-align: center;
+    color: #00041f;
+}
+
+
+/* ########## DIVS ############ */
+#intro {
+    padding: 20px 150px;
+    width: auto;
+    height: auto;
+    margin-bottom: 10px;
+    text-align: justify;
+    color: #00041f;
+    font-size: 20px;
+}
+
+#about ul {
+    padding-left: 170px;
+}
+
+#features{
+    padding-left: 140px;
+}
+
+#next ul{
+    padding-right: 0;
+    margin-left: 200px;
+}
+
+#development ul {
+    padding-left: 170px;
+}
+
+#authors{
+    width: auto;
+    height: auto;
+    margin-bottom: 10px;
+    margin-left: -30px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#pedroDescription{
+    float: left;
+}
+
+/* ########## PARAGRAPH CLASS DIV ############ */
+.paragraph {
+    padding: 10px 150px;
+    width: auto;
+    height: auto;
+    text-align: justify;
+    color: #00041f;
+    border-radius: 15px;
+    transition: background 0.25s ease;
+}
+
+.paragraph h2 {
+    text-align: center;
+    color: #42157c;
+}
+
+/* ########## AUTHORS DESCRIPTION CLASS DIV ############ */
+.authorDescription{
+    display: inline-block;
+    margin-top: 20px;
+    width: 485;
+    margin-left: 30px;
+}
+
+.authorDescription h3 {
+    font: 400 20px 'Libre Franklin', sans-serif;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.authorDescription h4 {
+    font: 400 16px 'Libre Franklin', sans-serif;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: #5d5d5d;
+}
+
+.authorDescription img{
+    height:142;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+/* ########## MENU LIST STYLE ############ */
+
+.simpleList {
+    list-style-type: square;
+    display: inline-block;
+}
+
+.simpleList li {
+    padding: 5px 0;
+}
+
+
+/* ########## MENU LIST STYLE ############ */
+
+.menuList {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+.menuList li {
+    font: 200 20px 'Libre Franklin', sans-serif;
+    border-bottom: 1px solid #ccc;
+    min-height: 40;
+    max-height: 40;
+    padding-top: 15px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.menuList li:last-child {
+    border: none;
+}
+
+.menuList li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+.menuList li:hover {
+    font-size: 25px;
+}

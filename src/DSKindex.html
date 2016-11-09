@@ -1,9 +1,9 @@
 <head>
     <title>Angstrom</title>
-    <link href= 'style/fonts/Poiret_One.css' rel="stylesheet"/>
-    <link href= 'style/fonts/Raleway.css' rel="stylesheet"/>
-    <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
-    <link href= 'style/index_desktop.css' rel='stylesheet' type="text/css">
+    <link href='style/fonts/Poiret_One.css' rel="stylesheet" />
+    <link href='style/fonts/Raleway.css' rel="stylesheet" />
+    <link href='style/material-icons/material-icons.css' rel="stylesheet" />
+    <link href='style/index_desktop.css' rel='stylesheet' type="text/css">
 </head>
 
 <body>
@@ -32,25 +32,15 @@
             </a>
 
             <br>
-
-            <!--
-            <a href="administration.txt">
-                <div id="download" class="gotoButton">
-                    <i class="material-icons">file_download</i>
-                    <h3>Download</h3>
-                </div>
-            </a>-->
-
         </div>
 
         <div id="menu">
-            <b><a href="">DOCUMENTATION</a> | <a href="">ABOUT</a></b>
+            <b><a target="_blank" href="DSKdocumentation.html">DOCUMENTATION</a> | <a target="_blank" href="DSKabout.html">ABOUT</a></b>
         </div>
 
     </div>
 
     <script>
-
         window.onload = function() {
 
             var container = document.getElementById("container");
@@ -64,14 +54,14 @@
             }
 
             setTimeout(loadContent, 200);
+            document.body.style.visibility = "visible";
         }
 
-        window.onresize = function(){
+        window.onresize = function() {
             containerstyle = window.getComputedStyle(container);
             presentingStyle = window.getComputedStyle(presenting);
             presenting.style.marginTop = (parseInt(containerstyle.height) - parseInt(presentingStyle.height) - parseInt(presentingStyle.paddingBottom)) / 2;
         }
-
     </script>
 
 </body>

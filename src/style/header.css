@@ -1,4 +1,4 @@
-#background{
+#background {
     margin: 0;
     padding: 0px;
     width: 1008;
@@ -10,7 +10,7 @@
     position: absolute;
 }
 
-#menu{
+#menu {
     font: 20px 'Poiret One', sans-serif;
     position: absolute;
     display: inline;
@@ -19,25 +19,39 @@
     color: #999;
 }
 
-#menu a{
-  text-decoration: none;
-  margin: 0 15px;
-  color: black;
+#menu a {
+    display: inline-block;
+    text-decoration: none;
+    margin: 0 15;
+    color: black;
+    font-size: 20px;
+    text-align: middle;
+    -webkit-transition: color 0.3s ease, text-decoration 0.3s ease;
+    -moz-transition: color 0.3s ease, text-decoration 0.3s ease;
+    -o-transition: color 0.3s ease, text-decoration 0.3s ease;
+    -ms-transition: color 0.3s ease, text-decoration 0.3s ease;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-#menu a:hover{
-  text-decoration: underline;
-  color: #ff5500;
+#menu a:hover {
+    text-decoration: underline;
+    color: #ff5500;
 }
 
-#logo{
+#logo {
     position: absolute;
     display: inline;
     height: 100px;
     margin: 10;
 }
 
-#header{
+#menu #currentPage {
+    color: #009cff;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+#header {
     margin: 10px auto;
     margin-bottom: -2px;
     padding: 0px;

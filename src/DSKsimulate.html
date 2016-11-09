@@ -2,6 +2,7 @@
     <title>Angstrom</title>
     <link target="_blank" href='style/fonts/Poiret_One.css' rel="stylesheet" />
     <link target="_blank" href='style/fonts/Noto_Sans.css' rel="stylesheet" />
+    <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
     <link target="_blank" href='style/material-icons/material-icons.css' rel="stylesheet" />
     <link target="_blank" href='style/simulate.css' rel='stylesheet' type="text/css">
 </head>
@@ -570,6 +571,9 @@
 
             window.onload = function() {
                 document.body.style.visibility = 'visible';
+                if(document.body.clientWidth < 1050){
+                    window.resizeTo(1050, 600);
+                }
             }
         </script>
 

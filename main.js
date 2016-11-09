@@ -18,8 +18,6 @@ app.on('ready', function() {
         height: "1200"
     });
 
-    win.maximize();
-
     setTimeout(function(){
         win.loadURL('file://' + __dirname + '/src/DSKindex.html');
     }, 500);
@@ -30,9 +28,8 @@ app.on('ready', function() {
 
     //win.openDevTools();
 
-    // var menu = Menu.buildFromTemplate([{
-    //     label: 'Angstrom'
-    // }]);
-
-    //Menu.setApplicationMenu(menu);
+    var menu = Menu.buildFromTemplate([{
+        // label: 'Angstrom'
+    }]);
+    Menu.setApplicationMenu(menu);
 });
