@@ -1,11 +1,13 @@
 <head>
     <title>Angstrom</title>
     <link href= 'style/fonts/Poiret_One.css' rel="stylesheet" />
-    <link href= 'style/fonts/Noto_Sans.css' rel="stylesheet" />    
+    <link href= 'style/fonts/Noto_Sans.css' rel="stylesheet" />
     <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
     <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
     <link href= 'style/visualize.css' rel='stylesheet' type="text/css" />
     <link href= 'style/header.css' rel='stylesheet' type="text/css" />
+    <link href="images/favicon.ico" rel="shortcut icon" type="images/x-icon" />
+    <link href="images/favicon.ico" rel="icon" type="images/ico" />
 </head>
 
 <body>

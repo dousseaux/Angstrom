@@ -36,50 +36,58 @@ var bonds = function(world, shader){
     var diffuseColorUniform = gl.getUniformLocation(shader, "diffuseColor");
     var specularColorUniform = gl.getUniformLocation(shader, "specularColor");
 
+    this.colors = new Float32Array(0);
+    this.vertex = new Float32Array(0);
+    this.ids = new Float32Array(0);
+    
     this.update = function(){
-        this.updateResolution();
         this.colors = new Float32Array(4*world.texsize.x*world.texsize.y);
         this.bondsTex = createDataTexture(gl, world.texsize.x, world.texsize.y, world.data.bonds, 3);
         this.colorTex = createDataTexture(gl, world.texsize.x, world.texsize.y, this.colors, 4);
         this.vertexTex = createDataTexture(gl, this.nVertex, 1.0, this.vertex, 4);
+        this.updateResolution();
     }
 
     /* FASTADD: add graphical representation for bonds by passing a reference
      * id and the number of ids after the reference */
     this.fastAdd = function(id, n){
-        this.ids = new Float32Array(this.idsBuffer, 8*this.nVertex*this.items, 2*this.nVertex*n);
-        var bonds = [];
-        updateTexture3d(gl, world.texsize, this.bondsTex, world.data.bonds);
-        for(var i=id; i<id+n; i++){
-            for(var j=0; j<this.nVertex; j++){
-                this.ids[(i-id)*2*this.nVertex + 2*j] = i;
-                this.ids[(i-id)*2*this.nVertex + 2*j + 1] = j;
+        if(n>0){
+            this.ids = new Float32Array(this.idsBuffer, 8*this.nVertex*this.items, 2*this.nVertex*n);
+            var bonds = [];
+            updateTexture3d(gl, world.texsize, this.bondsTex, world.data.bonds);
+            for(var i=id; i<id+n; i++){
+                for(var j=0; j<this.nVertex; j++){
+                    this.ids[(i-id)*2*this.nVertex + 2*j] = i;
+                    this.ids[(i-id)*2*this.nVertex + 2*j + 1] = j;
+                }
+                bonds.push(i);
             }
-            bonds.push(i);
+            this.paint(bonds);
+            this.bonds = this.bonds.concat(bonds);
+            this.items += n;
+            this.ids = new Float32Array(this.idsBuffer, 0, 2*this.nVertex*this.items);
+            updateBuffers();
         }
-        this.paint(bonds);
-        this.bonds = this.bonds.concat(bonds);
-        this.items += n;
-        this.ids = new Float32Array(this.idsBuffer, 0, 2*this.nVertex*this.items);
-        updateBuffers();
     }
 
     /* ADDIDS: add graphical representation for bonds by passing a vector of
      * ids. */
     this.addIDs = function(ids){
-        this.ids = new Float32Array(this.idsBuffer, 8*this.nVertex*this.items, 2*this.nVertex*ids.length);
-        updateTexture3d(gl, world.texsize, this.bondsTex, world.data.bonds);
-        for(var i=0; i<ids.length; i++){
-            for(var j=0; j<this.nVertex; j++){
-                this.ids[2*i*this.nVertex + 2*j] = ids[i];
-                this.ids[2*i*this.nVertex + 2*j + 1] = j;
+        if(ids.length > 0){
+            this.ids = new Float32Array(this.idsBuffer, 8*this.nVertex*this.items, 2*this.nVertex*ids.length);
+            updateTexture3d(gl, world.texsize, this.bondsTex, world.data.bonds);
+            for(var i=0; i<ids.length; i++){
+                for(var j=0; j<this.nVertex; j++){
+                    this.ids[2*i*this.nVertex + 2*j] = ids[i];
+                    this.ids[2*i*this.nVertex + 2*j + 1] = j;
+                }
             }
+            this.paint(ids);
+            this.items += ids.length;
+            this.ids = new Float32Array(this.idsBuffer, 0, 2*this.nVertex*this.items);
+            this.bonds = this.bonds.concat(ids);
+            updateBuffers();
         }
-        this.paint(ids);
-        this.items += ids.length;
-        this.ids = new Float32Array(this.idsBuffer, 0, 2*this.nVertex*this.items);
-        this.bonds = this.bonds.concat(ids);
-        updateBuffers();
     }
 
     /* UPDATERESOLUTION: realloc memory for the vertex array and recaculate the

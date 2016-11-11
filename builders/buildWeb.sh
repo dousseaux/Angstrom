@@ -27,5 +27,7 @@ cp $SRC/github.html $TARGET/github.html
 cp $SRC/tutorials.html $TARGET/tutorials.html
 cp $SRC/DSKapplication_cloud.php $TARGET/DSKapplication_cloud.php
 
+mkdir $TARGET/downloads
+
 # GIVE PERMISSIONS TO THE FOLDER
 chmod 777 -R $TARGET

@@ -434,247 +434,249 @@ var GPUcomputing = function(world){
 
     /* DRAW: Draw the position texture in the screen */
     this.draw = function() {
+        if(world.natoms > 0){
+            switch(this.state){
+                case 0:
+                    world.gl.activeTexture(world.gl.TEXTURE0);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
+                break;
 
-        switch(this.state){
-            case 0:
-                world.gl.activeTexture(world.gl.TEXTURE0);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
-            break;
+                case 1:
+                    world.gl.activeTexture(world.gl.TEXTURE0);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
+                break;
 
-            case 1:
-                world.gl.activeTexture(world.gl.TEXTURE0);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
-            break;
+                case 2:
+                    world.gl.activeTexture(world.gl.TEXTURE0);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
+                break;
+            }
 
-            case 2:
-                world.gl.activeTexture(world.gl.TEXTURE0);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
-            break;
+            world.gl.useProgram(world.comp_shaders[4]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(this.vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(this.vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(this.vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(this.vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform1i(this.positionsTexUniform, 0);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
         }
-
-        //initViewport(world.gl, world.canvas);
-        //world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, null);
-
-        world.gl.useProgram(world.comp_shaders[4]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(this.vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(this.vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(this.vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(this.vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform1i(this.positionsTexUniform, 0);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
     }
 
     /* CALC_ENERGY: Calculate a the current energy of the system */
     this.calc_energy = function(){
 
-        world.gl.activeTexture(world.gl.TEXTURE0);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_mass);         // 0
-        world.gl.activeTexture(world.gl.TEXTURE1);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondsKB);            // 1
-        world.gl.activeTexture(world.gl.TEXTURE2);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.anglesTheta0NK);     // 2
-        world.gl.activeTexture(world.gl.TEXTURE3);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_charge);       // 3
-        world.gl.activeTexture(world.gl.TEXTURE4);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bondIndex);    // 4
-        world.gl.activeTexture(world.gl.TEXTURE5);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bonds);        // 5
-        world.gl.activeTexture(world.gl.TEXTURE6);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_angleIndex);   // 6
-        world.gl.activeTexture(world.gl.TEXTURE7);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bonds);              // 7
-        world.gl.activeTexture(world.gl.TEXTURE8);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.angles);             // 8
-        world.gl.activeTexture(world.gl.TEXTURE9);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_typeCodes);    // 9
-        world.gl.activeTexture(world.gl.TEXTURE10);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.nbE12R12R6);         // 10
-        world.gl.activeTexture(world.gl.TEXTURE11);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondForces);         // 11
-        world.gl.activeTexture(world.gl.TEXTURE12);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.angleForces);        // 12
+        if(world.natoms > 0){
+            world.gl.activeTexture(world.gl.TEXTURE0);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_mass);         // 0
+            world.gl.activeTexture(world.gl.TEXTURE1);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondsKB);            // 1
+            world.gl.activeTexture(world.gl.TEXTURE2);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.anglesTheta0NK);     // 2
+            world.gl.activeTexture(world.gl.TEXTURE3);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_charge);       // 3
+            world.gl.activeTexture(world.gl.TEXTURE4);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bondIndex);    // 4
+            world.gl.activeTexture(world.gl.TEXTURE5);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_bonds);        // 5
+            world.gl.activeTexture(world.gl.TEXTURE6);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_angleIndex);   // 6
+            world.gl.activeTexture(world.gl.TEXTURE7);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.bonds);              // 7
+            world.gl.activeTexture(world.gl.TEXTURE8);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.angles);             // 8
+            world.gl.activeTexture(world.gl.TEXTURE9);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_typeCodes);    // 9
+            world.gl.activeTexture(world.gl.TEXTURE10);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.nbE12R12R6);         // 10
+            world.gl.activeTexture(world.gl.TEXTURE11);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.bondForces);         // 11
+            world.gl.activeTexture(world.gl.TEXTURE12);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.angleForces);        // 12
 
-        switch(this.state){
-            case 0:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
-            break;
+            switch(this.state){
+                case 0:
+                    world.gl.activeTexture(world.gl.TEXTURE13);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
+                break;
 
-            case 1:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
-            break;
+                case 1:
+                    world.gl.activeTexture(world.gl.TEXTURE13);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
+                break;
 
-            case 2:
-                world.gl.activeTexture(world.gl.TEXTURE13);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
-            break;
-        }
+                case 2:
+                    world.gl.activeTexture(world.gl.TEXTURE13);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
+                break;
+            }
 
-        world.gl.viewport(0, 0, 4*world.texsize.x, world.texsize.y);
-        // ######## RENDER S5
-        world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBangleEnergy);
-        world.gl.useProgram(world.comp_shaders[5]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(S5vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S5vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(S5vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S5vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform2fv(S5texsizeUniform, [world.texsize.x, world.texsize.y]);
-        world.gl.uniform1i(S5anglesTexUniform, 8);
-        world.gl.uniform1i(S5theta0NKTexUniform, 2);
-        world.gl.uniform1i(S5positionTexUniform, 14);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
+            world.gl.viewport(0, 0, 4*world.texsize.x, world.texsize.y);
+            // ######## RENDER S5
+            world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBangleEnergy);
+            world.gl.useProgram(world.comp_shaders[5]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(S5vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S5vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(S5vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S5vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform2fv(S5texsizeUniform, [world.texsize.x, world.texsize.y]);
+            world.gl.uniform1i(S5anglesTexUniform, 8);
+            world.gl.uniform1i(S5theta0NKTexUniform, 2);
+            world.gl.uniform1i(S5positionTexUniform, 14);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
 
-        world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
-        // ######## RENDER S6
-        world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBbondEnergy);
-        world.gl.useProgram(world.comp_shaders[6]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(S6vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S6vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(S6vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S6vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform2fv(S6texsizeUniform, [world.texsize.x, world.texsize.y]);
-        world.gl.uniform1i(S6bondsTexUniform, 7);
-        world.gl.uniform1i(S6kbTexUniform, 1);
-        world.gl.uniform1i(S6positionTexUniform, 14);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
+            world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
+            // ######## RENDER S6
+            world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBbondEnergy);
+            world.gl.useProgram(world.comp_shaders[6]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(S6vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S6vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(S6vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S6vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform2fv(S6texsizeUniform, [world.texsize.x, world.texsize.y]);
+            world.gl.uniform1i(S6bondsTexUniform, 7);
+            world.gl.uniform1i(S6kbTexUniform, 1);
+            world.gl.uniform1i(S6positionTexUniform, 14);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
 
-        // ######### RENDER S7
-        world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBnbEnergy);
-        world.gl.useProgram(world.comp_shaders[7]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(S7vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S7vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(S7vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S7vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform2fv(S7texsizeUniform, [world.texsize.x, world.texsize.y]);
-        world.gl.uniform3fv(S7positiveLimitUniform, [world.positiveLimit.x, world.positiveLimit.y, world.positiveLimit.z]);
-        world.gl.uniform3fv(S7negativeLimitUniform, [world.negativeLimit.x, world.negativeLimit.y, world.negativeLimit.z]);
-        world.gl.uniform1i(S7bondForcesTexUniform, 11);
-        world.gl.uniform1i(S7angleForcesTexUniform, 12);
-        world.gl.uniform1i(S7bondIndexTexUniform, 4);
-        world.gl.uniform1i(S7atomBondsTexUniform, 5);
-        world.gl.uniform1i(S7angleIndexTexUniform, 6);
-        world.gl.uniform1i(S7atoms_massTexUniform, 0);
-        world.gl.uniform1i(S7atoms_chargeTexUniform, 3);
-        world.gl.uniform1i(S7atoms_typeCodesTexUniform, 9);
-        world.gl.uniform1i(S7positionsTexUniform, 14);
-        world.gl.uniform1i(S7positions0TexUniform, 13);
-        world.gl.uniform1i(S7e12r12r6TexUniform, 10);
-        world.gl.uniform1f(S7dtUniform, world.constants.dt);
-        world.gl.uniform1f(S7epsolonRUniform, world.constants.epsolonR);
-        world.gl.uniform1f(S7kCoulombUniform, world.constants.kCoulomb);
-        world.gl.uniform1f(S7natomsUniform, world.natoms);
-        world.gl.uniform1f(S7ntypesUniform, world.ntypes - 1);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
+            // ######### RENDER S7
+            world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBnbEnergy);
+            world.gl.useProgram(world.comp_shaders[7]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(S7vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S7vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(S7vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S7vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform2fv(S7texsizeUniform, [world.texsize.x, world.texsize.y]);
+            world.gl.uniform3fv(S7positiveLimitUniform, [world.positiveLimit.x, world.positiveLimit.y, world.positiveLimit.z]);
+            world.gl.uniform3fv(S7negativeLimitUniform, [world.negativeLimit.x, world.negativeLimit.y, world.negativeLimit.z]);
+            world.gl.uniform1i(S7bondForcesTexUniform, 11);
+            world.gl.uniform1i(S7angleForcesTexUniform, 12);
+            world.gl.uniform1i(S7bondIndexTexUniform, 4);
+            world.gl.uniform1i(S7atomBondsTexUniform, 5);
+            world.gl.uniform1i(S7angleIndexTexUniform, 6);
+            world.gl.uniform1i(S7atoms_massTexUniform, 0);
+            world.gl.uniform1i(S7atoms_chargeTexUniform, 3);
+            world.gl.uniform1i(S7atoms_typeCodesTexUniform, 9);
+            world.gl.uniform1i(S7positionsTexUniform, 14);
+            world.gl.uniform1i(S7positions0TexUniform, 13);
+            world.gl.uniform1i(S7e12r12r6TexUniform, 10);
+            world.gl.uniform1f(S7dtUniform, world.constants.dt);
+            world.gl.uniform1f(S7epsolonRUniform, world.constants.epsolonR);
+            world.gl.uniform1f(S7kCoulombUniform, world.constants.kCoulomb);
+            world.gl.uniform1f(S7natomsUniform, world.natoms);
+            world.gl.uniform1f(S7ntypesUniform, world.ntypes - 1);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
 
-        getFrameData4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, this.FBangleEnergy, world.data.angleEnergy);
-        getFrameData4d(world.gl, world.texsize, this.FBbondEnergy, world.data.bondEnergy);
-        getFrameData4d(world.gl, world.texsize, this.FBnbEnergy, world.data.nonbondedEnergy);
-        getFrameData4d(world.gl, world.texsize, this.FBposition, world.data.atoms_position);
+            getFrameData4d(world.gl, {x: 4*world.texsize.x, y: world.texsize.y}, this.FBangleEnergy, world.data.angleEnergy);
+            getFrameData4d(world.gl, world.texsize, this.FBbondEnergy, world.data.bondEnergy);
+            getFrameData4d(world.gl, world.texsize, this.FBnbEnergy, world.data.nonbondedEnergy);
+            getFrameData4d(world.gl, world.texsize, this.FBposition, world.data.atoms_position);
 
-        var diff = {x:0, y:0, z:0};
-        var k = 15;
+            var diff = {x:0, y:0, z:0};
+            var k = 15;
 
-        world.kEnergy = 0;
-        world.eEnergy = 0;
-        world.vdwEnergy = 0;
-        world.bondEnergy = 0;
-        world.angleEnergy = 0;
-        world.wallEnergy = 0;
+            world.kEnergy = 0;
+            world.eEnergy = 0;
+            world.vdwEnergy = 0;
+            world.bondEnergy = 0;
+            world.angleEnergy = 0;
+            world.wallEnergy = 0;
 
-        for(var i=0; i<world.nangles; i++) world.angleEnergy += world.data.angleEnergy[12*i];
-        for(var i=0; i<world.nbonds; i++) world.bondEnergy += world.data.bondEnergy[4*i];
-        for(var i=0; i<world.natoms; i++){
-            diff.x = 0; diff.y = 0; diff.z = 0;
+            for(var i=0; i<world.nangles; i++) world.angleEnergy += world.data.angleEnergy[12*i];
+            for(var i=0; i<world.nbonds; i++) world.bondEnergy += world.data.bondEnergy[4*i];
+            for(var i=0; i<world.natoms; i++){
+                diff.x = 0; diff.y = 0; diff.z = 0;
 
-            if(world.data.atoms_position[4*i] > world.positiveLimit.x) diff.x = (world.data.atoms_position[4*i] - world.positiveLimit.x);
-            else if(world.data.atoms_position[4*i] < world.negativeLimit.x) diff.x = (world.data.atoms_position[4*i] - world.negativeLimit.x);
-            if(world.data.atoms_position[4*i + 1] > world.positiveLimit.y) diff.y = (world.data.atoms_position[4*i + 1] - world.positiveLimit.y);
-            else if(world.data.atoms_position[4*i + 1] < world.negativeLimit.y) diff.y = (world.data.atoms_position[4*i + 1] - world.negativeLimit.y);
-            if(world.data.atoms_position[4*i + 2] > world.positiveLimit.z) diff.z = (world.data.atoms_position[4*i + 2] - world.positiveLimit.z);
-            else if(world.data.atoms_position[4*i + 2] < world.negativeLimit.z) diff.z = (world.data.atoms_position[4*i + 2] - world.negativeLimit.z);
+                if(world.data.atoms_position[4*i] > world.positiveLimit.x) diff.x = (world.data.atoms_position[4*i] - world.positiveLimit.x);
+                else if(world.data.atoms_position[4*i] < world.negativeLimit.x) diff.x = (world.data.atoms_position[4*i] - world.negativeLimit.x);
+                if(world.data.atoms_position[4*i + 1] > world.positiveLimit.y) diff.y = (world.data.atoms_position[4*i + 1] - world.positiveLimit.y);
+                else if(world.data.atoms_position[4*i + 1] < world.negativeLimit.y) diff.y = (world.data.atoms_position[4*i + 1] - world.negativeLimit.y);
+                if(world.data.atoms_position[4*i + 2] > world.positiveLimit.z) diff.z = (world.data.atoms_position[4*i + 2] - world.positiveLimit.z);
+                else if(world.data.atoms_position[4*i + 2] < world.negativeLimit.z) diff.z = (world.data.atoms_position[4*i + 2] - world.negativeLimit.z);
 
-            world.wallEnergy += 0.5*k*(diff.x*diff.x + diff.y*diff.y + diff.z*diff.z);
-            world.eEnergy += world.data.nonbondedEnergy[4*i];
-            world.vdwEnergy += world.data.nonbondedEnergy[4*i + 1];
-            world.kEnergy += world.data.nonbondedEnergy[4*i + 2];
+                world.wallEnergy += 0.5*k*(diff.x*diff.x + diff.y*diff.y + diff.z*diff.z);
+                world.eEnergy += world.data.nonbondedEnergy[4*i];
+                world.vdwEnergy += world.data.nonbondedEnergy[4*i + 1];
+                world.kEnergy += world.data.nonbondedEnergy[4*i + 2];
 
-            //console.log({id: i, x: world.data.atoms_position[4*i].toFixed(2), y: world.data.atoms_position[4*i + 1].toFixed(2), z: world.data.atoms_position[4*i + 2].toFixed(2)});
-            //console.log({id: i, ele: world.data.nonbondedEnergy[4*i].toFixed(2), vdw: world.data.nonbondedEnergy[4*i + 1].toFixed(2), kinect: world.data.nonbondedEnergy[4*i + 2].toFixed(2)});
+                //console.log({id: i, x: world.data.atoms_position[4*i].toFixed(2), y: world.data.atoms_position[4*i + 1].toFixed(2), z: world.data.atoms_position[4*i + 2].toFixed(2)});
+                //console.log({id: i, ele: world.data.nonbondedEnergy[4*i].toFixed(2), vdw: world.data.nonbondedEnergy[4*i + 1].toFixed(2), kinect: world.data.nonbondedEnergy[4*i + 2].toFixed(2)});
+             }
+
+             world.energy = world.kEnergy + world.vdwEnergy + world.eEnergy + world.angleEnergy + world.bondEnergy + world.wallEnergy;
+             world.temperature = 2*world.kEnergy/(3*world.natoms*world.constants.kTemp);
+             world.energyTempCount = 0;
          }
-
-         world.energy = world.kEnergy + world.vdwEnergy + world.eEnergy + world.angleEnergy + world.bondEnergy + world.wallEnergy;
-         world.temperature = 2*world.kEnergy/(3*world.natoms*world.constants.kTemp);
-         world.energyTempCount = 0;
     }
 
     /* SETTEMPERATURE: Set the temperature of the system by adding velocity to
      * the atoms */
     this.setTemperature = function(){
 
-        world.gl.activeTexture(world.gl.TEXTURE0);
-        world.gl.bindTexture(world.gl.TEXTURE_2D, this.temperatureVelocity);
-        switch(this.state){
-            case 0:
-                world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
-                world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position2, 0);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
-            break;
+        if(world.natoms > 0){
+            world.gl.activeTexture(world.gl.TEXTURE0);
+            world.gl.bindTexture(world.gl.TEXTURE_2D, this.temperatureVelocity);
+            switch(this.state){
+                case 0:
+                    world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
+                    world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position2, 0);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position);
+                break;
 
-            case 1:
-                world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
-                world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position, 0);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
-            break;
+                case 1:
+                    world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
+                    world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position, 0);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position1);
+                break;
 
-            case 2:
-                world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
-                world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position1, 0);
-                world.gl.activeTexture(world.gl.TEXTURE14);
-                world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
-            break;
+                case 2:
+                    world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
+                    world.gl.framebufferTexture2D(world.gl.FRAMEBUFFER, world.gl.COLOR_ATTACHMENT0, world.gl.TEXTURE_2D, this.atoms_position1, 0);
+                    world.gl.activeTexture(world.gl.TEXTURE14);
+                    world.gl.bindTexture(world.gl.TEXTURE_2D, this.atoms_position2);
+                break;
+            }
+
+            // ######### RENDER S8
+            world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
+            world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
+            world.gl.useProgram(world.comp_shaders[8]);
+            // BUFFERS
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
+            world.gl.vertexAttribPointer(S8vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S8vertexTexAttribute);
+            world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
+            world.gl.vertexAttribPointer(S8vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
+            world.gl.enableVertexAttribArray(S8vertexPositionAttribute);
+            // UNIFORMS
+            world.gl.uniform1i(S8velocitiesTexUniform, 0);
+            world.gl.uniform1i(S8positionsTexUniform, 14);
+            world.gl.uniform1f(S8dtUniform, world.constants.dt);
+            world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
         }
-
-        // ######### RENDER S8
-        world.gl.viewport(0, 0, world.texsize.x, world.texsize.y);
-        world.gl.bindFramebuffer(world.gl.FRAMEBUFFER, this.FBposition);
-        world.gl.useProgram(world.comp_shaders[8]);
-        // BUFFERS
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareTexBuffer);
-        world.gl.vertexAttribPointer(S8vertexTexAttribute, 2, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S8vertexTexAttribute);
-        world.gl.bindBuffer(world.gl.ARRAY_BUFFER, squareVertexBuffer);
-        world.gl.vertexAttribPointer(S8vertexPositionAttribute, 4, world.gl.FLOAT, false, 0, 0);
-        world.gl.enableVertexAttribArray(S8vertexPositionAttribute);
-        // UNIFORMS
-        world.gl.uniform1i(S8velocitiesTexUniform, 0);
-        world.gl.uniform1i(S8positionsTexUniform, 14);
-        world.gl.uniform1f(S8dtUniform, world.constants.dt);
-        world.gl.drawArrays(world.gl.TRIANGLES, 0, 6);
     }
 
     /* EXECTHERMOSTAT: Regulates the temperature of the system by executing

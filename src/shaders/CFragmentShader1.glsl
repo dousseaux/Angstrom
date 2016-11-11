@@ -24,5 +24,4 @@ void main(void) {
 
     // Calculate Force
     gl_FragColor = vec4(-2.0*k*(distance(pos1,pos2) - b)*normalize(pos1 - pos2), 1.0);
-    //gl_FragColor = vec4((pos1 - pos2), 1.0);
 }

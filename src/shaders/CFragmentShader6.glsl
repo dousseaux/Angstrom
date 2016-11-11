@@ -24,5 +24,4 @@ void main(void) {
 
     float diff = distance(pos1,pos2) - b;
     gl_FragColor = vec4(k*diff*diff,0.0,0.0, 1.0);
-    //gl_FragColor = vec4((pos1 - pos2), 1.0);
 }

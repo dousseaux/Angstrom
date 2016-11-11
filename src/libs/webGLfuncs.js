@@ -402,7 +402,7 @@ function updateTexture3d(gl, size, texture, data){
 
 // --------------------------- UPDATE 3D TEXTURE CONTENT --------------------------------
 function updateTexture4d(gl, size, texture, data){
-    gl.bindTexture(gl.TEXTURE_2D, texture); // 0
+    gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, size.x, size.y, 0, gl.RGBA, gl.FLOAT, data);
 }
 

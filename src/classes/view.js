@@ -951,7 +951,6 @@ var view = function(world) {
 
 
         containerstyle = window.getComputedStyle(self.container);
-        console.log(self.container.style.height);
 
         self.canvas.height = parseInt(self.container.style.height);
         self.canvas.width = parseInt(self.container.style.width) - parseInt(menustyle.width) - 2*parseInt(containerstyle.borderWidth);
@@ -1018,7 +1017,9 @@ var view = function(world) {
         this.boostFactor.value = world.constants.boostFactor;
         this.timeStep.value = world.constants.timeStep;
         this.temperature.value = world.temperature0;
-        this.temperature.onchange();
+        world.temperature0 = parseFloat(self.temperature.value);
+        self.temperatureSlider.value = world.temperature0;
+        self.temperatureLabel.innerHTML = world.temperature0;
         if (world.exec_thermostat) this.activeThermostat.innerHTML = "<i class='material-icons'>check</i>";
         if (world.drawGrids) this.activeGrids.innerHTML = "<i class='material-icons'>check</i>";
         this.energyFrequency.value = world.energyTempFrequency;

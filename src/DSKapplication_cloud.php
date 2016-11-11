@@ -25,10 +25,12 @@
 
 <head>
     <title>Angstrom</title>
-    <link href= 'style/fonts/Oswald.css' rel="stylesheet" />    
+    <link href= 'style/fonts/Oswald.css' rel="stylesheet" />
     <link href='style/fonts/Libre_Franklin.css' rel="stylesheet" />
     <link href= 'style/material-icons/material-icons.css' rel="stylesheet" />
     <link href= 'style/application.css' rel='stylesheet' type="text/css">
+    <link href="images/favicon.ico" rel="shortcut icon" type="images/x-icon" />
+    <link href="images/favicon.ico" rel="icon" type="images/ico" />
 </head>
 
 <!-- USER INTERFACE STRUCTURE -->
@@ -50,7 +52,7 @@
 
               <br><h3>Temperature: <span id="temperatureLabel"></span></h3>
               <br><input id="temperatureSlider" type="range" min="0" max="1000" step="1" name="rating" />
-              <br><br><h3>Scale</h3>
+              <br><br><h3>Scale box size:</h3>
               <br><input id="rescaleSize" type="range" min="0" max="100" value="50" step="1" name="rating" />
 
               <br><br><br>

@@ -177,7 +177,7 @@ World.prototype = {
         timeStep: 1, // ns
         dt: 0,
         dt2: 0,
-        maxVelocity: 0,
+        maxVelocity: 100,
         kCoulomb: 332.0636,
         epsolonR: 1,
         kTemp: 0.0019872041, // kcal/(mol*K)
@@ -224,6 +224,7 @@ World.prototype = {
     /* SETUP: Set the initial configurations, estanciate the objects abd starts
      * the simulation loop by calling animate(). */
     setup: function() {
+
         // ######### LOAD AND CREATE SHADERS - See files for information
         this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader0').text));
         this.comp_shaders.push(createShaderProgram(this.gl, document.getElementById('CVertexShader').text, document.getElementById('CFragmentShader1').text));
@@ -248,7 +249,8 @@ World.prototype = {
 
         this.constants.dt = this.constants.timeStep / this.constants.timeFactor;
         this.constants.dt2 = this.constants.dt * this.constants.dt;
-        this.constants.maxVelocity = 0.2 / this.constants.dt;
+        this.constants.maxVelocity = 0.25 / this.constants.dt;
+        this.temperature = this.temperature0;
 
         this.scene.lightmode = 1;
         this.atoms.sphereLongitude = this.atomResolution;
@@ -482,7 +484,6 @@ World.prototype = {
 
     /* ADDMOLS: Add a object of type particleSystem to the world centered at the position pos. */
     addMols: function(particleSystem, pos) {
-
         var unpause = this.view.isPaused;
         this.view.isPaused = true;
 
@@ -1184,14 +1185,16 @@ World.prototype = {
     /* SETTEMPERATURE: Set the temperature to the world temperature propertie by
      * adding movement to the particles. It is not a thermostat */
     setTemperature: function() {
-        var stdev = 0;
-        for (var i = 0; i < this.natoms; i++) {
-            stdev = Math.sqrt(this.constants.kTemp * this.temperature0 / this.data.atoms_mass[i]);
-            this.data.temperatureVelocity[3 * i] = gaussianRandom(0, stdev);
-            this.data.temperatureVelocity[3 * i + 1] = gaussianRandom(0, stdev);
-            this.data.temperatureVelocity[3 * i + 2] = gaussianRandom(0, stdev);
+        if(this.natoms > 0){
+            var stdev = 0;
+            for (var i = 0; i < this.natoms; i++) {
+                stdev = Math.sqrt(this.constants.kTemp * this.temperature0 / this.data.atoms_mass[i]);
+                this.data.temperatureVelocity[3 * i] = gaussianRandom(0, stdev);
+                this.data.temperatureVelocity[3 * i + 1] = gaussianRandom(0, stdev);
+                this.data.temperatureVelocity[3 * i + 2] = gaussianRandom(0, stdev);
+            }
+            updateTexture3d(this.gl, this.texsize, this.gpucomp.temperatureVelocity, this.data.temperatureVelocity);
+            this.gpucomp.setTemperature();
         }
-        updateTexture3d(this.gl, this.texsize, this.gpucomp.temperatureVelocity, this.data.temperatureVelocity);
-        this.gpucomp.setTemperature();
     }
 };

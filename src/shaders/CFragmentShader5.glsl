@@ -6,6 +6,11 @@ uniform sampler2D anglesTex;
 uniform sampler2D theta0NKTex;
 uniform sampler2D positionsTex;
 
+bool isnan(float val)
+{
+  return ( val < 0.0 || 0.0 < val || val == 0.0 ) ? false : true;
+}
+
 void main(void) {
 
     const float pi = 3.14159265359;
@@ -39,6 +44,8 @@ void main(void) {
     float costheta = dot(v12,v32)/(d12*d32);
     float diff;
 
+    if(isnan(costheta)) n = 4;
+
     // ############# FINE
     if(costheta > 1.0) costheta = 1.0;
     else if(costheta < -1.0) costheta = -1.0;
@@ -48,27 +55,4 @@ void main(void) {
     else diff = costheta - cos(theta0);
 
     gl_FragColor = vec4(k*diff*diff,0.0,0.0,1.0);
-    //gl_FragColor = vec4(distance(pos1, pos3),0.0,0.0,1.0);
-
-    //gl_FragColor = vec4(theta,0.0,0.0,1.0);
-
-    /*// ############## NOT FINE
-    float sintheta = sqrt(1.0 - costheta*costheta);
-    if(normal != 1.0) diff *= 2.0*k;
-    else if(sintheta<0.000001) diff = -sign(diff)*2.0*k;
-    else diff *= -2.0*k/sintheta;
-
-    float c1 = (diff/d12);
-    float c2 = (diff/d32);
-    vec3 nv12 = v12 / d12;
-    vec3 nv32 = v32 / d32;
-    vec3 f1 = c1*(nv12*costheta - nv32);
-    vec3 f3 = c2*(nv32*costheta - nv12);
-    vec3 f2 = -f1-f3;
-
-    // ############## FINE
-    if (n==1) gl_FragColor = vec4(f1, 1.0);
-    else if(n==2) gl_FragColor = vec4(f2, 1.0);
-    else if(n==3) gl_FragColor = vec4(f3, 1.0);
-    else gl_FragColor = vec4(0.0,0.0,0.0,1.0);*/
 }
