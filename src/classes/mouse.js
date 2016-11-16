@@ -384,7 +384,7 @@ var mouse =  function(world){
 mouse.prototype = {
     pos: {x: 0, y: 0, x0: 0, y0: 0},
     pos2: {x: 0, y: 0, x0: 0, y0: 0},
-    sensitivity: {rotation: 0.005, zoom: 4.0},
+    sensitivity: {rotation: 0.005, zoom: 1.0},
     hold: false,
     selected: null,
     mode: "select",

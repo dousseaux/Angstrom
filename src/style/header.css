@@ -8,6 +8,7 @@
     opacity: 0.1;
     border-radius: 10px;
     position: absolute;
+    background-color: #f3f3f3;
 }
 
 #menu {
@@ -58,6 +59,6 @@
     border: 2px solid #42157c;
     width: 1008;
     height: 120px;
-    background-color: white;
     border-radius: 10px;
+    background-color: #f3f3f3;
 }

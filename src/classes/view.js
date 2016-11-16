@@ -110,6 +110,7 @@ var view = function(world) {
     this.diffuseColor = document.getElementById("diffuseColor");
     this.specularColor = document.getElementById("specularColor");
     this.shininess = document.getElementById("shininess");
+    this.zoomSensitivity = document.getElementById("zoomSensitivity");
     this.energyTemp = document.getElementById("energyTemp");
     this.status = document.getElementById("status");
     this.temperatureSlider = document.getElementById("temperatureSlider");
@@ -495,6 +496,9 @@ var view = function(world) {
     this.shininess.onchange = function(e) {
         world.atoms.shininess = parseFloat(self.shininess.value);
         world.bonds.shininess = parseFloat(self.shininess.value);
+    }
+    this.zoomSensitivity.onchange = function(e) {
+        self.mouse.sensitivity.zoom = parseFloat(self.zoomSensitivity.value);
     }
     this.temperature.onchange = function(e) {
         world.temperature0 = parseFloat(self.temperature.value);
@@ -944,11 +948,12 @@ var view = function(world) {
         if (self.isFull) {
             self.container.style.width = window.screen.width - parseInt(containerstyle.borderWidth);
             self.container.style.height = window.screen.height - 2*parseInt(containerstyle.borderWidth);
+            self.status.style.marginBottom = 5;
         } else {
             self.container.style.width = self.windowSize.x - parseInt(containerstyle.marginLeft) - parseInt(containerstyle.marginRight) - parseInt(containerstyle.borderWidth);
             self.container.style.height = self.windowSize.y - parseInt(containerstyle.marginTop) - parseInt(containerstyle.marginBottom) - 2*parseInt(containerstyle.borderWidth);
+            if(parseInt(containerstyle.borderWidth) > 0) self.status.style.marginBottom = 15;
         }
-
 
         containerstyle = window.getComputedStyle(self.container);
 
@@ -1079,6 +1084,9 @@ var view = function(world) {
             parseInt(255 * world.elements.single_color[1]) + ", " +
             parseInt(255 * world.elements.single_color[2]) + ", " +
             parseInt(255 * world.elements.single_color[3]);
+        this.gridColor.value = parseInt(255 * world.gridcolor[0]) + ", " +
+            parseInt(255 * world.gridcolor[1]) + ", " +
+            parseInt(255 * world.gridcolor[2]);
         this.farClip.value = world.scene.far;
         this.nearClip.value = world.scene.near;
         this.perspectiveAngle.value = world.scene.fov;
@@ -1086,6 +1094,7 @@ var view = function(world) {
         this.ambientColor.value = parseInt(255 * world.atoms.ambientColor[0]);
         this.diffuseColor.value = parseInt(255 * world.atoms.diffuseColor[0]);
         this.specularColor.value = parseInt(255 * world.atoms.specularColor[0]);
+        this.zoomSensitivity.value = self.mouse.sensitivity.zoom;
         this.radiusScale.value = world.atoms.radiusScale;
         self.duration.value = world.maxSteps * world.constants.timeStep / 1000;
 

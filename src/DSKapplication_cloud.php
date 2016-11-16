@@ -222,6 +222,9 @@
             <br><br>Diffuse:  <input id="diffuseColor" type="number">
             Specular: <input id="specularColor" type="number">
 
+            <h2>MOUSE SENSITIVITY</h2>
+            <br>Zoom: <input id="zoomSensitivity" type="number">
+
             <input type="file" id="uploader" style="display:none">
             <a id="downloader"></a>
 

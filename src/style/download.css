@@ -54,3 +54,9 @@ button {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+
+.fa{
+    font-size: 20px;
+    margin-left: -20px;
+    margin-right: 5px;
+}

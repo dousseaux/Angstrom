@@ -222,6 +222,9 @@
             <br><br>Diffuse:  <input id="diffuseColor" type="number">
             Specular: <input id="specularColor" type="number">
 
+            <h2>MOUSE SENSITIVITY</h2>
+            <br>Zoom: <input id="zoomSensitivity" type="number">
+
             <input type="file" id="uploader" style="display:none">
             <a id="downloader"></a>
 
@@ -527,6 +530,16 @@
                                               delete w;
                                           };
 
+      window.onerror = function (errorMsg, url, lineNumber) {
+          w.view.container.style.visibility = 'hidden';
+          w.view.loading.style.display = 'flex';
+          w.view.loading.style.animationPlayState = 'play';
+          w.view.loading.style.fontSize = '16';
+          w.view.loading.innerHTML = 'Error: ' + errorMsg;
+          w.view.loading.innerHTML += '<br>Script: ' + url;
+          w.view.loading.innerHTML += '<br>Line: ' + lineNumber;
+      }
+      
         /* Countdown of 50 ms that will start the program */
         setTimeout(function(){w.setup();}, 50);
     };
