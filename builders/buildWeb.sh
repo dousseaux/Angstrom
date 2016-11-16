@@ -1,6 +1,6 @@
 #DEFINE PARAMETERS
 SRC="../src/"
-TARGET="~/Angstrom-Web"
+TARGET=$HOME
 
 # REMOVE PREVIOUS BUILD
 rm -r $TARGET
