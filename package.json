@@ -1,6 +1,6 @@
 {
     "name": "Angstrom",
-    "version": "1.0.3-a",
+    "version": "1.0.0-b",
     "description": "Were you curious to know how things work in the nano scale? Now you can, and even better than the nano scale, in the angstrom scale. Angstrom is a free and open source platform that makes molecular dynamcics easy. With it you can simulate and visualize sets of molecules and atoms in real time with features that allows you to configure and see what is going on in the simulation.",
     "main": "main.js",
     "license": "GPL-3.0",

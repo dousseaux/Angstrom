@@ -2,7 +2,7 @@ TEMPOUT="tempout"
 TEMPIN="../dist"
 SRC=".."
 OUT="../dist"
-NAME="angstrom-1.0.3-a"
+NAME="angstrom-1.0.0-b"
 
 rm -r $OUT/$NAME.tar.gz
 
