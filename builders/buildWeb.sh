@@ -32,6 +32,7 @@ mkdir $TARGET/downloads
 
 # GIVE PERMISSIONS TO THE FOLDER
 chmod 644 -R $TARGET
+chmod 755 $TARGET
 chmod 755 $TARGET/buildPSF
 chmod 755 $TARGET/classes
 chmod 755 $TARGET/files
