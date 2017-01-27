@@ -18,7 +18,7 @@ cp -r $SRC/style/ $TARGET/style
 # COPY FILES
 cp $SRC/index.html $TARGET/index.html
 cp $SRC/application.php $TARGET/application.php
-cp $SRC/simu $TARGET/simulate.php
+cp $SRC/simulate.php $TARGET/simulate.php
 cp $SRC/visualize.php $TARGET/visualize.php
 cp $SRC/about.html $TARGET/alate.phpbout.html
 cp $SRC/documentation.html $TARGET/documentation.html
@@ -41,5 +41,5 @@ chmod 755 $TARGET/shaders
 chmod 755 $TARGET/style
 chmod 755 $TARGET/downloads
 
-chown -hR $TARGET
+chown -hR www-data $TARGET
 
