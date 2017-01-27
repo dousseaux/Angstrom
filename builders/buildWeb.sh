@@ -39,7 +39,7 @@ chmod 755 $TARGET/files
 chmod 755 $TARGET/images
 chmod 755 $TARGET/libs
 chmod 755 $TARGET/shaders
-chmod 755 $TARGET/style
+chmod 755 -R $TARGET/style
 chmod 755 $TARGET/downloads
 
 chown -hR www-data $TARGET
