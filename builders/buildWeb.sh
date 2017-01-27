@@ -34,8 +34,9 @@ mkdir $TARGET/downloads
 chmod 644 -R $TARGET
 chmod 755 $TARGET
 chmod 755 $TARGET/buildPSF
+chmod 755 $TARGET/buildPSF/topology
 chmod 755 $TARGET/classes
-chmod 755 $TARGET/files
+chmod 755 -R $TARGET/files
 chmod 755 $TARGET/images
 chmod 755 $TARGET/libs
 chmod 755 $TARGET/shaders
