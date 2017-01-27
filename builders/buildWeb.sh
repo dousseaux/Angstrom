@@ -18,16 +18,28 @@ cp -r $SRC/style/ $TARGET/style
 # COPY FILES
 cp $SRC/index.html $TARGET/index.html
 cp $SRC/application.php $TARGET/application.php
-cp $SRC/simulate.php $TARGET/simulate.php
+cp $SRC/simu $TARGET/simulate.php
 cp $SRC/visualize.php $TARGET/visualize.php
-cp $SRC/about.html $TARGET/about.html
+cp $SRC/about.html $TARGET/alate.phpbout.html
 cp $SRC/documentation.html $TARGET/documentation.html
 cp $SRC/download.html $TARGET/download.html
 cp $SRC/github.html $TARGET/github.html
 cp $SRC/tutorials.html $TARGET/tutorials.html
 cp $SRC/DSKapplication_cloud.php $TARGET/DSKapplication_cloud.php
+cp $SRC/.htaccess $TARGET/.htaccess
 
 mkdir $TARGET/downloads
 
 # GIVE PERMISSIONS TO THE FOLDER
-chmod 777 -R $TARGET
+chmod 644 -R $TARGET
+chmod 755 $TARGET/buildPSF
+chmod 755 $TARGET/classes
+chmod 755 $TARGET/files
+chmod 755 $TARGET/images
+chmod 755 $TARGET/libs
+chmod 755 $TARGET/shaders
+chmod 755 $TARGET/style
+chmod 755 $TARGET/downloads
+
+chown -hR $TARGET
+
